@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb9c12a8c6c949f7af83a3d238359d0, type: 3}
+  m_Name: vFolders Data
+  m_EditorClassIdentifier: VFolders::VFolders.VFoldersData
+  folderDatas_byGuid:
+    keys:
+    - 35d88588e91a89a4f8c8535610d4a996
+    - 88cf5e5865de4be4eb6b279ee79629d6
+    - 2e6c073585d24ce45b33dcce92e9010d
+    values:
+    - iconNameOrGuid: 
+      colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 1
+    - iconNameOrGuid: Mesh Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 1
+    - iconNameOrGuid: 
+      colorIndex: 6
+      isIconRecursive: 0
+      isColorRecursive: 1
+  bookmarks:
+  - guid: 88cf5e5865de4be4eb6b279ee79629d6
+  - guid: 2e6c073585d24ce45b33dcce92e9010d
+  - guid: 2e6c073585d24ce45b33dcce92e9010d
+  - guid: 722090fad8e470e4c8caf5abf536eced

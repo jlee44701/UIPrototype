@@ -1,0 +1,63 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+
+    <ui:VisualElement>
+        <ui:VisualElement name="view-paint" />
+        <ui:Slider name="painting-opacity" label="Opacity" low-value="0" high-value="1"
+                   show-input-field="true" binding-path="systemConfig.tools.painting.brushOpacity"
+                   class="painting-slider unity-base-field__aligned"
+                   view-data-key="brush-opacity-value" />
+
+        <ui:VisualElement name="brush-area">
+            <ui:VisualElement name="brush-panel" class="brush-panel">
+                <ui:Image name="selected-brush-preview" view-data-key="selected-brush-preview" />
+                <ui:ScrollView name="brush-scroll-view" class="brush-scroll-view">
+                    <ui:VisualElement name="brush-grid" class="brush-grid" view-data-key="brush-scroll-view" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="edit-brushes" class="edit-brushes">
+                <ui:Button name="add-brush" text="+" class="edit-button" />
+                <ui:Button name="remove-brush" text="-" class="edit-button" />
+                <ui:Button name="create-brush" text="Create" class="edit-button edit-button--wide" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="terrain-layers-area">
+            <ui:VisualElement
+                name="terrain-layers-inspector" 
+                >  </ui:VisualElement>
+            <ui:Box
+                name="layers-buttons-box"
+            >
+            <ui:ScrollView
+                name="layers-scroll-view"
+            >
+            </ui:ScrollView>
+            </ui:Box>
+            <ui:Button
+                name="Apply-changes"
+                class="hidden"
+               
+                > </ui:Button>
+            
+            <ui:Button
+                name="edit-layers-button"
+                text="Edit Layers"
+                >
+                
+            </ui:Button>
+            <ui:VisualElement
+                name="selected-layer-section"
+                >
+            </ui:VisualElement> 
+                
+        <ui:Button name="rebuild-layers-button" text="Rebuild Layers" class="edit-button edit-button--wide"> 
+            
+        </ui:Button>    
+            <ui:VisualElement name="testing123">  </ui:VisualElement>>
+            
+            </ui:VisualElement>
+        
+        </ui:VisualElement>
+
+</ui:UXML>

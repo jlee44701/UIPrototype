@@ -1,0 +1,68 @@
+/* 
+***************************************
+// Theme/Dark.uss
+// ***************************************
+*/
+
+.pe-root {
+    /* layout spacing */
+    --pe-space-root-margin-top: 6px;
+    --pe-space-root-padding: 12px;
+
+    /* shapes */
+    --pe-radius-root: 9px;
+    --pe-radius-tab-bar: 12px;
+    --pe-radius-control: 10px;
+
+    /* surfaces */
+    --pe-color-surface-root: rgba(0, 0, 0, 0.18);
+    --pe-color-surface-tab-bar: rgba(0, 0, 0, 0.22);
+
+    /* borders */
+    --pe-size-border-root: 1px;
+    --pe-color-border-root: rgba(255, 255, 255, 0.06);
+
+    --pe-size-border-tab-bar: 1px;
+    --pe-color-border-tab-bar: rgba(255, 255, 255, 0.08);
+
+    --pe-size-border-control: 1px;
+
+    --pe-size-divider: 1px;
+    --pe-color-divider: rgba(255, 255, 255, 0.06);
+
+    /* interactive control backgrounds */
+    --pe-color-control-background: rgba(98, 114, 100, 0.18);
+    --pe-color-control-background-hover: rgba(98, 114, 100, 0.32);
+    --pe-color-control-background-selected: rgba(98, 114, 100, 0.92);
+
+    /* text */
+    --pe-color-text-default: #b5dfca;
+    --pe-color-text-hover: #ecc30b;
+    --pe-color-text-selected: #ffffff;
+    --pe-color-text-selected-secondary: #c5e7e2;
+    
+    --pe-font-definition-header: url("project://database/Packages/com.pixelengine.framework/UI/Font/Bevan/Bevan-Regular.ttf");
+    --pe-font-definition-subheader: url("project://database/Packages/com.pixelengine.framework/UI/Font/Quicksand/Quicksand-VariableFont_wght.ttf");
+
+    
+    /* accent */
+    --pe-color-accent-primary: #ecc30b;
+    --pe-color-accent-primary-soft: rgba(236, 195, 11, 0.22);
+
+    /* motion */
+    --pe-motion-duration-standard: 160ms;
+    --pe-motion-duration-pressed: 80ms;
+    --pe-motion-easing-standard: ease-in-out-sine;
+
+    /* sizing */
+    --pe-space-tab-bar-padding: 6px;
+
+    --pe-space-control-padding-horizontal: 14px;
+    --pe-space-control-padding-vertical: 6px;
+    --pe-size-control-min-height: 26px;
+
+    --pe-size-underline-height: 3px;
+
+    --pe-space-content-margin-top: 8px;
+    --pe-space-content-padding-top: 6px;
+}

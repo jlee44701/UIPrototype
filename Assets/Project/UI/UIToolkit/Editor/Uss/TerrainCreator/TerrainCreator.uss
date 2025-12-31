@@ -1,0 +1,437 @@
+/* 
+***************************************
+// TerrainCreator.uss
+// ***************************************
+*/
+
+/* Tokens live elsewhere */
+@import url("Theme/Editor.Active.uss");
+
+/* 
+***************************************
+// BASE LAYOUT
+// ***************************************
+*/
+
+.hidden {
+    display: none;
+}
+
+.pe-root {
+    margin-top: var(--pe-space-root-margin-top);
+    padding: var(--pe-space-root-padding);
+
+    border-radius: var(--pe-radius-root);
+    background-color: var(--pe-color-surface-root);
+
+    border-width: var(--pe-size-border-root);
+    border-color: var(--pe-color-border-root);
+}
+
+/* 
+***************************************
+// TABVIEW: PILL STYLE (OPT-IN VIA CLASS)
+// ***************************************
+*/
+
+
+/* Header row “pill bar” */
+.pe-tabview-chrome > * > .unity-tab-view__header-container {
+    padding: var(--pe-space-tab-bar-padding);
+    -unity-font-definition: var(--pe-font-definition-header);
+    background-color: var(--pe-color-surface-tab-bar);
+    border-radius: var(--pe-radius-tab-bar);
+
+    border-width: var(--pe-size-border-tab-bar);
+    border-color: var(--pe-color-border-tab-bar);
+}
+
+/* Base tab button */
+.pe-tabview-chrome > * > .unity-tab-view__header-container .unity-tab__header {
+    background-color: var(--pe-color-control-background);
+    border-radius: var(--pe-radius-control);
+
+    padding: var(--pe-space-control-padding-vertical) var(--pe-space-control-padding-horizontal);
+
+    min-height: var(--pe-size-control-min-height);
+
+    /* constant border width prevents layout jitter */
+    border-width: var(--pe-size-border-control);
+    border-color: rgba(0, 0, 0, 0);
+
+    color: var(--pe-color-text-default);
+    -unity-font-style: bold;
+
+    transition-property: all;
+    transition-duration: var(--pe-motion-duration-standard);
+    transition-timing-function: var(--pe-motion-easing-standard);
+
+    transform-origin: 50% 50%;
+    scale: 1 1;
+    translate: 0px 0px;
+    opacity: 1;
+}
+
+/* Hover */
+.pe-tabview-chrome > * > .unity-tab-view__header-container .unity-tab__header:hover {
+    background-color: var(--pe-color-control-background-hover);
+    border-color: var(--pe-color-accent-primary-soft);
+
+    translate: 0px -1px;
+    scale: 1.03 1.03;
+
+    color: var(--pe-color-text-hover);
+}
+
+/* Press */
+.pe-tabview-chrome > * > .unity-tab-view__header-container .unity-tab__header:active {
+    transition-duration: var(--pe-motion-duration-pressed);
+
+    translate: 0px 1px;
+    scale: 0.99 0.99;
+}
+
+/* Checked */
+.pe-tabview-chrome > * > .unity-tab-view__header-container .unity-tab__header:checked {
+    background-color: var(--pe-color-control-background-selected);
+    border-color: var(--pe-color-accent-primary-soft);
+
+    color: var(--pe-color-text-selected);
+
+    scale: 1.02 1.02;
+    translate: 0px 0px;
+}
+
+/* Underline indicator (optional “neon bar”) */
+.pe-tabview-chrome .unity-tab__header-underline {
+    opacity: 0;
+
+    height: var(--pe-size-underline-height);
+    background-color: var(--pe-color-accent-primary);
+    border-radius: 999px;
+
+    transition-property: all;
+    transition-duration: var(--pe-motion-duration-standard);
+    transition-timing-function: var(--pe-motion-easing-standard);
+
+    transform-origin: 50% 50%;
+    scale: 0 1;
+}
+
+.pe-tabview-chrome .unity-tab__header:checked .unity-tab__header-underline {
+    opacity: 1;
+    scale: 1 1;
+}
+
+
+/* Content area divider (optional) */
+.pe-tabview-chrome .unity-tab-view__content-container {
+    margin-top: var(--pe-space-content-margin-top);
+    padding-top: var(--pe-space-content-padding-top);
+
+    border-top-width: var(--pe-size-divider);
+    border-top-color: var(--pe-color-divider);
+}
+
+/* 
+***************************************
+// SUB-TABS: SLIGHTLY DIFFERENT SELECTED TEXT
+// ***************************************
+*/
+
+/* This is the one “component-ish” override I’m okay with in the screen file */
+.tc-sub-tabs {
+    --pe-color-text-selected: var(--pe-color-text-selected-secondary);
+}
+
+/*Layers*/
+#brush-area{
+    padding-bottom: 8px;
+
+
+    border-bottom-width: var(--pe-size-border-control);
+    border-bottom-color: var(--pe-color-border-tab-bar);
+}
+.brush-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#brush-panel {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    
+    padding: 2px;
+}
+
+/* Left: selected brush preview */
+#selected-brush-preview {
+    width: 72px;
+    height: 72px;
+
+    flex-shrink: 0;
+
+    border-left-width: var(--pe-size-border-control);
+    border-right-width: var(--pe-size-border-control);
+    border-top-width: var(--pe-size-border-control);
+    border-bottom-width: var(--pe-size-border-control);
+
+    border-left-color: var(--pe-color-border-tab-bar);
+    border-right-color: var(--pe-color-border-tab-bar);
+    border-top-color: var(--pe-color-border-tab-bar);
+    border-bottom-color: var(--pe-color-border-tab-bar);
+
+    background-color: rgba(0, 0, 0, 0.15);
+
+    /* If you want pixel-perfect preview behavior */
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Right: scroll area takes remaining width */
+#brush-scroll-view {
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    min-width: 0; /* important so the ScrollView can actually shrink */
+    height: 80px; /* or whatever row height you want */
+
+    /* optional */
+    padding-left: 2px;
+    padding-right: 2px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Grid wraps brush buttons/images inside the scroll view */
+#BrushGrid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+.edit-brushes {
+    flex-direction: row;
+    align-items: center;
+    
+    /* makes it feel like its own “row” instead of tiny content hugging */
+    width: 100%;
+    margin-top: 6px;
+
+    /* pick one */
+    justify-content: flex-start;  /* left */
+    /* justify-content: center; */ /* centered */
+    /* justify-content: flex-end; */ /* right */
+}
+
+.edit-button {
+    width: 24px;
+    height: 24px;
+
+    /* prevents theme/min-size weirdness */
+    min-width: 24px;
+    min-height: 24px;
+    flex-shrink: 0;
+
+    -unity-text-align: middle-center;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.edit-button--wide {
+    width: auto;
+    min-width: 80px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+
+.brush-button {
+    width: 48px;
+    height: 48px;
+    margin-right: 4px; 
+    margin-bottom: 4px;
+}
+
+.brush-button--selected {
+    /* whatever highlight you want */
+    border-left-color: var(--pe-color-accent-primary);
+    border-right-color: var(--pe-color-accent-primary);
+    border-top-color: var(--pe-color-accent-primary);
+    border-bottom-color: var(--pe-color-accent-primary);
+}
+
+
+/* 
+***************************************
+// SLIDER TEXT ACCENT
+// ***************************************
+*/
+
+.cursor-slider .unity-text-element,
+.painting-slider .unity-text-element {
+    color: var(--pe-color-accent-primary);
+}
+#ToolTabs .unity-tab__header-label {
+    -unity-font-definition: var(--pe-font-definition-subheader);
+}
+/* 
+***************************************
+// TERRAIN LAYERS
+// ***************************************
+*/
+
+#terrain-layers-area {
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+/* Frame around the strip */
+#layers-buttons-box {
+    padding: 2px;
+
+    border-left-width: var(--pe-size-border-control);
+    border-right-width: var(--pe-size-border-control);
+    border-top-width: var(--pe-size-border-control);
+    border-bottom-width: var(--pe-size-border-control);
+
+    border-left-color: var(--pe-color-border-tab-bar);
+    border-right-color: var(--pe-color-border-tab-bar);
+    border-top-color: var(--pe-color-border-tab-bar);
+    border-bottom-color: var(--pe-color-border-tab-bar);
+
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: var(--pe-radius-control);
+
+    /* pick a height that matches your tiles + scrollbar */
+    height: 74px;
+}
+
+
+
+/* The scroll view should fill the framed box */
+#layers-scroll-view {
+    flex-grow: 1;
+    min-width: 0;
+    height: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+/* Arrange content horizontally */
+#layers-scroll-view .unity-scroll-view__content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+/* Only horizontal scrolling for a strip */
+#layers-scroll-view .unity-scroll-view__vertical-scroller {
+    display: none;
+}
+
+/* Make the horizontal scroller not huge */
+#layers-scroll-view .unity-scroll-view__horizontal-scroller {
+    height: 10px;
+    margin-top: 2px;
+}
+
+#layers-scroll-view .unity-scroll-view__horizontal-scroller .unity-scroller__tracker {
+    background-color: rgba(0, 0, 0, 0.20);
+    border-radius: 999px;
+}
+
+#layers-scroll-view .unity-scroll-view__horizontal-scroller .unity-scroller__dragger {
+    background-color: rgba(98, 114, 100, 0.65);
+    border-radius: 999px;
+}
+
+/* This is the actual layer “tile” style.
+   Add this class to each layer button/element you generate. */
+.terrain-layer-tile {
+    width: 48px;
+    height: 48px;
+
+    margin-right: 4px;
+    margin-bottom: 4px;
+
+    flex-shrink: 0;
+
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.10);
+
+    border-left-width: var(--pe-size-border-control);
+    border-right-width: var(--pe-size-border-control);
+    border-top-width: var(--pe-size-border-control);
+    border-bottom-width: var(--pe-size-border-control);
+
+    border-left-color: var(--pe-color-border-tab-bar);
+    border-right-color: var(--pe-color-border-tab-bar);
+    border-top-color: var(--pe-color-border-tab-bar);
+    border-bottom-color: var(--pe-color-border-tab-bar);
+}
+
+/* Put the edit button BELOW the strip, aligned right */
+#edit-layers-button {
+    align-self: flex-end;
+    margin-top: 4px;
+
+    height: 22px;
+    min-height: 22px;
+
+    /* if the text is "Edit Layers..." this will look like a button, not a dot */
+    padding-left: 10px;
+    padding-right: 10px;
+
+    background-color: var(--pe-color-control-background);
+    border-radius: var(--pe-radius-control);
+
+    border-width: var(--pe-size-border-control);
+    border-color: rgba(0, 0, 0, 0);
+
+    color: var(--pe-color-text-default);
+}
+
+#edit-layers-button:hover {
+    background-color: var(--pe-color-control-background-hover);
+    border-color: var(--pe-color-accent-primary-soft);
+    color: var(--pe-color-text-hover);
+}
+
+#edit-layers-button:active {
+    background-color: var(--pe-color-control-background-selected);
+}
+.terrain-layer-tile {
+    width: 48px;
+    height: 48px;
+
+    margin-right: 4px;
+
+    flex-shrink: 0;
+ 
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.10);
+
+    border-left-width: var(--pe-size-border-control);
+    border-right-width: var(--pe-size-border-control);
+    border-top-width: var(--pe-size-border-control);
+    border-bottom-width: var(--pe-size-border-control);
+
+    border-left-color: var(--pe-color-border-tab-bar);
+    border-right-color: var(--pe-color-border-tab-bar);
+    border-top-color: var(--pe-color-border-tab-bar);
+    border-bottom-color: var(--pe-color-border-tab-bar);
+}
+.terrain-layer-tile--selected {
+    border-left-color: var(--pe-color-accent-primary);
+    border-right-color: var(--pe-color-accent-primary);
+    border-top-color: var(--pe-color-accent-primary);
+    border-bottom-color: var(--pe-color-accent-primary);
+
+    background-color: var(--pe-color-control-background-selected);
+
+    scale: 1.02 1.02;
+}
+
+#layers-scroll-view .unity-scroll-view__content-viewport--vertical {
+    height: 100%;
+    justify-content: center;
+}

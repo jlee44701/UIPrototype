@@ -1,0 +1,260 @@
+:root{
+
+    /*PROPORTIONS*/
+    --header-flex: 5;
+    --body-flex: 88;
+    --footer-flex: 2;
+    
+    --left-bay-flex: 80;
+        --left-bay-spacer-flex: 3; 
+        --left-bay-status-flex: 0.5;
+        --body-main-col-flex: 13;
+            --left-bay-terminal-col: 1;
+                --terminal-dir-flex: 3;
+                --terminal-target-flex: 9;
+                --terminal-target-meta-flex: 18;
+                    --terminal-target-meta-grow: 1;
+                --terminal-line-break-flex: 3;
+                
+            --left-bay-viewport-col: 9;
+    --right-bay-flex: 20;
+    
+    
+    
+
+    --left-bay-shrink: 0;
+        --left-bay-spacer-shrink: 0;
+        --left-bay-status-shrink: 0;
+        --body-main-col-shrink: 0;
+            --left-bay-terminal-shrink: 0;
+                --terminal-dir-shrink: 0;
+                --terminal-target-shrink: 0;
+                    --terminal-target-meta-shrink: 0;
+                --terminal-line-break-shrink: 0;
+            --left-bay-viewport-shrink: 0;
+    --right-bay-shrink: 0;
+
+
+    --status-font-size: 36;
+    /*COLORS*/
+    --lectern-bg-color: #242324;
+    --panel-color: #D565E2;
+    --panel-color-highlight: #FCC2FF;
+    --panel-color--selected: #FCC2FF;
+    --border-color-dark: #ECECEC;
+    --panel-bg-color: #5a3b6e;
+    --status-bg-color: #494A45;
+
+    /*SECTION SPACING    */
+    --chrome-edge-padding-half: 8px;
+    --chrome-edge-padding: 16px;
+    --chrome-edge-padding-dbl: 32px;
+    --chrome-item-gap: 15px;
+    --chrome-item-gap-half: 6px;
+
+    /* manual: 16 - 6 */
+    --chrome-edge-padding-adjusted: 10px;
+    --frame-border-width--thin: 4px;
+    --frame-border-width: 8px;
+    --header-divider-width: 2px;
+    
+    /*TIMING*/
+    --select-time: 0.1s;
+
+    /* flex ratios (more stable than % heights when you start nesting) */
+
+    --font-default: url('project://database/Assets/Project/UI/Font/perfect_dos_vga_437/Perfect DOS VGA 437 SDF.asset');
+}
+
+/* frame theme */
+.panel{
+    border-width: var(--frame-border-width);
+    border-color: var(--panel-color);
+    border-radius: 6px;
+   
+    color: var(--panel-color);
+    padding: 0;
+    overflow: hidden;
+}
+
+/* root layout */
+.lectern__container{
+    flex-direction: column;
+    flex-grow: 1;
+    /*background-color: #2C2C2C;*/
+    /*margin: 1%;*/
+    background-color: var(--lectern-bg-color);
+}
+/* vertical sizing */
+.lectern__header-container {
+    flex-grow: var(--header-flex);
+    flex-direction: row;
+    border-bottom-width: var(--frame-border-width);
+    border-bottom-color: var(--panel-color);
+
+    /* inset header contents */
+    padding-left: var(--chrome-edge-padding);
+    padding-right: var(--chrome-edge-padding);
+    margin-bottom: var(--chrome-edge-padding);
+}
+
+
+.lectern__footer-container{
+    flex-grow: var(--footer-flex);
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: flex-end;
+    
+    padding-left: var(--chrome-edge-padding-adjusted);
+    padding-right: var(--chrome-edge-padding-adjusted);
+
+}
+
+/* footer button row (this class must be on the element that directly contains the TemplateContainers) */
+.lectern__button-container{
+    flex-direction: row;
+    flex-grow:1;
+    margin-bottom: var(--chrome-edge-padding);
+}
+
+/* template instance wrappers inside footer */
+.lectern__button-container > TemplateContainer{
+    flex-grow: 1;
+    
+    
+    margin: 0 var(--chrome-item-gap-half);
+}
+
+.lectern__footer-button{
+    
+    flex-grow: 1;
+    margin: 0;
+    transition-duration: var(--select-time);
+}
+.lectern__footer-button--selected{
+    border-color: var(--panel-color--selected);
+    /*border-top-width: var(--chrome-edge-padding-dbl);*/
+    scale: 1.01;
+
+    color: var(--panel-color--selected);
+    transition-timing-function: ease-in-bounce;
+}
+
+/* optional: if your body container has its own class */
+.lectern__body-container{
+    flex-grow: var(--body-flex);
+    padding-left: var(--chrome-edge-padding);
+    padding-right: var(--chrome-edge-padding);
+
+    flex-direction: row;
+}
+
+
+.left-bay__container{ 
+    flex-grow: var(--left-bay-flex);
+    flex-shrink: var(--left-bay-shrink);
+}
+.right-bay__container{
+    flex-grow: var(--right-bay-flex);
+    flex-shrink: var(--right-bay-shrink);
+}
+.left-bay__spacer{
+    flex-grow: var(--left-bay-spacer-flex);
+    flex-shrink: var(--left-bay-spacer-shrink);
+}
+.left-bay__status-container{
+    flex-grow: var(--left-bay-status-flex);
+    flex-shrink: var(--left-bay-status-shrink);
+    
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--status-bg-color);
+    
+    -unity-font-definition: var(--font-default);
+
+    align-self: center;
+    
+    margin: var(--chrome-edge-padding);
+    
+    font-size: var(--status-font-size);
+    width: 96%;
+}
+.left-bay__status-text{
+    position: absolute;
+    margin-left: var(--chrome-edge-padding);
+}
+
+.left-bay__main-columns{
+    flex-direction: row;
+    flex-grow: var(--body-main-col-flex);
+    flex-shrink: var(--body-main-col-shrink);
+}
+
+.left-bay__terminal-col{
+    flex-direction: column;
+    flex-grow: var(--left-bay-terminal-col);
+    flex-shrink: var(--left-bay-terminal-shrink);
+
+}
+
+.left-bay__viewport-col{
+    flex-grow: var(--left-bay-viewport-col);
+    flex-shrink: var(--left-bay-viewport-shrink);
+    
+    border-width: var(--frame-border-width--thin);
+    border-color: var(--panel-color);
+
+
+
+}
+
+/*-----------TERMINAL-------*/
+.terminal__directory-container{
+    flex-grow: var(--terminal-dir-flex);
+    flex-shrink: var(--terminal-dir-shrink);
+}
+.terminal__vp-target-container{
+    flex-grow: var(--terminal-target-flex);
+    flex-shrink: var(--terminal-target-shrink);
+}
+.terminal__vp-target-label{
+    -unity-font-definition: var(--font-default);
+    flex-shrink: 0;
+    
+    font-size: 45px;
+    align-self: center;
+    border-width: var(--chrome-edge-padding);
+    margin: var(--chrome-edge-padding-dbl);
+    border-color: var(--panel-color-highlight);
+    color: var(--panel-color--selected);
+}
+.terminal__directory-label{
+    
+}
+.terminal__target-meta{
+    flex-grow: var(--terminal-target-meta-flex);
+    flex-shrink: var(--terminal-target-meta-shrink);
+}
+.terminal__line-break{
+    flex-grow: var(--terminal-line-break-flex);
+    flex-shrink: var(--terminal-line-break-shrink);
+}
+
+
+
+
+
+
+
+/*.terminal__vp-target-container{*/
+/*    flex-grow: var(--terminal-target-flex);*/
+/*}*/
+
+
+.right-bay__container{
+    border-width: var(--frame-border-width);
+    border-color: var(--panel-color);
+    margin-left: var(--chrome-edge-padding);
+}
+
+

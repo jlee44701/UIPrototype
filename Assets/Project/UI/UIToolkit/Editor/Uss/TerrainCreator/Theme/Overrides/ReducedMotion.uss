@@ -1,0 +1,8 @@
+.pe-root{
+    
+    /* motion */
+    --pe-transition-duration: 560ms;
+    --pe-transition-duration-pressed: 180ms;
+    --pe-transition-ease: ease;
+    
+}

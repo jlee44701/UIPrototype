@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+
+    <Style src="../../Uss/TerrainCreator/TerrainCreator.uss" /> 
+    <ui:Template name="PaintingSection" src="PaintingSection.uxml" /> 
+
+    <ui:VisualElement class="pe-root"> 
+        <ui:TabView name="Header__Tabview"
+                    view-data-key="tc-inspector-tabs"
+                    class="header__tabview pe-tabview-chrome">
+            <ui:Tab name="tab-default" class="SubHeader__Tabview" label="Default" view-data-key="tc-tabs/default">
+                <ui:VisualElement name="view-default" />
+            </ui:Tab>
+            <ui:Tab name="tab-tools" label="Tools" view-data-key="tc-tabs/tools" class="SubHeader__Tabview">
+                <ui:Slider name="cursor-slider" label="Cursor Size" low-value="0" high-value="6"
+                           show-input-field="true" binding-path="editorSession.cursor.cursorSize"
+                           class="cursor-slider unity-base-field__aligned" />
+                <ui:VisualElement name="view-tools">
+                    <ui:TabView name="ToolTabs"
+                                view-data-key="tc-tool-tabs"
+                                class="tc-sub-tabs pe-tabview-chrome">
+                        
+                        <ui:Tab name="tab-shaping" label="Shape" view-data-key="tc-tool-tabs/shape">
+                            <ui:VisualElement> 
+                            <ui:VisualElement name="view-shaping" />
+                            </ui:VisualElement>
+                        </ui:Tab>
+                        
+                        <ui:Tab name="tab-paint" label="Paint" view-data-key="tc-tool-tabs/paint">
+                            
+                            <ui:Instance template="PaintingSection" />
+                            
+                        </ui:Tab>
+                        <ui:Tab name="tab-debug" label="Debug" view-data-key="tc-tool-tabs/debug">
+                            <ui:VisualElement name="view-debug" />
+                        </ui:Tab>
+                    </ui:TabView>
+                </ui:VisualElement>
+            </ui:Tab>
+            <ui:Tab name="tab-mesh-gen" class="SubHeader__Tabview" label="Mesh gen" view-data-key="tc-tabs/mesh-gen">
+                <ui:VisualElement name="view-mesh-gen" />
+            </ui:Tab>
+        </ui:TabView>
+    </ui:VisualElement>
+</ui:UXML>

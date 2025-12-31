@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False"> 
+    
+    <ui:Button display-tooltip-when-elided="true" name="lectern-footer-button" enable-rich-text="false" class="lectern__footer-button panel button" style="width: 100%">
+        <ui:VisualElement name="button__icon" picking-mode="Ignore" />
+        <ui:Label text="LEVEL 1" display-tooltip-when-elided="true" name="button__label" picking-mode="Ignore" />
+        
+    </ui:Button>
+</ui:UXML>

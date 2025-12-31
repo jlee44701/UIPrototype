@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/Runtime/Uss/DustApostle/DustsApostle.uss?fileID=7433441132597879392&amp;guid=832d3b6e18d92204c9679ca01cc5118d&amp;type=3#DustsApostle"/>
+    <ui:VisualElement name="lectern-container" class="lectern__container panel">
+        <ui:VisualElement name="lectern-header-container" class="lectern__header-container"/>
+        <ui:VisualElement name="lectern-body-container" class="lectern__body-container">
+            <ui:VisualElement name="left-bay__container" class="left-bay__container u-col u-grow">
+                <ui:VisualElement class="left-bay__spacer"/>
+                <ui:VisualElement name="left-bay-status-bar-container" class="left-bay__status-container">
+                    <RuntimeUI.AnimatedTextField text="hello" name="status-text-field">
+                        <Febucci.TextAnimatorForUnity.AnimatedLabel name="animated-label" timing-settings="project://database/Assets/Plugins/Febucci/Text%20Animator%20for%20Unity/Samples/BuiltIn/Timings/Delays%20By%20Character.asset?fileID=11400000&amp;guid=f9029dd0173d57a45ab78e2ad79be0b8&amp;type=2#Delays By Character" behaviors-database="" style-sheet-database=""/>
+                    </RuntimeUI.AnimatedTextField>
+                </ui:VisualElement>
+                <ui:VisualElement name="left-bay-main-columns" class="left-bay__main-columns u-row">
+                    <ui:VisualElement name="left-bay-terminal-col" class="left-bay__terminal-col">
+                        <ui:VisualElement name="terminal-directory-container" class="terminal__directory-container">
+                            <ui:VisualElement name="terminal-directory-label" class="terminal__directory-label"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="terminal-vp-target-container" class="terminal__vp-target-container">
+                            <ui:Label name="terminal-vp-target-label" text="EMT ESC VEHICLE" class="terminal__vp-target-label"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="terminal-target-meta" class="terminal__target-meta"/>
+                        <ui:VisualElement name="terminal-line-break" class="terminal__line-break"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="left-bay-viewport-col" class="left-bay__viewport-col"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="right-bay-container" class="right-bay__container"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="lectern__footer-container">
+            <ui:VisualElement name="lectern-button-container" class="lectern__button-container"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

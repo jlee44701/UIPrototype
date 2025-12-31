@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: b0e77fc7bd9b44209fb3b950ec15352c
+timeCreated: 1663027143
+AssetOrigin:
+  serializedVersion: 1
+  productId: 268492
+  packageName: QuizU - A UI toolkit sample
+  packageVersion: 1.2.0
+  assetPath: Assets/Unity Technologies/QuizU - A UI Toolkit demo/Quiz/Scripts/StateMachine/Links/Link.cs
+  uploadId: 752869

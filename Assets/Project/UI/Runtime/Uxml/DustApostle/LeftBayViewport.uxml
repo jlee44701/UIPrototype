@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:ui="UnityEngine.UIElements"
+    noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+    engine="UnityEngine.UIElements" editor="UnityEditor.UIElements">
+    
+    <ui:VisualElement name="left-bay-viewport-container" class="lectern__viewport-container"/>
+    
+</ui:UXML>
