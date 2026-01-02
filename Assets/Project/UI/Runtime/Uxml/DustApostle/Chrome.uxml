@@ -6,9 +6,9 @@
             <ui:VisualElement name="left-bay__container" class="left-bay__container u-col u-grow">
                 <ui:VisualElement class="left-bay__spacer"/>
                 <ui:VisualElement name="left-bay-status-bar-container" class="left-bay__status-container">
-                    <RuntimeUI.AnimatedTextField text="hello" name="status-text-field">
-                        <Febucci.TextAnimatorForUnity.AnimatedLabel name="animated-label" timing-settings="project://database/Assets/Plugins/Febucci/Text%20Animator%20for%20Unity/Samples/BuiltIn/Timings/Delays%20By%20Character.asset?fileID=11400000&amp;guid=f9029dd0173d57a45ab78e2ad79be0b8&amp;type=2#Delays By Character" behaviors-database="" style-sheet-database=""/>
-                    </RuntimeUI.AnimatedTextField>
+                    <RuntimeUI.AnimatedTextFieldElement text="hello" name="status-text-field" class="terminal__status-text">
+<!--                        <Febucci.TextAnimatorForUnity.AnimatedLabel name="animated-label" timing-settings="project://database/Assets/Plugins/Febucci/Text%20Animator%20for%20Unity/Samples/BuiltIn/Timings/Delays%20By%20Character.asset?fileID=11400000&amp;guid=f9029dd0173d57a45ab78e2ad79be0b8&amp;type=2#Delays By Character" behaviors-database="" style-sheet-database=""/>-->
+                    </RuntimeUI.AnimatedTextFieldElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="left-bay-main-columns" class="left-bay__main-columns u-row">
                     <ui:VisualElement name="left-bay-terminal-col" class="left-bay__terminal-col">

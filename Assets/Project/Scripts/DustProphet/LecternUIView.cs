@@ -38,7 +38,7 @@ namespace RuntimeUI {
             m_ViewportContainer,
             m_RightBayContainer, // placeholder
             m_FooterContainer;
-        readonly AnimatedTextField 
+        readonly AnimatedTextFieldElement 
             m_AnimatedStatusLabel;
             
  
@@ -81,7 +81,7 @@ namespace RuntimeUI {
             m_FooterContainer =
                 m_Root.Q<VisualElement>(FooterQ)
                 ?? throw new NullReferenceException(nameof(m_FooterContainer));
-            m_AnimatedStatusLabel = m_Root.Q<AnimatedTextField>(AnimatedStatusQ)
+            m_AnimatedStatusLabel = m_Root.Q<AnimatedTextFieldElement>(AnimatedStatusQ)
                                     ?? throw new NullReferenceException(
                                         nameof(m_AnimatedStatusLabel));
 

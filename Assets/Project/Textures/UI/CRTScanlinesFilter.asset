@@ -19,17 +19,17 @@ MonoBehaviour:
       m_Type: 0
       m_FloatValue: 0
       m_ColorValue: {r: 0, g: 0, b: 0, a: 0}
+  - m_Name: ScanlineFrequency
+    m_InterpolationDefaultValue:
+      m_Type: 0
+      m_FloatValue: 0
+      m_ColorValue: {r: 0, g: 0, b: 0, a: 0}
   - m_Name: ChromaticOffset
     m_InterpolationDefaultValue:
       m_Type: 0
       m_FloatValue: 0
       m_ColorValue: {r: 0, g: 0, b: 0, a: 0}
   - m_Name: Curvature
-    m_InterpolationDefaultValue:
-      m_Type: 0
-      m_FloatValue: 0
-      m_ColorValue: {r: 0, g: 0, b: 0, a: 0}
-  - m_Name: VignetteStrength
     m_InterpolationDefaultValue:
       m_Type: 0
       m_FloatValue: 0

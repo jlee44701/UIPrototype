@@ -10,7 +10,7 @@ namespace RuntimeUI {
     [RequireComponent(typeof(UIDocument))]
     public class LecternUISetup : MonoBehaviour {
 
-        [SerializeField] UIDocument m_Doc;
+        [SerializeField] UIDocument m_Document;
         LecternUIPresenter m_Presenter;
         LecternUIView m_LecternUiView;
         
@@ -26,15 +26,15 @@ namespace RuntimeUI {
         void OnEnable() {
             NullRefChecker.Validate(this);
             
-            if (!m_Doc)
-                m_Doc = GetComponent<UIDocument>();
+            if (!m_Document)
+                m_Document = GetComponent<UIDocument>();
             if (m_Presenter == null)
                 m_Presenter = new LecternUIPresenter(m_ViewData);
             
             m_Presenter.OnEnable();
             
             // wait for layout to finish before displaying
-            m_Root = m_Doc.rootVisualElement;
+            m_Root = m_Document.rootVisualElement;
             // m_Root.style.visibility = Visibility.Hidden;
             // m_Root.RegisterCallback<GeometryChangedEvent>(OnFirstGeometryChanged);
 
@@ -43,12 +43,12 @@ namespace RuntimeUI {
                 Coroutines.Initialize(this);
             }
             
-            var header = m_Doc.rootVisualElement.Q<VisualElement>(Names.LecternHeaderContainer);
+            var header = m_Document.rootVisualElement.Q<VisualElement>(Names.LecternHeaderContainer);
             if (header == null)
-                throw new NullReferenceException($"Missing VisualElement name '{Names.LecternHeaderContainer}' in document '{m_Doc.visualTreeAsset?.name}'.");
+                throw new NullReferenceException($"Missing VisualElement name '{Names.LecternHeaderContainer}' in document '{m_Document.visualTreeAsset?.name}'.");
 
 
-            var root = m_Doc.rootVisualElement.Q<VisualElement>(Names.LecternContainer);
+            var root = m_Document.rootVisualElement.Q<VisualElement>(Names.LecternContainer);
             if (root == null)
                 throw new NullReferenceException(nameof(root));
             

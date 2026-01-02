@@ -1,5 +1,5 @@
 using System;
-using PixelEngine;
+using PixelEngine; 
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,23 +13,25 @@ namespace RuntimeUI {
         VisualElement m_Root;
 
         void OnEnable() {
-            NullRefChecker.Validate(this);
+            Validate();
             
-            if (!m_Doc)
-                m_Doc = GetComponent<UIDocument>();
-            if (m_Presenter == null)
-                m_Presenter = new DialogueUIPresenter();
-            if (m_View == null)
-                m_View = new DialogueUIView();
+            if (!m_Doc) m_Doc = GetComponent<UIDocument>();
+            m_Root = m_Doc.rootVisualElement ?? throw new ArgumentNullException(nameof(m_Root));
             
-            m_Root = m_Doc.rootVisualElement;
-            if (!Coroutines.IsInitialized)
-                Coroutines.Initialize(this);
+            m_View ??= new DialogueUIView(m_Root);
             
+            m_Presenter ??= new DialogueUIPresenter(m_View);
+            m_Presenter.OnEnable();
             
+            return;
+            void Validate() {
+                NullRefChecker.Validate(this);
+                if (!Coroutines.IsInitialized)
+                    Coroutines.Initialize(this);
+            }
         }
         void OnDisable() {
-            
+            m_Presenter?.OnDisable();
         }
         
     }

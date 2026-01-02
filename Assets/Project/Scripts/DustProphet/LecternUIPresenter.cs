@@ -16,6 +16,7 @@ public class LecternUIPresenter
     public void OnDisable() => UnregisterCallbacks();
     
     void RegisterCallbacks() {
+        UnregisterCallbacks();
         DustProphet.SetupComplete += OnSetupCompleted;
         DustProphet.FooterButtonClicked += OnFooterButtonClicked;
         DustProphet.FooterButtonHighlighted += OnButtonHighlighted;
