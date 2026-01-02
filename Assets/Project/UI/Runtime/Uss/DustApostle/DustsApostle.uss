@@ -74,14 +74,14 @@
    
     color: var(--panel-color);
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* root layout */
 .lectern__container{
     flex-direction: column;
     flex-grow: 1;
-    /*background-color: #2C2C2C;*/
+    *background-color: #2C2C2C;
     /*margin: 1%;*/
     background-color: var(--lectern-bg-color);
 }
@@ -227,6 +227,10 @@
     margin: var(--chrome-edge-padding-dbl);
     border-color: var(--panel-color-highlight);
     color: var(--panel-color--selected);
+}
+.terminal__status-text{
+    -unity-font-definition: var(--font-default);
+    font-size: 45px;
 }
 .terminal__directory-label{
     

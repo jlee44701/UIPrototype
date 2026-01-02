@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/Runtime/Uss/DustApostle/DustsApostle.uss?fileID=7433441132597879392&amp;guid=832d3b6e18d92204c9679ca01cc5118d&amp;type=3#DustsApostle"/>
-    <ui:VisualElement name="lectern-container" class="lectern__container panel">
+    <ui:VisualElement name="lectern-container" class="lectern__container panel" style="background-image: none; filter: filter(url(&quot;project://database/Assets/Project/Textures/UI/CRTScanlinesFilter.asset?fileID=11400000&amp;guid=c9dfd2c463e06fa42a1a5617bb35bac8&amp;type=2#CRTScanlinesFilter&quot;) 0.005 1 0.0011 0.25);">
         <ui:VisualElement name="lectern-header-container" class="lectern__header-container"/>
         <ui:VisualElement name="lectern-body-container" class="lectern__body-container">
             <ui:VisualElement name="left-bay__container" class="left-bay__container u-col u-grow">

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:ui="UnityEngine.UIElements"
-    noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
-    engine="UnityEngine.UIElements" editor="UnityEditor.UIElements">
-    <ui:Template name="content-viewport" src="ContentViewport.uxml" />
-    
-    <ui:VisualElement name="content-viewport__container"/>
-</ui:UXML>

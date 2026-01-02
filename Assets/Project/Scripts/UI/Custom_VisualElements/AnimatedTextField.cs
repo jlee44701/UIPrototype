@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 [assembly: UxmlNamespacePrefix("RuntimeUI", "rt")]
 
 namespace RuntimeUI
-{
+{ 
     [UxmlElement]
     public partial class AnimatedTextField : VisualElement
     {

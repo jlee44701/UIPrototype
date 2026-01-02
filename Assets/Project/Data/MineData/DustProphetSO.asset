@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0cebd3fa64649c46853661ebc987161, type: 3}
+  m_Name: DustProphetSO
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Mine.DustProphetSO
+  state: 0
+  currentDepthThisRun: {fileID: 11400000, guid: 52b3195526330994aba34a15c3e1725b, type: 2}
+  currentPressure01: {fileID: 11400000, guid: 1af237b0108e373479db143d4b7cfca3, type: 2}
+  currentHeat01: {fileID: 11400000, guid: cacca3ae9d7a040419b7f92a64d3c08b, type: 2}
+  currentVibration01: {fileID: 11400000, guid: 768ac470cb339fd4889007414f873f88, type: 2}
+  currentYieldBuffer: {fileID: 11400000, guid: a2828ab8512e87b4eb95226141654352, type: 2}
+  currentLayerHardness01: {fileID: 11400000, guid: f7284f1786036414693afb4910a3d182, type: 2}
+  targetPressureCenter01: {fileID: 11400000, guid: 04ed194a8ac8d9945b8df586bc088bc0, type: 2}
+  targetPressureHalfWidth: {fileID: 11400000, guid: dc543f78a56b9df44a1897805b352006, type: 2}
+  timeInOptimalBand: {fileID: 11400000, guid: f12444ea107172e49af023a153430c7c, type: 2}
