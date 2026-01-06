@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" editor-extension-mode="False">
+
+    <Style src="project://database/Assets/Project/UI/Runtime/Uss/Dialogue_USS/Dialogue.uss" />
+
+    <ui:VisualElement name="dialogue-container" class="dialogue__container">
+        <ui:VisualElement name="dialogue-portrait-container" class="dialogue__portrait" />
+        <RuntimeUI.AnimatedTextFieldElement name="animated-text" class="dialogue__animated-text" typewriter-sound="project://database/Assets/Project/Audio/cheryl_voice.wav" />
+    </ui:VisualElement>
+
+</ui:UXML>

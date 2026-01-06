@@ -1,0 +1,13 @@
+:root{
+    /*--portrait-*/
+}
+
+.dialogue__container{
+    flex-direction: row;
+}
+.dialogue__portrait{
+    
+}
+.dialogue__animated-text{
+    
+}

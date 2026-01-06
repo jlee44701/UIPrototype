@@ -2,101 +2,65 @@ using Febucci.TextAnimatorCore.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RuntimeUI
-{
+namespace RuntimeUI {
     [UxmlElement]
-    public partial class DialogueElement : VisualElement
-    {
+    public partial class DialogueElement : VisualElement {
         AnimatedTextFieldElement m_AnimatedTextFieldElement;
         AudioSource m_TypewriterAudioSource;
+        VisualElement PortraitImage => this.Q("portrait");
+
         string m_Text;
 
+        AudioSource m_TypeWriterSound;
         [UxmlAttribute("text")]
         public string Text
         {
-            get => m_Text;
-            set
-            {
-                m_Text = value;
+            get => m_AnimatedTextFieldElement.Text;
+            set => m_AnimatedTextFieldElement.Text = value;
+        }
 
-                if (m_AnimatedTextFieldElement != null)
-                    m_AnimatedTextFieldElement.Text = m_Text;
+        public DialogueElement() {
+            if (!Application.isPlaying) return;
+            
+            RegisterCallback<AttachToPanelEvent>(_ => {
+                    m_AnimatedTextFieldElement = new AnimatedTextFieldElement();
+                    RegisterCallback<DetachFromPanelEvent>(_ => {
+                        if (m_AnimatedTextFieldElement == null) return;
+                        Subscribe();
+                    });
+                }
+                
+            );
+        }
+
+        void Subscribe() {
+            if (m_AnimatedTextFieldElement?.AnimatedLabel == null) return;
+            m_AnimatedTextFieldElement.AnimatedLabel.Typewriter
+                .OnCharacterVisible += PlayTypeWriterSound;
+            m_AnimatedTextFieldElement.AnimatedLabel.Typewriter.OnTextShowed += TextShown;
+        }
+        void Unsubscribe() {
+            if (m_AnimatedTextFieldElement?.AnimatedLabel == null) return;
+            
+            m_AnimatedTextFieldElement.AnimatedLabel.Typewriter
+                .OnCharacterVisible -= PlayTypeWriterSound;
+            m_AnimatedTextFieldElement.AnimatedLabel.Typewriter.OnTextShowed -= TextShown;
+        }
+
+
+        void TextShown() {
+            
+        }
+        
+        void PlayTypeWriterSound(CharacterData data) {
+            var c = data.info.character;
+            if (char.IsWhiteSpace(c) || !data.info.isRendered) return; // ignore spaces
+            
+            if (m_TypeWriterSound) {
+                m_TypeWriterSound.Play();
             }
         }
+        
 
-        public DialogueElement()
-        {
-            RegisterCallback<AttachToPanelEvent>(OnAttachedToPanel);
-            RegisterCallback<DetachFromPanelEvent>(OnDetachedFromPanel);
-        }
-
-        public void SetTypewriterAudioSource(AudioSource typewriterAudioSource)
-        {
-            m_TypewriterAudioSource = typewriterAudioSource;
-        }
-
-        void OnAttachedToPanel(AttachToPanelEvent attachToPanelEvent)
-        {
-            if (m_AnimatedTextFieldElement == null)
-            {
-                m_AnimatedTextFieldElement = new AnimatedTextFieldElement();
-                Add(m_AnimatedTextFieldElement);
-                m_AnimatedTextFieldElement.Text = m_Text;
-            }
-            else if (m_AnimatedTextFieldElement.parent != this)
-            {
-                Add(m_AnimatedTextFieldElement);
-            }
-
-            if (!Application.isPlaying)
-                return;
-
-            Subscribe();
-        }
-
-        void OnDetachedFromPanel(DetachFromPanelEvent detachFromPanelEvent)
-        {
-            if (!Application.isPlaying)
-                return;
-
-            Unsubscribe();
-        }
-
-        void Subscribe()
-        {
-            var typewriter = m_AnimatedTextFieldElement?.AnimatedLabel?.Typewriter;
-            if (typewriter == null)
-                return;
-
-            Unsubscribe();
-
-            typewriter.OnCharacterVisible += PlayTypewriterSound;
-            typewriter.OnTextShowed += TextShown;
-        }
-
-        void Unsubscribe()
-        {
-            var typewriter = m_AnimatedTextFieldElement?.AnimatedLabel?.Typewriter;
-            if (typewriter == null)
-                return;
-
-            typewriter.OnCharacterVisible -= PlayTypewriterSound;
-            typewriter.OnTextShowed -= TextShown;
-        }
-
-        void TextShown()
-        {
-        }
-
-        void PlayTypewriterSound(CharacterData characterData)
-        {
-            var visibleCharacter = characterData.info.character;
-
-            if (char.IsWhiteSpace(visibleCharacter) || !characterData.info.isRendered)
-                return;
-
-            if (m_TypewriterAudioSource)
-                m_TypewriterAudioSource.Play();
-        }
     }
 }

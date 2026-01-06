@@ -388,7 +388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576793203169613276, guid: 9c1cee33cf817fd4a9dcca942db0275d, type: 3}
       propertyPath: m_Name
-      value: UI
+      value: Lectern
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576793203169613276, guid: 9c1cee33cf817fd4a9dcca942db0275d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

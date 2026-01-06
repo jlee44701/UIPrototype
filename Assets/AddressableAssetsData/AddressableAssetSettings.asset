@@ -63,6 +63,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8650057f565170e42a1b0c6dc0a3c565, type: 2}
   - {fileID: 11400000, guid: d501bfeebf3a98841a8dacfebbb7b2df, type: 2}
   - {fileID: 11400000, guid: 4e0638245098d05488dcfbedbdd266d1, type: 2}
+  - {fileID: 11400000, guid: 23fb7e1fad0b3b04da56faa94977b3f3, type: 2}
   - {fileID: 11400000, guid: c28bdcc126f97464cb26122ab1e645bc, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
@@ -103,6 +104,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - Audio
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 5d56ded1f4facf142a81689b9b0cb821, type: 2}

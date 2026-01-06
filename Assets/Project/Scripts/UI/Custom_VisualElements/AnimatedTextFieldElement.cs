@@ -1,4 +1,6 @@
 using System.Reflection;
+using Audio;
+using Febucci.TextAnimatorCore.Text;
 using Febucci.TextAnimatorForUnity;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,9 +14,17 @@ namespace RuntimeUI
         const string DefaultTimingsResourcesPath = "AnimatedText/Delays_By_Character";
 
         AnimatedLabel m_AnimatedLabel;
+        AudioClip m_TypeWriterSound;
         TypingsTimingsScriptableBase m_DefaultTimings;
         TypingsTimingsScriptableBase m_TimingsOverride;
         string m_Text;
+        
+        public float TypingVolume { get; set; }
+        
+        public AudioParams.Distortion Distortion { get; set; }
+        public AudioParams.Pitch Pitch { get; set; }
+        public AudioParams.Randomization Randomization { get; set; }
+        public AudioParams.Repetition Repetition { get; set; }
 
         [UxmlAttribute("text")]
         public string Text
@@ -27,18 +37,31 @@ namespace RuntimeUI
             }
         }
 
+        [UxmlAttribute("typewriter-sound")]
+        public AudioClip TypewriterSound
+        {
+            get => m_TypeWriterSound;
+            set => m_TypeWriterSound = value;
+        }
+
         public AnimatedLabel AnimatedLabel => m_AnimatedLabel;
 
         public AnimatedTextFieldElement()
         {
             RegisterCallback<AttachToPanelEvent>(_ =>
             {
-                if (!Application.isPlaying)
+                EnsureInitialized();
+                TryPlayTypewriter();
+
+            });
+
+
+            RegisterCallback<DetachFromPanelEvent>(_ =>
+            {
+                if (m_AnimatedLabel == null)
                     return;
 
-                EnsureAnimatedLabelExists();
-                EnsureTimingsAssigned();
-                TryPlayTypewriter();
+                m_AnimatedLabel.Typewriter.OnCharacterVisible -= CharacterVisible;
             });
         }
 
@@ -47,18 +70,16 @@ namespace RuntimeUI
             SetTimings(timingsTimings, restartIfTextAlreadySet: false);
         }
 
-        public void SetTimings(TypingsTimingsScriptableBase timingsTimings, bool restartIfTextAlreadySet = true)
+        void EnsureInitialized()
         {
-            m_TimingsOverride = timingsTimings;
-
-            if (!Application.isPlaying)
+            EnsureAnimatedLabelExists();
+            if (m_AnimatedLabel == null)
                 return;
 
-            EnsureAnimatedLabelExists();
+            m_AnimatedLabel.Typewriter.OnCharacterVisible -= CharacterVisible;
+            m_AnimatedLabel.Typewriter.OnCharacterVisible += CharacterVisible;
+   
             EnsureTimingsAssigned();
-
-            if (restartIfTextAlreadySet)
-                TryPlayTypewriter();
         }
 
         void EnsureAnimatedLabelExists()
@@ -66,7 +87,7 @@ namespace RuntimeUI
             if (m_AnimatedLabel != null)
                 return;
 
-            m_AnimatedLabel = this.Q<AnimatedLabel>(AnimatedLabelElementName);
+            m_AnimatedLabel = this.Q<AnimatedLabel>();
 
             if (m_AnimatedLabel != null)
                 return;
@@ -75,9 +96,20 @@ namespace RuntimeUI
             hierarchy.Add(m_AnimatedLabel);
         }
 
+        public void SetTimings(TypingsTimingsScriptableBase timingsTimings, bool restartIfTextAlreadySet = true)
+        {
+            m_TimingsOverride = timingsTimings;
+
+            EnsureInitialized();
+
+            if (restartIfTextAlreadySet)
+                TryPlayTypewriter();
+        }
+
         void EnsureTimingsAssigned()
         {
             var timingsToUse = m_TimingsOverride;
+
             if (!timingsToUse)
             {
                 if (!m_DefaultTimings)
@@ -89,9 +121,36 @@ namespace RuntimeUI
             if (!timingsToUse || m_AnimatedLabel == null)
                 return;
 
-            // Resources.Load path is relative to a Resources folder and omits extension. :contentReference[oaicite:2]{index=2}
             TryAssignFirstTimingsSlot(m_AnimatedLabel, timingsToUse);
             TryAssignFirstTimingsSlot(m_AnimatedLabel.Typewriter, timingsToUse);
+        }
+
+        void CharacterVisible(CharacterData data)
+        {
+            if (!Application.isPlaying)
+                return;
+
+            if (!m_TypeWriterSound)
+                return;
+
+            var character = data.info.character;
+            if (char.IsWhiteSpace(character) || !data.info.isRendered)
+                return;
+
+            var audioManager = AudioManager.Instance;
+            if (!audioManager) return;
+
+            audioManager.PlaySfx2D(
+                m_TypeWriterSound, 
+                Vector3.zero, 
+                Pitch, 
+                Repetition, 
+                Randomization, 
+                Distortion, 
+                false,
+                300, 
+                TypingVolume,
+              0);
         }
 
         static void TryAssignFirstTimingsSlot(object targetObject, TypingsTimingsScriptableBase timingsAsset)

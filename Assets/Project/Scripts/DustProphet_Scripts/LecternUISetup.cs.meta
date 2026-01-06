@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 87f6d0174e215fa49acb69624a2a37cc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_Document: {instanceID: 0}
+  - footerButtonAsset: {fileID: 9197481963319205126, guid: 7e457573c6ac32348aeb1f78822142bf, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
