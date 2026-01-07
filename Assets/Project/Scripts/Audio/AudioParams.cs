@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Audio {
     public class AudioParams {
         [Serializable]
         public class Pitch {
+            [Serializable]
             public enum Variation {
                 Small,
                 Medium,
@@ -15,56 +17,55 @@ namespace Audio {
                 VerySmall,
             }
             [Range(0,10)]
-            public float pitch;
-
+            public float _pitch = 1;
+            
             public Pitch(float exact) {
-                pitch = exact;
+                _pitch = exact;
             }
 
             public Pitch(float minRandom, float maxRandom) {
-                pitch = Random.Range(minRandom, maxRandom);
+                _pitch = Random.Range(minRandom, maxRandom);
             }
-
+            public Pitch Vary(Variation variation) {
+                _pitch = variation switch {
+                    Variation.VerySmall => Random.Range(0.95f, 1.05f),
+                    Variation.Small => Random.Range(0.9f, 1.1f),
+                    Variation.Medium => Random.Range(0.75f, 1.25f),
+                    Variation.Large => Random.Range(0.5f, 1.5f),
+                    _ => _pitch
+                };
+                return this;
+            }
             public Pitch(Variation randomVariation) {
-                switch (randomVariation) {
-                    case Variation.VerySmall:
-                        pitch = Random.Range(0.95f, 1.05f);
-                        break;
-                    case Variation.Small:
-                        pitch = Random.Range(0.9f, 1.1f);
-                        break;
-                    case Variation.Medium:
-                        pitch = Random.Range(0.75f, 1.25f);
-                        break;
-                    case Variation.Large:
-                        pitch = Random.Range(0.5f, 1.5f);
-                        break;
-                }
+                Vary(randomVariation);
             }
         }
 
         [Serializable]
         public class Repetition {
+            [FormerlySerializedAs("minRepetitionFrequency")]
             [Range(0,4)]
-            public float minRepetitionFrequency;
+            public float _minRepetitionFrequency;
 
             public Repetition(float minRepetitionFrequency) {
-                this.minRepetitionFrequency = minRepetitionFrequency;
+                this._minRepetitionFrequency = minRepetitionFrequency;
             }
         }
 
         [Serializable]
         public class Randomization {
-            public bool noRepeating;
+            [FormerlySerializedAs("noRepeating")]
+            public bool _noRepeating;
 
             public Randomization(bool noRepeating = true) {
-                this.noRepeating = noRepeating;
+                this._noRepeating = noRepeating;
             }
         }
 
         [Serializable]
         public class Distortion {
-            public bool muffled;
+            [FormerlySerializedAs("muffled")]
+            public bool _muffled;
         }
     }
 

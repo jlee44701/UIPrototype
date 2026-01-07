@@ -1,13 +1,22 @@
 :root{
     /*--portrait-*/
+    --portrait-flex: 33.5;
+    --text-flex: 66.5;
 }
 
 .dialogue__container{
     flex-direction: row;
+    flex-grow: 1;
 }
+
+.dialogue_portrait,
+.dialogue__animated-text{
+    flex-basis: 0;
+}
+
 .dialogue__portrait{
-    
+    flex-grow: var(--portrait-flex);
 }
 .dialogue__animated-text{
-    
+    flex-grow: var(--text-flex);
 }

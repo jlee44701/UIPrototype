@@ -3,7 +3,6 @@ using Audio;
 using PixelEngine;
 using UIEvents;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using VInspector;
@@ -17,7 +16,7 @@ namespace RuntimeUI {
         [SerializeField] LecternViewSO[] _viewData;
         
         [Foldout("Audio Settings")]
-        [SerializeField] AudioParams.Pitch _pitch;
+        [SerializeField] AudioParams.Pitch.Variation _pitchVariation;
         [SerializeField] AudioParams.Repetition
             _repetition;
         [SerializeField] AudioParams.Randomization _randomization;
@@ -54,7 +53,7 @@ namespace RuntimeUI {
             
             _presenter.OnEnable();
             _root = _document.rootVisualElement;
-
+            
             if (!Coroutines.IsInitialized)
                 Coroutines.Initialize(this);
             
@@ -74,6 +73,7 @@ namespace RuntimeUI {
             DustProphet.SetupComplete?.Invoke();
             
             RegisterCallbacks();
+            
             _lecternUiView.ShowRootWithDelay();
             //LoadAssetAndSetup();
             // DemoEvents.BackButtonClicked += DemoEvents_BackButtonClicked;
@@ -82,12 +82,15 @@ namespace RuntimeUI {
             if (_lecternUiView == null) throw new NullReferenceException(nameof(_lecternUiView));
 
             var t = _lecternUiView.AnimatedTextField;
-            t.Pitch = _pitch;
             t.TypewriterSound = _terminalTypingSound;
-            t.TypingVolume = _typingVolume;
-            t.Distortion = _distortion;
-            t.Repetition = _repetition;
-            t.Randomization = _randomization;
+            t.SetAudioParams(
+                _pitchVariation,
+                _randomization,
+                _repetition,
+                _distortion,
+                _typingVolume
+                );
+            
         }
         void OnFirstGeometryChanged(GeometryChangedEvent evt)
         {

@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: Introduction
   m_EditorClassIdentifier: Assembly-CSharp::RuntimeUI.DialogueSO
   dialogue:
-  - The name of an exposed Audio Mixer group parameter. To expose a parameter, go
-    to the Audio Mixer group's Inspector window, right click the parameter you want
-    to expose. <wa=0.4>
-  - bool Returns false if the exposed parameter was not found or snapshots are currently
-    being edited. <wa=0.4>
-  - "Note: Don\u2019t call AudioMixer.SetFloat in the following event functions as
-    it can result in unexpected behavior. <wa=0.4>"
+  - asd. <w=0.4>
+  - asdasdasdasd. <w=0.5>
+  - ' unexpected behavior. <w=0.4>'
   character: {fileID: 11400000, guid: f718f4f07661cbc4ea18cd23445cf8e1, type: 2}

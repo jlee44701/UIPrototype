@@ -13,17 +13,24 @@ MonoBehaviour:
   m_Name: vInspector Data
   m_EditorClassIdentifier: VInspector::VInspector.VInspectorData
   bookmarks:
-  - _obj: {fileID: 11400000, guid: 721cab8018ae8b140b55b23db5802ccb, type: 2}
+  - _obj: {fileID: 2952226188484045143, guid: d6a5698b88fbbbc4689cf3b6aba13c1b, type: 3}
     globalId:
-      globalObjectIdString: GlobalObjectId_V1-3-721cab8018ae8b140b55b23db5802ccb-11400000-0
+      globalObjectIdString: GlobalObjectId_V1-1-d6a5698b88fbbbc4689cf3b6aba13c1b-2952226188484045143-0
     isSceneGameObject: 0
     isAsset: 1
-    _typeString: RuntimeUI.LecternViewSO, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  - _obj: {fileID: 11400000, guid: 9a03805ce717c49859a9413df3d69ce4, type: 2}
+    _typeString: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - _obj: {fileID: 11400000, guid: adeeb31778fe1c445863408504e42a48, type: 2}
     globalId:
-      globalObjectIdString: GlobalObjectId_V1-3-9a03805ce717c49859a9413df3d69ce4-11400000-0
+      globalObjectIdString: GlobalObjectId_V1-3-adeeb31778fe1c445863408504e42a48-11400000-0
     isSceneGameObject: 0
     isAsset: 1
-    _typeString: Febucci.TextAnimatorForUnity.Actions.SpeedAction, Febucci.TextAnimatorForUnity.Runtime,
+    _typeString: RuntimeUI.Story.Dialogue.DialogueSequenceSO, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - _obj: {fileID: 11400000, guid: f9029dd0173d57a45ab78e2ad79be0b8, type: 2}
+    globalId:
+      globalObjectIdString: GlobalObjectId_V1-3-f9029dd0173d57a45ab78e2ad79be0b8-11400000-0
+    isSceneGameObject: 0
+    isAsset: 1
+    _typeString: Febucci.TextAnimatorForUnity.TypingDelaysByCharacter, Febucci.TextAnimatorForUnity.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

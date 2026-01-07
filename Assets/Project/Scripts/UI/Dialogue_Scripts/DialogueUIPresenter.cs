@@ -26,10 +26,14 @@ namespace RuntimeUI {
         }
 
         async void ProcessDialogue(DialogueSequenceSO dialogueSequence) {
+
             var character = dialogueSequence.character;
             m_View.SetPortraitAndVoice(character.portrait, character.voice);
+            //await m_View.PlayLinesAsync(dialogueSequence.dialogue);
+            //m_View.ShowDialogueSequence(dialogueSequence.dialogue);
             await m_View.PlayLinesAsync(dialogueSequence.dialogue);
             //m_View.SetDialogue();
         }
+        
     }
 }

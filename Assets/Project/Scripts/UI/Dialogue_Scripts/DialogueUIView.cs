@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Febucci.TextAnimatorCore.Typing;
+using Febucci.TextAnimatorForUnity;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UIElements;
 
 namespace RuntimeUI
@@ -11,7 +13,7 @@ namespace RuntimeUI
         const string PortraitQ = "dialogue-portrait-container";
         const string AnimatedTextQ = "animated-text";
         const string DialogueContainerQ = "dialogue-container";
-
+ 
         readonly VisualElement 
             m_Root, 
             m_DialoguePortraitContainer,
@@ -22,11 +24,16 @@ namespace RuntimeUI
         readonly AnimatedTextFieldElement m_AnimatedTextField;
         readonly TypewriterCore m_TypewriterCore;
 
-        bool m_IsSubscribed;
+
+        bool _isSubscribed;
+        int _dialogueIndex;
+        int _dialogueLength;
 
         readonly AwaitableCompletionSource m_LineShownCompletionSource = new AwaitableCompletionSource();
-
         public AnimatedTextFieldElement AnimatedTextField => m_AnimatedTextField;
+        
+        List<string> DialogueLines { get; set; }
+        
 
         public DialogueUIView(VisualElement root)
         {
@@ -40,16 +47,18 @@ namespace RuntimeUI
             
             m_TypewriterCore = m_AnimatedTextField.AnimatedLabel.Typewriter ?? throw new NullReferenceException(nameof(m_TypewriterCore));
 
+            m_TypewriterCore.OnTextShowed -= HandleTextShowed;
             m_TypewriterCore.OnTextShowed += HandleTextShowed;
-            m_IsSubscribed = true;
+            _isSubscribed = true;
+            
         }
 
         public void Dispose()
         {
-            if (m_IsSubscribed && m_TypewriterCore != null)
+            if (_isSubscribed && m_TypewriterCore != null)
             {
                 m_TypewriterCore.OnTextShowed -= HandleTextShowed;
-                m_IsSubscribed = false;
+                _isSubscribed = false;
             }
         }
 
@@ -58,22 +67,65 @@ namespace RuntimeUI
             m_LineShownCompletionSource.TrySetResult();
         }
 
+
+
+        public void ShowDialogueSequence(List<string> stringsList) {
+            if (stringsList == null)
+                throw new NullReferenceException(nameof(stringsList));
+            
+            _dialogueLength = stringsList.Count;
+            _dialogueIndex = 0;
+            DialogueLines = stringsList;
+            m_AnimatedTextField.Text = stringsList[_dialogueIndex];
+        }
+
+
+        public async Awaitable PlayLineAsync(string line) {
+            m_DialogueContainer.style.opacity = 1;
+
+            // We let UI Toolkit do a layout/repaint pass before we start the typewriter + audio.
+            await Awaitable.NextFrameAsync();
+            
+            m_TypewriterCore.SkipTypewriter();
+
+            m_LineShownCompletionSource.Reset();
+            m_AnimatedTextField.Text = line;
+            
+            // We resume outside UI Toolkit rendering and we start the next line at a frame start.
+            await Awaitable.NextFrameAsync();
+        }
         public async Awaitable PlayLinesAsync(IReadOnlyList<string> stringsList)
         {
             if (stringsList == null)
                 throw new ArgumentNullException(nameof(stringsList));
             
-            m_DialogueContainer.style.display = DisplayStyle.Flex;
+            m_DialogueContainer.style.opacity = 1;
+            
+            // We let UI Toolkit do a layout/repaint pass before we start the typewriter + audio.
+            //await Awaitable.NextFrameAsync();
+            m_LineShownCompletionSource.Reset();
             foreach (var line in stringsList)
             {
+                //m_TypewriterCore.SkipTypewriter();
+                m_TypewriterCore.StopShowingText();
+
                 m_LineShownCompletionSource.Reset();
-                m_AnimatedTextField.Text = line;
+                //m_AnimatedTextField.Text = line;
+                m_TypewriterCore.ShowText(line);
+                //m_TypewriterCore.StartShowingText();
+                
+                
                 await m_LineShownCompletionSource.Awaitable;
+                
+                // We resume outside UI Toolkit rendering and we start the next line at a frame start.
+                await Awaitable.NextFrameAsync();
+                m_TypewriterCore.StopShowingText();
             }
-            //todo replace w/ constant or something
-            await Awaitable.WaitForSecondsAsync(1.0f);
+
+            //await Awaitable.WaitForSecondsAsync(1.0f);
+            //await Awaitable.NextFrameAsync() ;
             
-            m_DialogueContainer.style.display = DisplayStyle.None;
+            m_DialogueContainer.style.opacity = 0;
         }
 
         public void SetPortraitAndVoice(Texture2D image, AudioClip voice)

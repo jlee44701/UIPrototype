@@ -429,14 +429,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: de44bc294a506264e919ecab85bf1747, type: 2}
   - {fileID: 11400000, guid: e11aa9c812b227e4389ada97429f998f, type: 2}
   - {fileID: 11400000, guid: 7db361bd8322fc1419b74082169c6cdb, type: 2}
-  _pitch:
-    pitch: 1.99
+  _pitchVariation: 1
   _repetition:
-    minRepetitionFrequency: 0.09
+    _minRepetitionFrequency: 0.09
   _randomization:
-    noRepeating: 1
+    _noRepeating: 1
   _distortion:
-    muffled: 0
+    _muffled: 0
   _typingVolume: 0.15
   _footerButtonAsset: {fileID: 9197481963319205126, guid: 7e457573c6ac32348aeb1f78822142bf, type: 3}
   _terminalTypingSound: {fileID: 8300000, guid: bf001f14a4d81c4428088c562dada249, type: 3}

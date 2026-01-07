@@ -422,14 +422,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f6d0174e215fa49acb69624a2a37cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RuntimeUI.LecternUISetup
-  m_Document: {fileID: 1468293569112333546}
-  m_ViewData:
+  _document: {fileID: 1468293569112333546}
+  _viewData:
   - {fileID: 11400000, guid: 721cab8018ae8b140b55b23db5802ccb, type: 2}
   - {fileID: 11400000, guid: 0788bbcc438defa4895df342a5d471d8, type: 2}
   - {fileID: 11400000, guid: de44bc294a506264e919ecab85bf1747, type: 2}
   - {fileID: 11400000, guid: e11aa9c812b227e4389ada97429f998f, type: 2}
   - {fileID: 11400000, guid: 7db361bd8322fc1419b74082169c6cdb, type: 2}
-  footerButtonAsset: {fileID: 9197481963319205126, guid: 7e457573c6ac32348aeb1f78822142bf, type: 3}
+  _pitchVariation: 1
+  _repetition:
+    _minRepetitionFrequency: 0.08
+  _randomization:
+    _noRepeating: 0
+  _distortion:
+    _muffled: 0
+  _typingVolume: 0.025
+  _footerButtonAsset: {fileID: 9197481963319205126, guid: 7e457573c6ac32348aeb1f78822142bf, type: 3}
+  _terminalTypingSound: {fileID: 8300000, guid: bf001f14a4d81c4428088c562dada249, type: 3}
+  _bgm: {fileID: 0}
 --- !u!114 &1468293569112333546
 MonoBehaviour:
   m_ObjectHideFlags: 0

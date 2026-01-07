@@ -3,6 +3,7 @@ using Game;
 using PixelCrushers.DialogueSystem;
 using UIEvents;
 using UnityEngine;
+using VInspector;
 
 namespace RuntimeUI.Story.Dialogue {
     [CreateAssetMenu(fileName = "DialogueSO",
@@ -12,7 +13,7 @@ namespace RuntimeUI.Story.Dialogue {
         public List<string> dialogue;
         public CharacterSO  character;
         
-        [ContextMenu("Raise event")]
+        [Button("Raise")]
         public void RaiseEvent() {
             DialogueEvents.DialogueSent?.Invoke(this);
         }

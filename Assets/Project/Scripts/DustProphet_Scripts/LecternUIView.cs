@@ -20,7 +20,7 @@ namespace RuntimeUI {
         LecternViewSO[] m_ViewData;
 
         protected Coroutine m_DisplayRoutine;
-        
+
         const string
             HeaderQ = Names.LecternHeaderContainer,
             StatusBarQ = Names.LeftBayStatusBarContainer,
@@ -29,7 +29,7 @@ namespace RuntimeUI {
             RightBayQ = Names.RightBayContainer,
             FooterQ = Names.LecternButtonContainer,
             AnimatedStatusQ = "status-text-field";
-        
+
         readonly VisualElement
             m_Root,
             m_HeaderContainer,
@@ -38,11 +38,11 @@ namespace RuntimeUI {
             m_ViewportContainer,
             m_RightBayContainer, // placeholder
             m_FooterContainer;
-        readonly AnimatedTextFieldElement 
+        readonly AnimatedTextFieldElement
             m_AnimatedStatusLabel;
 
         public AnimatedTextFieldElement AnimatedTextField => m_AnimatedStatusLabel;
- 
+
         NavigationBar m_NavigationBar;
 
         public NavigationBar NavigationBar => m_NavigationBar;
@@ -86,13 +86,13 @@ namespace RuntimeUI {
                                     ?? throw new NullReferenceException(
                                         nameof(m_AnimatedStatusLabel));
         }
- 
+
         public void Initialize() {
 
             HideImmediately();
             m_EventRegistry = new EventRegistry();
             // m_EventRegistry.RegisterCallback<TransitionEndEvent>(m_RootElement, ParentElement_TransitionEnd);
-            
+
             // //todo replace with static strings
             // m_DrillingView = new DrillingView(root.Q<VisualElement>("drilling__container"));
 
@@ -117,7 +117,7 @@ namespace RuntimeUI {
         }
 
         public void DisplayStatusText(string text) {
-            
+
             m_AnimatedStatusLabel.Text = text;
         }
 
@@ -128,7 +128,7 @@ namespace RuntimeUI {
         }
 
         public void SetupHeader() {
-            
+
         }
         public void SetupFooter(int numberOfButtons, VisualTreeAsset footerAsset) {
 
@@ -184,7 +184,7 @@ namespace RuntimeUI {
                 }
             }
         }
-        
+
 
         // 
         // Shows a UIScreen with the keepInHistory always enabled
@@ -193,7 +193,7 @@ namespace RuntimeUI {
         }
         public IEnumerator ShowRootWithDelay(float delayInSecs) {
             yield return new WaitForSeconds(delayInSecs);
-            
+
             m_Root.style.display = DisplayStyle.Flex;
 
             // // if (m_UseTransition)
@@ -208,11 +208,11 @@ namespace RuntimeUI {
             Coroutines.StopCoroutine(ref m_DisplayRoutine);
             m_DisplayRoutine = Coroutines.StartCoroutine(ShowRootWithDelay(0.1f));
         }
-        
-        
+
+
 
         private void ButtonClickHandler(int index, ClickEvent evt) {
-            DustProphet.FooterButtonClicked?.Invoke(index);
+            DustProphet.FooterButtonClicked?.Invoke(index);                 
         }
         private void MouseEnterHandler(MouseEnterEvent evt) {
             Button hoverOverButton = evt.target as Button;
@@ -232,8 +232,7 @@ namespace RuntimeUI {
         void MouseLeaveHandler(MouseLeaveEvent evt) {
             Button buttonLeave = evt.target as Button;
         }
-        public void HideImmediately()
-        {
+        public void HideImmediately() {
             m_Root.style.display = DisplayStyle.None;
         }
     }

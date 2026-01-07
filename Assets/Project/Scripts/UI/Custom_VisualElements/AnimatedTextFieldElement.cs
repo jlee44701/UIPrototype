@@ -18,13 +18,16 @@ namespace RuntimeUI
         TypingsTimingsScriptableBase m_DefaultTimings;
         TypingsTimingsScriptableBase m_TimingsOverride;
         string m_Text;
-        
+
+        bool m_IsAttachedToPanel;
+
         public float TypingVolume { get; set; }
-        
+
         public AudioParams.Distortion Distortion { get; set; }
-        public AudioParams.Pitch Pitch { get; set; }
+        AudioParams.Pitch m_Pitch = new AudioParams.Pitch(1);
         public AudioParams.Randomization Randomization { get; set; }
         public AudioParams.Repetition Repetition { get; set; }
+        public AudioParams.Pitch.Variation PitchVariation { get; set; }
 
         [UxmlAttribute("text")]
         public string Text
@@ -33,7 +36,8 @@ namespace RuntimeUI
             set
             {
                 m_Text = value;
-                TryPlayTypewriter();
+                if (m_IsAttachedToPanel)
+                    TryPlayTypewriter();
             }
         }
 
@@ -46,23 +50,25 @@ namespace RuntimeUI
 
         public AnimatedLabel AnimatedLabel => m_AnimatedLabel;
 
+        public void SetAudioParams(
+            AudioParams.Pitch.Variation pitchVariation,
+            AudioParams.Randomization randomization,
+            AudioParams.Repetition repetition,
+            AudioParams.Distortion distortion,
+            float typingVolume)
+        {
+            PitchVariation = pitchVariation;
+            Randomization = randomization;
+            Repetition = repetition;
+            Distortion = distortion;
+            TypingVolume = typingVolume;
+        }
+
+        // MUST be public for UxmlElement instantiation.
         public AnimatedTextFieldElement()
         {
-            RegisterCallback<AttachToPanelEvent>(_ =>
-            {
-                EnsureInitialized();
-                TryPlayTypewriter();
-
-            });
-
-
-            RegisterCallback<DetachFromPanelEvent>(_ =>
-            {
-                if (m_AnimatedLabel == null)
-                    return;
-
-                m_AnimatedLabel.Typewriter.OnCharacterVisible -= CharacterVisible;
-            });
+            RegisterCallback<AttachToPanelEvent>(OnAttachToPanel);
+            RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
         }
 
         public AnimatedTextFieldElement(TypingsTimingsScriptableBase timingsTimings) : this()
@@ -70,16 +76,28 @@ namespace RuntimeUI
             SetTimings(timingsTimings, restartIfTextAlreadySet: false);
         }
 
-        void EnsureInitialized()
+        void OnAttachToPanel(AttachToPanelEvent attachToPanelEvent)
         {
+            m_IsAttachedToPanel = true;
+
             EnsureAnimatedLabelExists();
+            EnsureTypewriterCallbackHooked();
+            EnsureTimingsAssigned();
+            TryPlayTypewriter();
+        }
+
+        void OnDetachFromPanel(DetachFromPanelEvent detachFromPanelEvent)
+        {
+            m_IsAttachedToPanel = false;
+
             if (m_AnimatedLabel == null)
                 return;
 
-            m_AnimatedLabel.Typewriter.OnCharacterVisible -= CharacterVisible;
-            m_AnimatedLabel.Typewriter.OnCharacterVisible += CharacterVisible;
-   
-            EnsureTimingsAssigned();
+            var typewriter = m_AnimatedLabel.Typewriter;
+            if (typewriter == null)
+                return;
+
+            typewriter.OnCharacterVisible -= CharacterVisible;
         }
 
         void EnsureAnimatedLabelExists()
@@ -87,27 +105,46 @@ namespace RuntimeUI
             if (m_AnimatedLabel != null)
                 return;
 
-            m_AnimatedLabel = this.Q<AnimatedLabel>();
+            // Prefer a named lookup, then fallback to first match.
+            m_AnimatedLabel = this.Q<AnimatedLabel>(AnimatedLabelElementName) ?? this.Q<AnimatedLabel>();
 
             if (m_AnimatedLabel != null)
                 return;
 
-            m_AnimatedLabel = new AnimatedLabel { name = AnimatedLabelElementName };
+            m_AnimatedLabel = new AnimatedLabel
+            {
+                name = AnimatedLabelElementName
+            };
+
             hierarchy.Add(m_AnimatedLabel);
+        }
+
+        void EnsureTypewriterCallbackHooked()
+        {
+            if (m_AnimatedLabel == null)
+                return;
+
+            var typewriter = m_AnimatedLabel.Typewriter;
+            if (typewriter == null)
+                return;
+
+            typewriter.OnCharacterVisible -= CharacterVisible;
+            typewriter.OnCharacterVisible += CharacterVisible;
         }
 
         public void SetTimings(TypingsTimingsScriptableBase timingsTimings, bool restartIfTextAlreadySet = true)
         {
             m_TimingsOverride = timingsTimings;
 
-            EnsureInitialized();
-
-            if (restartIfTextAlreadySet)
+            if (restartIfTextAlreadySet && m_IsAttachedToPanel)
                 TryPlayTypewriter();
         }
 
         void EnsureTimingsAssigned()
         {
+            if (m_AnimatedLabel == null)
+                return;
+
             var timingsToUse = m_TimingsOverride;
 
             if (!timingsToUse)
@@ -118,11 +155,14 @@ namespace RuntimeUI
                 timingsToUse = m_DefaultTimings;
             }
 
-            if (!timingsToUse || m_AnimatedLabel == null)
+            if (!timingsToUse)
                 return;
 
             TryAssignFirstTimingsSlot(m_AnimatedLabel, timingsToUse);
-            TryAssignFirstTimingsSlot(m_AnimatedLabel.Typewriter, timingsToUse);
+
+            var typewriter = m_AnimatedLabel.Typewriter;
+            if (typewriter != null)
+                TryAssignFirstTimingsSlot(typewriter, timingsToUse);
         }
 
         void CharacterVisible(CharacterData data)
@@ -141,16 +181,16 @@ namespace RuntimeUI
             if (!audioManager) return;
 
             audioManager.PlaySfx2D(
-                m_TypeWriterSound, 
-                Vector3.zero, 
-                Pitch, 
-                Repetition, 
-                Randomization, 
-                Distortion, 
+                m_TypeWriterSound,
+                Vector3.zero,
+                m_Pitch.Vary(PitchVariation),
+                Repetition,
+                Randomization,
+                Distortion,
                 false,
-                300, 
+                300,
                 TypingVolume,
-              0);
+                0);
         }
 
         static void TryAssignFirstTimingsSlot(object targetObject, TypingsTimingsScriptableBase timingsAsset)
@@ -188,20 +228,22 @@ namespace RuntimeUI
                 return;
             }
         }
-
         void TryPlayTypewriter()
         {
-            if (!Application.isPlaying)
-                return;
-
             if (m_AnimatedLabel == null)
                 return;
 
-            if (string.IsNullOrEmpty(m_Text))
+            var textToShow = m_Text ?? string.Empty;
+
+            //EnsureTimingsAssigned();
+
+            var typewriter = m_AnimatedLabel.Typewriter;
+            if (typewriter == null)
                 return;
 
-            m_AnimatedLabel.Typewriter.ShowText(m_Text);
-            m_AnimatedLabel.Typewriter.StartShowingText(true);
+            typewriter.ShowText(textToShow);
+            //typewriter.StartShowingText(true);
         }
+
     }
 }

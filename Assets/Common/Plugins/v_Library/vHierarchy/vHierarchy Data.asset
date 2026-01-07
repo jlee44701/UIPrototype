@@ -54,20 +54,21 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-1-d6a5698b88fbbbc4689cf3b6aba13c1b-5640950017261899060-0
         - globalObjectIdString: GlobalObjectId_V1-1-d6a5698b88fbbbc4689cf3b6aba13c1b-5609759517640242988-0
         - globalObjectIdString: GlobalObjectId_V1-1-d6a5698b88fbbbc4689cf3b6aba13c1b-2614552780221244336-0
+        - globalObjectIdString: GlobalObjectId_V1-1-d6a5698b88fbbbc4689cf3b6aba13c1b-3122066930650610935-0
         values:
         - colorIndex: 2
-          iconNameOrGuid: 
+          iconNameOrGuid: Settings Icon
           isIconRecursive: 0
           isColorRecursive: 0
-        - colorIndex: 2
+        - colorIndex: 0
           iconNameOrGuid: GUIText Icon
           isIconRecursive: 0
-          isColorRecursive: 0
+          isColorRecursive: 1
         - colorIndex: 0
           iconNameOrGuid: AudioSource Icon
           isIconRecursive: 0
           isColorRecursive: 0
-        - colorIndex: 0
+        - colorIndex: 3
           iconNameOrGuid: AudioSource Icon
           isIconRecursive: 0
           isColorRecursive: 1
@@ -75,5 +76,9 @@ MonoBehaviour:
           iconNameOrGuid: AudioSource Icon
           isIconRecursive: 0
           isColorRecursive: 0
+        - colorIndex: 7
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 1
   bookmarks: []
   bookmarkedScenePaths: []

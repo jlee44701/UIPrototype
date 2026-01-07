@@ -155,6 +155,15 @@ MonoBehaviour:
       isFolder: 1
       isAsset: 0
       _id: 1060644071
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-9b5dd7cfda4fe914db10ca52e9e02682-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 9b5dd7cfda4fe914db10ca52e9e02682, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1059818467
     name: DIALOGUE
     _id: 1063519238
   - items:

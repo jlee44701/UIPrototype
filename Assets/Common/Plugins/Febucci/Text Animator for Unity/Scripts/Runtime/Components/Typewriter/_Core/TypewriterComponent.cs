@@ -15,8 +15,7 @@ using Febucci.TextAnimatorForUnity.Actions;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Febucci.TextAnimatorForUnity
-{
+namespace Febucci.TextAnimatorForUnity {
     /// <summary>
     /// Base class for all Typewriters. <br/>
     /// - Manual: <see href="https://www.febucci.com/text-animator-unity/docs/typewriters/">Typewriters</see>.<br/>
@@ -28,16 +27,13 @@ namespace Febucci.TextAnimatorForUnity
     /// Manual: <see href="https://www.febucci.com/text-animator-unity/docs/writing-custom-typewriters-c-sharp/">Writing Custom Typewriters (C#)</see>
     /// </remarks>
     [DisallowMultipleComponent]
-    public class TypewriterComponent : MonoBehaviour, ITypewriterProvider, ISettingsProvider<TypewriterSettings>, IDatabaseProvider<ITypewriterAction>
-    {
+    public class TypewriterComponent : MonoBehaviour, ITypewriterProvider, ISettingsProvider<TypewriterSettings>, IDatabaseProvider<ITypewriterAction> {
         internal ITextAnimatorProvider textAnimatorProvider;
 
         [SerializeField] TypingsTimingsScriptableBase timingsScriptableBase;
         TypewriterCore _wrapper;
-        TypewriterCore Wrapper
-        {
-            get
-            {
+        TypewriterCore Wrapper {
+            get {
                 InitializeOnce();
                 return _wrapper;
             }
@@ -50,23 +46,20 @@ namespace Febucci.TextAnimatorForUnity
         /// </summary>
         public Dictionary<string, ITypewriterAction> Database { get; private set; }
 
-        void Awake()
-        {
+        void Awake() {
             InitializeOnce();
         }
 
         [SerializeField] public UnityTypewriterSettings localSettings;
         [SerializeField] public TypewriterSettingsScriptable sharedSettings;
 
-        TypewriterSettings ISettingsProvider<TypewriterSettings>.Settings
-        {
+        TypewriterSettings ISettingsProvider<TypewriterSettings>.Settings {
             get => sharedSettings != null ? sharedSettings.Settings : localSettings;
         }
 
         bool initialized = false;
-        void InitializeOnce()
-        {
-            if(initialized) return;
+        void InitializeOnce() {
+            if (initialized) return;
 
             if (textAnimatorProvider == null && !TryGetComponent(out textAnimatorProvider))
                 return;
@@ -81,12 +74,11 @@ namespace Febucci.TextAnimatorForUnity
             textAnimatorProvider.TryInitializingOnce();
             var animator = textAnimatorProvider.TextAnimator;
 
-            _wrapper = new TypewriterCore(animator,this,
+            _wrapper = new TypewriterCore(animator, this,
                 timingsScriptableBase,
                 TextAnimatorSettings.Instance,
                 this,
-                new IDatabaseProvider<ITypewriterAction>[]
-                {
+                new IDatabaseProvider<ITypewriterAction>[] {
                     this, // local actions have a priority
                     GlobalActionComponentsDatabase.Instance, // monobehaviors later
                     actionsDatabase, //finally - stateless ones
@@ -107,9 +99,8 @@ namespace Febucci.TextAnimatorForUnity
             initialized = true;
         }
 
-        internal void AssignAnimator(ITextAnimatorProvider animator, ActionDatabase actionsDatabase, TypingsTimingsScriptableBase timingsScriptableBase)
-        {
-            if(textAnimatorProvider == animator) return;
+        internal void AssignAnimator(ITextAnimatorProvider animator, ActionDatabase actionsDatabase, TypingsTimingsScriptableBase timingsScriptableBase) {
+            if (textAnimatorProvider == animator) return;
 
             this.actionsDatabase = actionsDatabase;
             textAnimatorProvider = animator;
@@ -127,15 +118,12 @@ namespace Febucci.TextAnimatorForUnity
         /// <summary>
         /// The TextAnimator Component linked to this typewriter
         /// </summary>
-        public TextAnimatorComponentBase TextAnimator
-        {
-            get
-            {
+        public TextAnimatorComponentBase TextAnimator {
+            get {
                 if (_textAnimator != null)
                     return _textAnimator;
 
-                if(!TryGetComponent(out _textAnimator))
-                {
+                if (!TryGetComponent(out _textAnimator)) {
                     Debug.LogError($"TextAnimator: Text Animator component is null on GameObject {gameObject.name}. Please add a component that inherits from TAnimCore");
                 }
 
@@ -166,6 +154,7 @@ namespace Febucci.TextAnimatorForUnity
 
         [System.Obsolete("Please access localSettings or the referenced scriptable instead")]
         public bool hideDisappearancesOnSkip => localSettings.hideDisappearancesOnSkip;
+
         #endregion
 
 
@@ -183,7 +172,6 @@ namespace Febucci.TextAnimatorForUnity
         /// </remarks>
         [Tooltip(
             "True if you want to wait for every single character appearance to finish before triggering 'onTextShowed'. Default to false, as effects are usually fast enough and make the letters visible, and users are able to read them instantly.")]
-
         [System.Obsolete("Please access localSettings or the referenced scriptable instead")]
         public bool triggerShowedAfterEffectsEnd => localSettings.triggerDisappearedAfterEffectsEnd;
 
@@ -195,14 +183,13 @@ namespace Febucci.TextAnimatorForUnity
         /// Usually users don't want to wait for the very last letter(s), similar to punctuation. That said, this option might come useful in cases like you have very slow letters.
         /// </remarks>
         [Tooltip("True if you want to wait for every single character disappearance to finish before triggering 'onTextDisappeared'. Default to false, as effects are usually fast enough")]
-
-
         [System.Obsolete("Please access localSettings or the referenced scriptable instead")]
         public bool triggerDisappearedAfterEffectsEnd => localSettings.triggerDisappearedAfterEffectsEnd;
 
         #endregion
 
         #region Events
+
         /// <summary>
         /// Called once the text is completely shown. <br/>
         /// If the typewriter is enabled, this event is called once it has ended showing all letters.
@@ -251,10 +238,10 @@ namespace Febucci.TextAnimatorForUnity
         /// It is only invoked when the typewriter is enabled.
         /// </remarks>
         public MessageEvent onMessage = new MessageEvent();
+
         #endregion
 
         #region Public Methods
-
 
         /// <inheritdoc cref="ITypewriterProvider.ShowText"/>
         public void ShowText(string text) => Wrapper.ShowText(text);
@@ -268,7 +255,6 @@ namespace Febucci.TextAnimatorForUnity
 
         #region Appearing
 
-
         /// <inheritdoc cref="ITypewriterProvider.IsShowingText"/>
         public bool IsShowingText => Wrapper.IsShowingText;
 
@@ -278,8 +264,7 @@ namespace Febucci.TextAnimatorForUnity
         public void StartShowingText() => StartShowingText(false);
 
         /// <inheritdoc cref="ITypewriterProvider.StartShowingText"/>
-        public void StartShowingText(bool restart)
-        {
+        public void StartShowingText(bool restart) {
 #if UNITY_EDITOR
             if (!Application.isPlaying) //prevents from firing in edit mode from the context menu
                 return;
@@ -289,8 +274,7 @@ namespace Febucci.TextAnimatorForUnity
 
         /// <inheritdoc cref="ITypewriterProvider.StopShowingText"/>
         [ContextMenu("Stop Showing Text")]
-        public void StopShowingText()
-        {
+        public void StopShowingText() {
 #if UNITY_EDITOR
             if (!Application.isPlaying) //prevents from firing in edit mode from the context menu
                 return;
@@ -309,10 +293,9 @@ namespace Febucci.TextAnimatorForUnity
 
         /// <inheritdoc cref="ITypewriterProvider.StartDisappearingText"/>
         [ContextMenu("Start Disappearing Text")]
-        public void StartDisappearingText()
-        {
+        public void StartDisappearingText() {
             #if UNITY_EDITOR
-            if(!Application.isPlaying)
+            if (!Application.isPlaying)
                 return;
             #endif
 
@@ -325,10 +308,9 @@ namespace Febucci.TextAnimatorForUnity
 
         /// <inheritdoc cref="ITypewriterProvider.StopDisappearingText"/>
         [ContextMenu("Stop Disappearing Text")]
-        public void StopDisappearingText()
-        {
+        public void StopDisappearingText() {
             #if UNITY_EDITOR
-            if(!Application.isPlaying)
+            if (!Application.isPlaying)
                 return;
             #endif
 
@@ -352,6 +334,7 @@ namespace Febucci.TextAnimatorForUnity
 
         /// <inheritdoc cref="ITypewriterProvider.TriggerVisibleEvents"/>
         public void TriggerVisibleEvents() => Wrapper.TriggerVisibleEvents();
+
         #endregion
 
 
@@ -415,9 +398,8 @@ namespace Febucci.TextAnimatorForUnity
         /// <remarks>
         /// P.S. If you're overriding this method, don't forget to invoke the base one.
         /// </remarks>
-        protected virtual void OnEnable()
-        {
-            if(!initialized) return;
+        protected virtual void OnEnable() {
+            if (!initialized) return;
 
             if (!localSettings.useTypeWriter)
                 return;
@@ -435,8 +417,7 @@ namespace Febucci.TextAnimatorForUnity
         /// <remarks>
         /// P.S. If you're overriding this method, don't forget to invoke the base one.
         /// </remarks>
-        protected virtual void OnDisable()
-        {
+        protected virtual void OnDisable() {
             // for backwards compatibility
         }
 
@@ -447,8 +428,7 @@ namespace Febucci.TextAnimatorForUnity
         /// <remarks>
         /// P.S. If you're overriding this method, don't forget to invoke the base one.
         /// </remarks>
-        protected virtual void OnDestroy()
-        {
+        protected virtual void OnDestroy() {
             _wrapper?.Dispose();
             initialized = false;
         }

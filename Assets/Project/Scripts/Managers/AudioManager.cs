@@ -61,7 +61,7 @@
         {
             if (repetition != null)
             {
-                if (RepetitionIsTooFrequent(clip, repetition.minRepetitionFrequency)) {
+                if (RepetitionIsTooFrequent(clip, repetition._minRepetitionFrequency)) {
                     return;
                 }
             }
@@ -72,7 +72,7 @@
             //     randomVariationId = GetRandomVariationOfSound(soundId, randomization.noRepeating);
             // }
             
-            Play(clip, position, volume, 0, pitch.pitch, false, distortion.muffled, muffledCutoffFreq);
+            Play(clip, position, volume, 0, pitch._pitch, false, distortion._muffled, muffledCutoffFreq);
         }
         void Play(
             AudioClip clip,
@@ -183,7 +183,7 @@
         public void PlaySfx2DAtPoint(AudioClip clip, Vector3 position, float volume = 1f, float skipToTime = 0, AudioParams.Pitch pitch = null, AudioParams.Repetition repetition = null, AudioParams.Randomization randomization = null, AudioParams.Distortion distortion = null, bool looping = false) {
             if (repetition != null)
             {
-                if (RepetitionIsTooFrequent(clip, repetition.minRepetitionFrequency)) {
+                if (RepetitionIsTooFrequent(clip, repetition._minRepetitionFrequency)) {
                     return;
                 }
             }
@@ -202,12 +202,12 @@
                 
                 if (pitch != null)
                 {
-                    m_SFXAudioSource.pitch = pitch.pitch;
+                    m_SFXAudioSource.pitch = pitch._pitch;
                 }
 
                 if (distortion != null)
                 {
-                    if (distortion.muffled)
+                    if (distortion._muffled)
                     {
                         //MuffleSource(source);
                     }
