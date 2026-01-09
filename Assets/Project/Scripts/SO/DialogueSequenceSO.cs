@@ -5,7 +5,7 @@ using UIEvents;
 using UnityEngine;
 using VInspector;
 
-namespace RuntimeUI.Story.Dialogue {
+namespace Game.UI.Story.Dialogue {
     [CreateAssetMenu(fileName = "DialogueSO",
         menuName = "Dialogue/DialogueSequence")]
     public class DialogueSequenceSO : ScriptableObject {

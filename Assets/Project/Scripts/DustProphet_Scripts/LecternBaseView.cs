@@ -4,7 +4,7 @@ using PixelEngine;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RuntimeUI {
+namespace Game.UI {
     public abstract class LecternBaseView {
         
         //todo replace with statics

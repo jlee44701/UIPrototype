@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// A generic empty state. Pass onExecute action into Constructor to run once when entering the state

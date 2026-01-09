@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// This component marks temporary objects in the scene that can be destroyed when

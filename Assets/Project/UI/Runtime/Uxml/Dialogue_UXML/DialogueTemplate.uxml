@@ -2,7 +2,6 @@
     <Style src="project://database/Assets/Project/UI/Runtime/Uss/Dialogue_USS/Dialogue.uss?fileID=7433441132597879392&amp;guid=88bb56a28c9e110488b7935281bce44b&amp;type=3#Dialogue"/>
     <ui:VisualElement name="dialogue-container" class="dialogue__container">
         <ui:VisualElement name="dialogue-portrait-container" class="dialogue__portrait"/>
-        <Game.UI.AnimatedTextFieldElement name="animated-text"  class="dialogue__animated-text"/>
-    </ui:VisualElement>
-   
+        <Febucci.TextAnimatorForUnity.AnimatedLabel name="animated-label" typewriter-sound="project://database/Assets/Project/Audio/cheryl_voice.wav" class="dialogue__animated-text"/>
+    </ui:VisualElement> 
 </ui:UXML>

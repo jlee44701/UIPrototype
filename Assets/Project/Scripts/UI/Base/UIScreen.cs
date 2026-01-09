@@ -1,11 +1,11 @@
     using System;
     using System.Collections;
     using PixelEngine;
-    using RuntimeUI;
+    using Game.UI;
     using UnityEngine;
     using UnityEngine.UIElements;
 
-    namespace RuntimeUI {
+    namespace Game.UI {
         public abstract class UIScreen {
             public const string k_VisibleClass = "screen-visible";
             public const string k_HiddenClass = "screen-hidden";

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// An interface for transition links that connect states of an state machine together

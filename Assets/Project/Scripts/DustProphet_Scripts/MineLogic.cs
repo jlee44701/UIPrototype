@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Game.Mine {
     public class MineLogic {
         DustProphetSO d;

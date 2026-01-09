@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Febucci.TextAnimatorCore.Typing;
 using Febucci.TextAnimatorForUnity;
+using UIEvents;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UIElements;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     public sealed class DialogueUIView : IDisposable
     {
@@ -49,6 +50,8 @@ namespace RuntimeUI
 
             m_TypewriterCore.OnTextShowed -= HandleTextShowed;
             m_TypewriterCore.OnTextShowed += HandleTextShowed;
+            m_TypewriterCore.OnTextShowed -= ShowNextDialogue;
+            m_TypewriterCore.OnTextShowed += ShowNextDialogue;
             _isSubscribed = true;
             
         }
@@ -60,13 +63,14 @@ namespace RuntimeUI
                 m_TypewriterCore.OnTextShowed -= HandleTextShowed;
                 _isSubscribed = false;
             }
+            if (m_TypewriterCore != null)
+                m_TypewriterCore.OnTextShowed -= ShowNextDialogue;
         }
 
         void HandleTextShowed()
         {
             m_LineShownCompletionSource.TrySetResult();
         }
-
 
 
         public void ShowDialogueSequence(List<string> stringsList) {
@@ -77,6 +81,15 @@ namespace RuntimeUI
             _dialogueIndex = 0;
             DialogueLines = stringsList;
             m_AnimatedTextField.Text = stringsList[_dialogueIndex];
+        }
+
+        void ShowNextDialogue() {
+            if (_dialogueIndex < _dialogueLength) {
+                m_AnimatedTextField.AnimatedLabel.Typewriter.ShowText(DialogueLines[_dialogueIndex++]);
+            }
+            else {
+                DialogueEvents.DialogueSequenceFinished?.Invoke();
+            }
         }
 
 
@@ -119,7 +132,7 @@ namespace RuntimeUI
                 
                 // We resume outside UI Toolkit rendering and we start the next line at a frame start.
                 await Awaitable.NextFrameAsync();
-                m_TypewriterCore.StopShowingText();
+                //m_TypewriterCore.StopShowingText();
             }
 
             //await Awaitable.WaitForSecondsAsync(1.0f);

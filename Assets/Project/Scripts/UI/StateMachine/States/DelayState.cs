@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// Delays the state-machine for the set amount. Pass in an Action<float> to run

@@ -2,7 +2,7 @@ using PixelEngine;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RuntimeUI {
+namespace Game.UI {
     [RequireComponent(typeof(UIDocument))]
     public class StartMenu : MonoBehaviour {
         protected UIDocument Doc;

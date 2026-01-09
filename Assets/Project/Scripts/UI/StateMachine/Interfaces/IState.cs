@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// An interface for the states of state machines

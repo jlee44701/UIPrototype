@@ -2,10 +2,10 @@
     using System.Collections.Generic;
     using Audio;
     using PixelEngine;
-    using RuntimeUI;
+    using Game.UI;
     using Settings;
     using UnityEngine;
-    using SettingsEvents = RuntimeUI.SettingsEvents;
+    using SettingsEvents = Game.UI.SettingsEvents;
 
     public class AudioManager : MonoBehaviour {
         public static AudioManager Instance => SingletonBehaviourHelper<AudioManager>.Instance;

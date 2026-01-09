@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// Public static delegates to manage level selection (note these are "events" in the conceptual sense

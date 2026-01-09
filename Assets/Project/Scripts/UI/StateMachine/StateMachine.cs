@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// A Generic state machine, adapted from the Runner template

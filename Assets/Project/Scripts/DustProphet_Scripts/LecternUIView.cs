@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Mine;
 using PixelEngine;
 using UIEvents;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Names = PixelEngine.UIStrings.Runtime.Uxml.DustApostle.Names;
 
-namespace RuntimeUI {
+namespace Game.UI {
     public class LecternUIView {
         UIDocument m_Document;
 
@@ -44,16 +45,18 @@ namespace RuntimeUI {
         public AnimatedTextFieldElement AnimatedTextField => m_AnimatedStatusLabel;
 
         NavigationBar m_NavigationBar;
+        VisualTreeAsset m_MiningStats;
 
         public NavigationBar NavigationBar => m_NavigationBar;
 
         // A list of all Views to show/hide
         List<LecternBaseView> m_Views = new List<LecternBaseView>();
-
+        
+        MiningStats _miningStats;
         public LecternBaseView CurrentView => m_CurrentView;
         public UIDocument Document => m_Document;
 
-        public LecternUIView(VisualElement parentElement, LecternViewSO[] data) {
+        public LecternUIView(VisualElement parentElement, LecternViewSO[] data, DustProphetSO dustProphetSo, VisualTreeAsset miningStatsAsset) {
 
             m_Root = parentElement
                      ?? throw new ArgumentNullException(nameof(parentElement));
@@ -85,6 +88,9 @@ namespace RuntimeUI {
             m_AnimatedStatusLabel = m_Root.Q<AnimatedTextFieldElement>(AnimatedStatusQ)
                                     ?? throw new NullReferenceException(
                                         nameof(m_AnimatedStatusLabel));
+            
+            
+            _miningStats = new MiningStats(m_RightBayContainer, miningStatsAsset, dustProphetSo);
         }
 
         public void Initialize() {

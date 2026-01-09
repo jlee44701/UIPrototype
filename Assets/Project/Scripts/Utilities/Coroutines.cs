@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     ///  The Coroutines class provides static methods for managing coroutines

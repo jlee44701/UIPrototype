@@ -1,7 +1,7 @@
 using System;
 using Audio;
+using Game.UI.Story.Dialogue;
 using PixelEngine;
-using RuntimeUI.Story.Dialogue;
 using UIEvents;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,35 +10,34 @@ using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using VInspector;
 
-namespace RuntimeUI {
+namespace Game.UI {
     [RequireComponent(typeof(UIDocument))]
     public class DialogueUISetup : MonoBehaviour {
         [FormerlySerializedAs("m_Doc")]
         [SerializeField] UIDocument _doc;
-        
+
         [Foldout("Audio Settings")]
         [SerializeField] AudioParams.Pitch.Variation _pitchVariation;
         [SerializeField] AudioParams.Repetition
             _repetition;
         [SerializeField] AudioParams.Randomization _randomization;
         [SerializeField] AudioParams.Distortion _distortion;
-        [Range(0,2)]
+        [Range(0, 2)]
         [SerializeField] float _typingVolume = 1f;
         [EndFoldout]
-        
         DialogueUIView _view;
         DialogueUIPresenter _presenter;
         EventRegistry _eventRegistry;
         VisualElement _root;
-[SerializeField]
-        public string message ="test clip";
-        public AudioClip testClip; 
+        [SerializeField]
+        public string message = "test clip";
+        public AudioClip testClip;
         void OnEnable() {
             ValidateRequired();
-            
+
             if (!_doc) _doc = GetComponent<UIDocument>();
             _root = _doc.rootVisualElement ?? throw new ArgumentNullException(nameof(_root));
-            
+
             _view ??= new DialogueUIView(_root);
             _view.AnimatedTextField.SetAudioParams(
                 _pitchVariation,
@@ -46,20 +45,21 @@ namespace RuntimeUI {
                 _repetition,
                 _distortion,
                 _typingVolume
-                );
-            
+            );
+
             _presenter ??= new DialogueUIPresenter(_view);
             _presenter.OnEnable();
             //TEST
             DialogueEvents.DialogueSent += Test;
-            
+
             return;
+
             void ValidateRequired() {
                 NullRefChecker.Validate(this);
                 if (!Coroutines.IsInitialized)
                     Coroutines.Initialize(this);
             }
-            
+
 
         }
         void OnDisable() {
@@ -67,11 +67,11 @@ namespace RuntimeUI {
             _view?.Dispose();
             _view = null;
             _presenter = null;
-            
+
             //TEST
             DialogueEvents.DialogueSent -= Test;
         }
-        
+
         void Test(DialogueSequenceSO d) {
             testClip = d.character.voice;
         }
@@ -79,13 +79,13 @@ namespace RuntimeUI {
         void ClearText() {
             _view.AnimatedTextField.AnimatedLabel.text = "";
         }
-[ContextMenu("run line single test")]
+        [ContextMenu("run line single test")]
         async void RunLine() {
             _view.SetPortraitAndVoice(null, testClip);
             await _view.PlayLineAsync(message);
         }
-        
 
-        
+
+
     }
 }

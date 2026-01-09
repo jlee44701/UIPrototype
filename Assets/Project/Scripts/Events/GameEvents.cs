@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// Public static delegates to manage gameplay (note these are "events" in the conceptual sense

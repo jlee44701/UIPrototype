@@ -1,8 +1,8 @@
-using RuntimeUI.Story.Dialogue;
+using Game.UI.Story.Dialogue;
 using UIEvents;
 using UnityEngine;
 
-namespace RuntimeUI {
+namespace Game.UI {
     public class DialogueUIPresenter {
         DialogueUIView m_View;
         public DialogueUIPresenter(DialogueUIView view) {
@@ -30,7 +30,8 @@ namespace RuntimeUI {
             var character = dialogueSequence.character;
             m_View.SetPortraitAndVoice(character.portrait, character.voice);
             //await m_View.PlayLinesAsync(dialogueSequence.dialogue);
-            //m_View.ShowDialogueSequence(dialogueSequence.dialogue);
+            
+            // m_View.ShowDialogueSequence(dialogueSequence.dialogue);
             await m_View.PlayLinesAsync(dialogueSequence.dialogue);
             //m_View.SetDialogue();
         }

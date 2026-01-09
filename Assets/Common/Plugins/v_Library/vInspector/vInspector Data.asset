@@ -34,3 +34,10 @@ MonoBehaviour:
     isAsset: 1
     _typeString: Febucci.TextAnimatorForUnity.TypingDelaysByCharacter, Febucci.TextAnimatorForUnity.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - _obj: {fileID: 11400000, guid: 1af237b0108e373479db143d4b7cfca3, type: 2}
+    globalId:
+      globalObjectIdString: GlobalObjectId_V1-3-1af237b0108e373479db143d4b7cfca3-11400000-0
+    isSceneGameObject: 0
+    isAsset: 1
+    _typeString: Obvious.Soap.FloatVariable, Obvious.Soap, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

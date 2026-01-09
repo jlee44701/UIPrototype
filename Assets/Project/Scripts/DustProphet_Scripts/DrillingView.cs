@@ -1,6 +1,6 @@
 using UnityEngine.UIElements;
 
-namespace RuntimeUI {
+namespace Game.UI {
     public class DrillingView : LecternBaseView {
 
 

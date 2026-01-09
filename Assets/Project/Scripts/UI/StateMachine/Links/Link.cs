@@ -1,4 +1,4 @@
-namespace RuntimeUI
+namespace Game.UI
 {
     /// <summary>
     /// A link that is always open for transition.

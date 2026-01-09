@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 
 
-namespace RuntimeUI
+namespace Game.UI
 {
     // Encapsulate the delegate in a class so we can later unregister the Action
     public class ActionWrapper

@@ -1,4 +1,4 @@
-using RuntimeUI;
+using Game.UI;
 using UIEvents;
 
 public class LecternUIPresenter 

@@ -5,7 +5,7 @@ using System.Reflection;
 using System;
 
 
-namespace RuntimeUI
+namespace Game.UI
 {
     // Use this to issue a LogError to the user when required Fields are not set in the Inspector.
     // This works only for SerializedFields and ignores any fields marked with the Optional attribute.

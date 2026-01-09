@@ -1,5 +1,6 @@
 using System;
 using Audio;
+using Game.Mine;
 using PixelEngine;
 using UIEvents;
 using UnityEngine;
@@ -8,12 +9,21 @@ using UnityEngine.UIElements;
 using VInspector;
 using Names = PixelEngine.UIStrings.Runtime.Uxml.DustApostle.Names;
 
-namespace RuntimeUI {
+namespace Game.UI {
     [RequireComponent(typeof(UIDocument))]
     public class LecternUISetup : MonoBehaviour {
         [SerializeField] UIDocument _document;
+        [Foldout("Assets")]
+        [SerializeField] DustProphetSO _dustProphetSo;
         [Header("Data")]
         [SerializeField] LecternViewSO[] _viewData;
+        [SerializeField] VisualTreeAsset _footerButtonAsset;
+        [SerializeField] VisualTreeAsset _miningStatsAsset;
+        [SerializeField] AudioClip _terminalTypingSound;
+        [FormerlySerializedAs("bgm")]
+        [SerializeField] AudioClip _bgm;
+        [EndFoldout]
+        
         
         [Foldout("Audio Settings")]
         [SerializeField] AudioParams.Pitch.Variation _pitchVariation;
@@ -25,12 +35,6 @@ namespace RuntimeUI {
         [SerializeField] float _typingVolume = 1f;
         
         [EndFoldout]
-        
-        [Header("Assets")]
-        [SerializeField] VisualTreeAsset _footerButtonAsset;
-        [SerializeField] AudioClip _terminalTypingSound;
-        [FormerlySerializedAs("bgm")]
-        [SerializeField] AudioClip _bgm;
         
         // Instance fields
         VisualElement _root;
@@ -59,7 +63,7 @@ namespace RuntimeUI {
             
             VisualElement root = _document.rootVisualElement.Q<VisualElement>(Names.LecternContainer) ?? throw new NullReferenceException(nameof(root));
             
-            _lecternUiView = new LecternUIView(root, _viewData);
+            _lecternUiView = new LecternUIView(root, _viewData, _dustProphetSo, _miningStatsAsset);
             _lecternUiView.Initialize();
             _lecternUiView.SetupFooter(_viewData.Length, _footerButtonAsset);
             _lecternUiView.RegisterCallbacks();
@@ -71,6 +75,7 @@ namespace RuntimeUI {
             
             _presenter.LecternUiView = _lecternUiView; 
             DustProphet.SetupComplete?.Invoke();
+            
             
             RegisterCallbacks();
             

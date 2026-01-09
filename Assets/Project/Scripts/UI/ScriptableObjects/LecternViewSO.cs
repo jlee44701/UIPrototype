@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RuntimeUI {
+namespace Game.UI {
     [CreateAssetMenu(fileName = "LecternViewSO",
             menuName = "Scriptable Objects/LecternView")]
     public class LecternViewSO : ScriptableObject {

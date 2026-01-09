@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RuntimeUI {
+namespace Game.UI {
     [System.Serializable]
     public class NavigationBar
     {
