@@ -1,0 +1,39 @@
+:root {
+    /* -------------------- FONT (global) -------------------- */
+    --font-default: url('project://database/Assets/Project/UI/Font/perfect_dos_vga_437/Perfect DOS VGA 437 SDF.asset');
+
+    /* Apply the font everywhere once (this property is inherited) */
+    -unity-font-definition: var(--font-default);
+    
+    --color-bg-dark: #242324;
+    --color-bg-light: #494A45;
+
+    --color-pink-midtone: #D565E2;
+    --color-pink-highlight: #FCC2FF;
+    --color-pink-dark: #5a3b6e;
+    --color-white: #ECECEC;
+        
+    
+    /* Spacing */
+    --space-edge-half: 8px;
+    --space-edge: 16px;
+    --space-edge-double: 32px;
+    --space-gap: 15px;
+    --space-gap-half: 6px;
+    --space-edge-adjusted: 10px;
+
+    /* Borders / shape */
+    --border-frame-thin: 4px;
+    --border-frame: 8px;
+    --border-header-divider: 2px;
+    --radius-frame: 6px;
+
+    /* Motion */
+    --duration-select: 0.1s;
+
+    /* Numeric / lengths */
+    --length-zero: 0px;
+    --basis-zero: var(--length-zero);
+    
+
+}

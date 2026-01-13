@@ -99,6 +99,42 @@ MonoBehaviour:
       isAsset: 0
       _id: 1064672612
     - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-02af922ff555bbe46a03accfaf98d0c3-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 02af922ff555bbe46a03accfaf98d0c3, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1043519281
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-8627557e05071ab458d34d9118c14f2b-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 8627557e05071ab458d34d9118c14f2b, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1038886578
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-207f51220c886104098a41501834fe85-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 207f51220c886104098a41501834fe85, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1063781652
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-60a06b06fa4c6c148893aeaa0b7674e7-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 60a06b06fa4c6c148893aeaa0b7674e7, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1051522929
+    - globalId:
         globalObjectIdString: GlobalObjectId_V1-1-5524f33d9eb0b6344b97ac31cbc79cf5-102900000-0
       _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -157,7 +193,34 @@ MonoBehaviour:
       _id: 1049436181
     name: DIALOGUE
     _id: 1064756090
-  - items: []
+  - items:
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-207f51220c886104098a41501834fe85-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 207f51220c886104098a41501834fe85, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1058472899
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-da6c4e02f1d4be149a60196a855d43b0-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: da6c4e02f1d4be149a60196a855d43b0, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1060426835
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-3fd733d0e2cf6a045a2ca76b593ca4ca-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 3fd733d0e2cf6a045a2ca76b593ca4ca, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1061763028
     name: Page 4
     _id: 1064679506
   - items: []

@@ -1,0 +1,51 @@
+/* ============================================================
+   GENERAL REUSABLE CLASSES (use these everywhere)
+   ============================================================ */
+
+.row { flex-direction: row; }
+.column { flex-direction: column; }
+
+
+.shrink-0 { flex-shrink: 0; }
+
+.edge-pad-x {
+    padding-left: var(--space-edge);
+    padding-right: var(--space-edge);
+}
+
+.edge-pad-x--adjusted {
+    padding-left: var(--space-edge-adjusted);
+    padding-right: var(--space-edge-adjusted);
+}
+
+.frame {
+    border-width: var(--border-frame);
+    border-radius: var(--radius-frame);
+
+}
+
+.frame--thin {
+    border-width: var(--border-frame-thin);
+    border-color: var(--color-pink-midtone);
+    border-radius: var(--radius-frame);
+}
+
+.divider-bottom {
+    border-bottom-width: var(--border-frame);
+    border-bottom-color: var(--color-pink-midtone);
+}
+
+
+.transition-select {
+    transition-property: scale, color, border-color;
+    transition-duration: var(--duration-select);
+}
+
+.-is-selected-pink {
+    border-color: var(--color-pink-highlight);
+    color: var(--color-pink-highlight);
+    scale: 1.01;
+    transition-timing-function: ease-in-bounce;
+}
+
+/* ease-in-bounce is a supported transition timing function keyword in UI Toolkit. :contentReference[oaicite:1]{index=1} */

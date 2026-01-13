@@ -1,0 +1,14 @@
+@import url("Tokens.uss");
+.button {
+    /*padding: var(space-3);*/
+    border-radius: var(--radius-frame);
+    background-color: var(--color-bg-dark);
+    border-color: var(--color-pink-midtone);
+    border-width: 1px;
+    color: var(--color-pink-midtone);
+}
+
+.button--primary {
+    background-color: var(--color-bg-dark);
+    color: var(--color-pink-midtone);
+}

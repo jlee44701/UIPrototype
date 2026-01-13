@@ -1,83 +1,78 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements"
-         xmlns:uie="UnityEditor.UIElements"
-         noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style
-        src="project://database/Assets/Project/UI/Runtime/Uss/DustApostle_USS/MiningStats.uss?fileID=7433441132597879392&amp;guid=b729026673466bc4a8dc470000ef8410&amp;type=3#MiningStats" />
-    <ui:VisualElement name="depth">
-        <ui:Label text="000" name="depth-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-    </ui:VisualElement>
-    
-    <ui:VisualElement name="pressure">
-        <ui:VisualElement name="pressure-bar-value-group">
-        <ui:Label text="000" name="pressure-bar-current-pressure"
-                  data-source="project://database/Assets/Project/Data/MineData/ViewModellData/PressureBarViewModel.asset?fileID=11400000&amp;guid=8dbac589c19679b449c7a03ead5de949&amp;type=2#PressureBarViewModel"
-                  data-source-path="Value">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-            <ui:VisualElement name="pressure-bar-background" class="pressure-bar__background" />
-            <ui:VisualElement name="pressure-bar-progress"
-                              data-source="project://database/Assets/Project/Data/MineData/ViewModellData/PressureBarViewModel.asset?fileID=11400000&amp;guid=8dbac589c19679b449c7a03ead5de949&amp;type=2#PressureBarViewModel"
-                              data-source-path="Value" class="pressure-bar__progress">
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/Runtime/Uss/DustApostle_USS/MiningStats.uss?fileID=7433441132597879392&amp;guid=b729026673466bc4a8dc470000ef8410&amp;type=3#MiningStats"/>
+    <Style src="project://database/Assets/Project/Scripts/UI_Scripts/Custom_VisualElements/radial-progress/RadialProgress.uss?fileID=7433441132597879392&amp;guid=c8940c11749f8c940a0ad085c3e2c30e&amp;type=3#RadialProgress"/>
+    <ui:VisualElement name="mine-container" data-source="project://database/Assets/Project/Data/MineData/DustProphetSO.asset?fileID=11400000&amp;guid=cec5a59115e67684da2d6e055f671909&amp;type=2#DustProphetSO">
+        <ui:VisualElement name="depth" data-source="" class="depth__container">
+            <ui:Label text="000" name="depth-label">
                 <Bindings>
-                    <ui:DataBinding property="style.width" data-source-path="Value" binding-mode="ToTarget" />
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
                 </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <Game.UI.Library.RadialProgress name="radial-progress" data-source="" data-source-path="" class="radial-progress"/>
+        <ui:VisualElement name="pressure" class="pressure__container">
+            <ui:VisualElement name="pressure-bar-value-group" class="pressure-bar__value-group">
+                <ui:Label text="000" name="pressure-bar-label" data-source="project://database/Assets/Project/Data/MineData/ViewModellData/PressureBarViewModel.asset?fileID=11400000&amp;guid=8dbac589c19679b449c7a03ead5de949&amp;type=2#PressureBarViewModel" data-source-path="Value" class="pressure-bar__label">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" source-to-ui-converters="HealthColor"/>
+                    </Bindings>
+                </ui:Label>
+                <ui:VisualElement name="pressure-bar-background" class="pressure-bar__background"/>
+                <ui:VisualElement name="pressure-bar-progress" data-source="project://database/Assets/Project/Data/MineData/ViewModellData/PressureBarViewModel.asset?fileID=11400000&amp;guid=8dbac589c19679b449c7a03ead5de949&amp;type=2#PressureBarViewModel" data-source-path="Value" class="pressure-bar__progress">
+                    <Bindings>
+                        <ui:DataBinding property="style.width" data-source-path="Value" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-    </ui:VisualElement>
-    
-    <ui:VisualElement name="heat" data-source="" data-source-path="">
-        <ui:Label text="000" name="heat-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-    </ui:VisualElement>
-    <ui:VisualElement name="vibration">
-        <ui:Label text="000" name="vibration-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-    </ui:VisualElement>
-    <ui:VisualElement name="yield-buffer">
-        <ui:Label text="000" name="yield-buffer-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-    </ui:VisualElement>
-    <ui:VisualElement name="layer-hardness">
-        <ui:Label text="000" name="layer-hardness-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-    </ui:VisualElement>
-    <ui:VisualElement name="pressure-center">
-        <ui:Label text="000" name="pressure-center-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-    </ui:VisualElement>
-    <ui:VisualElement name="pressure-half-width">
-        <ui:Label text="000" name="pressure-half-width-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-    </ui:VisualElement>
-    <ui:VisualElement name="time-in-optimal-band">
-        <ui:Label text="000" name="time-in-optimal-label">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
+        <ui:VisualElement name="heat" data-source="" data-source-path="" class="heat__container">
+            <ui:Label text="000" name="heat-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="vibration" class="vibration__container">
+            <ui:Label text="000" name="vibration-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="yield-buffer" class="yield-buffer__container">
+            <ui:Label text="000" name="yield-buffer-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="layer-hardness" class="layer-hardness__container">
+            <ui:Label text="000" name="layer-hardness-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="pressure-center" class="pressure-center__container">
+            <ui:Label text="000" name="pressure-center-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="pressure-half-width" class="pressure-half-width__container">
+            <ui:Label text="000" name="pressure-half-width-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="time-in-optimal-band" class="time-in-optimal__container">
+            <ui:Label text="000" name="time-in-optimal-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

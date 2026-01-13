@@ -1,0 +1,22 @@
+.pe-surface {
+    background-color: var(--pe-color-surface);
+    border-color: var(--pe-color-border);
+    border-width: 1px;
+    border-radius: var(--pe-radius-2);
+}
+
+.pe-text {
+    color: var(--pe-color-text);
+    font-size: var(--pe-font-size-2);
+}
+
+.pe-text--muted {
+    color: var(--pe-color-text-muted);
+}
+
+.pe-pad-2 { padding: var(--pe-space-2); }
+.pe-pad-3 { padding: var(--pe-space-3); }
+.pe-pad-4 { padding: var(--pe-space-4); }
+
+.pe-round-1 { border-radius: var(--pe-radius-1); }
+.pe-round-2 { border-radius: var(--pe-radius-2); }

@@ -10,7 +10,7 @@ public static class ConsoleClearShortcut
     private const string ShortcutIdentifier = "Cheryl/Clear Console";
 
     // Uses Unity's Shortcut system (shows up in Edit -> Shortcuts...)
-    [Shortcut(ShortcutIdentifier, KeyCode.C, ShortcutModifiers.Control | ShortcutModifiers.Shift)]
+    [Shortcut(ShortcutIdentifier, KeyCode.C, ShortcutModifiers.Control | ShortcutModifiers.Alt)]
     private static void ClearConsoleFromShortcut()
     {
         ClearConsoleLogs();

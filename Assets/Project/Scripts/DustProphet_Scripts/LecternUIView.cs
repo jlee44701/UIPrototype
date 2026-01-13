@@ -31,15 +31,15 @@ namespace Game.UI {
             FooterQ = Names.LecternButtonContainer,
             AnimatedStatusQ = "status-text-field";
 
-        readonly VisualElement
-            m_Root,
-            m_HeaderContainer,
-            m_StatusBarContainer,
-            m_TerminalContainer,
-            m_ViewportContainer,
-            m_RightBayContainer, // placeholder
-            m_FooterContainer;
-        readonly AnimatedTextFieldElement
+        VisualElement
+            _root,
+            _headerContainer,
+            _statusBarContainer,
+            _terminalContainer,
+            _viewportContainer,
+            _rightBayContainer, // placeholder
+            _footerContainer;
+        AnimatedTextFieldElement
             m_AnimatedStatusLabel;
 
         public AnimatedTextFieldElement AnimatedTextField => m_AnimatedStatusLabel;
@@ -58,39 +58,40 @@ namespace Game.UI {
 
         public LecternUIView(VisualElement parentElement, LecternViewSO[] data, DustProphetSO dustProphetSo, VisualTreeAsset miningStatsAsset) {
 
-            m_Root = parentElement
+            _root = parentElement
                      ?? throw new ArgumentNullException(nameof(parentElement));
-
             m_ViewData = data;
+            SetVisualElements();
+            _miningStats = new MiningStats(_rightBayContainer, miningStatsAsset, dustProphetSo);
 
-            m_HeaderContainer =
-                m_Root.Q<VisualElement>(HeaderQ)
-                ?? throw new NullReferenceException(nameof(m_HeaderContainer));
-            m_StatusBarContainer =
-                m_Root.Q<VisualElement>(StatusBarQ)
+        }
+
+        void SetVisualElements() {
+            _headerContainer =
+                _root.Q<VisualElement>(HeaderQ)
+                ?? throw new NullReferenceException(nameof(_headerContainer));
+            _statusBarContainer =
+                _root.Q<VisualElement>(StatusBarQ)
                 ?? throw new NullReferenceException(
-                    nameof(m_StatusBarContainer));
-            m_TerminalContainer =
-                m_Root.Q<VisualElement>(TerminalQ)
+                    nameof(_statusBarContainer));
+            _terminalContainer =
+                _root.Q<VisualElement>(TerminalQ)
                 ?? throw new NullReferenceException(
-                    nameof(m_TerminalContainer));
-            m_ViewportContainer =
-                m_Root.Q<VisualElement>(ViewportQ)
+                    nameof(_terminalContainer));
+            _viewportContainer =
+                _root.Q<VisualElement>(ViewportQ)
                 ?? throw new NullReferenceException(
-                    nameof(m_ViewportContainer));
-            m_RightBayContainer =
-                m_Root.Q<VisualElement>(RightBayQ)
+                    nameof(_viewportContainer));
+            _rightBayContainer =
+                _root.Q<VisualElement>(RightBayQ)
                 ?? throw new NullReferenceException(
-                    nameof(m_RightBayContainer));
-            m_FooterContainer =
-                m_Root.Q<VisualElement>(FooterQ)
-                ?? throw new NullReferenceException(nameof(m_FooterContainer));
-            m_AnimatedStatusLabel = m_Root.Q<AnimatedTextFieldElement>(AnimatedStatusQ)
+                    nameof(_rightBayContainer));
+            _footerContainer =
+                _root.Q<VisualElement>(FooterQ)
+                ?? throw new NullReferenceException(nameof(_footerContainer));
+            m_AnimatedStatusLabel = _root.Q<AnimatedTextFieldElement>(AnimatedStatusQ)
                                     ?? throw new NullReferenceException(
                                         nameof(m_AnimatedStatusLabel));
-            
-            
-            _miningStats = new MiningStats(m_RightBayContainer, miningStatsAsset, dustProphetSo);
         }
 
         public void Initialize() {
@@ -104,10 +105,6 @@ namespace Game.UI {
 
             RegisterViews();
             //HideScreens();
-        }
-
-        public void PaintViewportBackground() {
-            //m_ViewportContainer.
         }
 
         private void SubscribeToEvents() {
@@ -140,7 +137,7 @@ namespace Game.UI {
 
             m_NavigationBar = new NavigationBar();
             m_NavigationBar.Initialize(
-                m_Root,
+                _root,
                 numberOfButtons,
                 footerAsset,
                 FooterQ,
@@ -200,7 +197,7 @@ namespace Game.UI {
         public IEnumerator ShowRootWithDelay(float delayInSecs) {
             yield return new WaitForSeconds(delayInSecs);
 
-            m_Root.style.display = DisplayStyle.Flex;
+            _root.style.display = DisplayStyle.Flex;
 
             // // if (m_UseTransition)
             // // {
@@ -239,7 +236,7 @@ namespace Game.UI {
             Button buttonLeave = evt.target as Button;
         }
         public void HideImmediately() {
-            m_Root.style.display = DisplayStyle.None;
+            _root.style.display = DisplayStyle.None;
         }
     }
 }

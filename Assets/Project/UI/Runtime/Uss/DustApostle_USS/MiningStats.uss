@@ -1,8 +1,71 @@
-.root{
-        
+:root {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
 }
 
-.unity-label{
+.unity-label {
     font-size: 35px;
 }
 
+.bar-progress{
+    height: 10px;
+    border-radius: 10px;
+    border-color: white;
+    margin: 10px;
+}
+.bound-progress__label{
+    position: absolute;
+}
+
+.depth__container
+{
+    flex-grow: 1;
+}
+.pressure__container
+{
+    flex-grow: 2;
+}
+
+
+.bar__container{
+    flex-grow: 1;
+    height: 100px;
+}
+.pressure-bar__background,
+.pressure-bar__progress,
+.pressure-bar__value-group{
+
+}
+
+.pressure-bar__value-group{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.pressure-bar__label,
+.pressure-bar__background,
+.pressure-bar__progress{
+    flex-grow: 1;
+}
+.pressure-bar__background {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.pressure-bar__label{
+    position: relative;
+    height: 20%;
+    width: 30%;
+}
+
+
+.pressure-bar__progress {
+    position: relative;
+    background-color: blue;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.bar-element

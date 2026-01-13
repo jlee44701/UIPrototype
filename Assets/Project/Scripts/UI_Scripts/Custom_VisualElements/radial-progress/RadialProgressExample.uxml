@@ -1,0 +1,4 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/Scripts/UI_Scripts/Custom_VisualElements/radial-progress/RadialProgress.uss?fileID=7433441132597879392&amp;guid=c8940c11749f8c940a0ad085c3e2c30e&amp;type=3#RadialProgress"/>
+    <Game.UI.Library.RadialProgress progress="19.26" name="radial-progress"/>
+</ui:UXML>

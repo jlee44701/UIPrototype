@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd">
+
+    <!-- Assumes BarElement.uss sits next to this file. -->
+    <Style src="BarElement.uss" />
+
+    <ui:VisualElement name="bar-element" class="bar__container">
+        <ui:VisualElement name="bar-value-group" class="bar__value-group">
+            <ui:VisualElement name="bar-background" class="bar__background" />
+            <ui:VisualElement name="bar-progress" class="bar__progress" />
+            <ui:Label name="bar-label" text="000" class="bar__label" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+
+</ui:UXML>

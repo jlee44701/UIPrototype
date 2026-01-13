@@ -41,3 +41,10 @@ MonoBehaviour:
     isAsset: 1
     _typeString: Obvious.Soap.FloatVariable, Obvious.Soap, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - _obj: {fileID: 11400000, guid: 52b3195526330994aba34a15c3e1725b, type: 2}
+    globalId:
+      globalObjectIdString: GlobalObjectId_V1-3-52b3195526330994aba34a15c3e1725b-11400000-0
+    isSceneGameObject: 0
+    isAsset: 1
+    _typeString: Obvious.Soap.FloatVariable, Obvious.Soap, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
