@@ -113,7 +113,7 @@ namespace Game.Mine {
                 pressureBinding.ApplyConverterGroupToUI(inverseColorGroup);
             _radialProgressElement.trackColor = Color.black;
             var valueString = nameof(BoundProgressElementBase.value);
-            
+              
             _radialProgressElement.SetBinding(valueString, pressureBinding);
             _radialProgressElement.SetBinding("progressColor", pressureBinding);
 
