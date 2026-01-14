@@ -1,7 +1,14 @@
+@import url("../General_USS/Tokens.uss");
+
 :root {
     flex-direction: column;
     flex-grow: 1;
     flex-basis: 0;
+    --container__border-width: 4px;
+    --container__border-radius:  10px;
+    --container__padding: 2%;
+    --progress-fill__border-radius:  5px;
+    --root-element__height: 9%;
 }
 
 .unity-label {
@@ -9,11 +16,9 @@
 }
 
 .bar-progress{
-    height: 8%;
+    height: var(--root-element__height);
     width: 84%;
-
-    
-    
+    align-self: center;
     
 } 
 .bar-progress__container{
@@ -22,15 +27,18 @@
     border-color: var(--color-pink-highlight);
     margin: 0.25%;
     flex-direction: row;
-    border-left-width: 2;
-    border-right-width: 2;
-    border-top-width: 2;
-    border-bottom-width: 2;
+    border-left-width: var(--container__border-width);
+    border-right-width: var(--container__border-width);
+    border-top-width: var(--container__border-width);
+    border-bottom-width: var(--container__border-width);
     align-items: flex-start;
-    border-radius: 10px;
-    padding:  1.25%;
+    border-radius: var(--container__border-radius);
+    padding:  var(--container__padding);
 
 } 
+.bar-progress__background{
+    background-color: var(--color-bg-light);
+}
 .bound-progress__label{
     align-self: center;
     color: var(--color-white);
@@ -38,6 +46,7 @@
 }
 .bar-progress__fill{
     height: 100%;
+    border-radius: var(--progress-fill__border-radius);
 }
 .bound-progress__label{
     position: absolute;
