@@ -8,7 +8,7 @@ namespace Game.UI
     /// Base class for UI elements that display a value/maxValue as a computed progress percent.
     /// Handles: binding hookup, label formatting, change notification, repaint scheduling.
     /// </summary>
-    public abstract class BoundProgressElementBase : BindableElement
+    public abstract class BoundProgressElementBase : BindableElement, IDataSourceViewHashProvider 
     {
         public static readonly BindingId valueProperty = nameof(value);
         public static readonly BindingId maxValueProperty = nameof(maxValue);

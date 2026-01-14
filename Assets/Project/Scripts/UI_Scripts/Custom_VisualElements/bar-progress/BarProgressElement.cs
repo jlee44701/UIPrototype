@@ -9,15 +9,14 @@ namespace Game.UI.Library
     {
         public static readonly string ussClassName = "bar-progress";
         public static readonly string containerUssClassName = ussClassName + "__container";
-        public static readonly string trackUssClassName = ussClassName + "__track";
+        public static readonly string backgroundUssClassName = ussClassName + "__background";
         public static readonly string fillUssClassName = ussClassName + "__fill";
 
         VisualElement m_ContainerElement;
-        VisualElement m_TrackElement;
-        VisualElement m_FillElement;
+        VisualElement _backgroundElement;
+        VisualElement _fillElement;
 
-        [UxmlAttribute("bar-height"), CreateProperty]
-        public float barHeight { get; set; } = 16f;
+       
 
         public BarProgressElement()
         {
@@ -28,8 +27,7 @@ namespace Game.UI.Library
 
             // Container must have a size even if label is hidden, because absolute children do not size parents.
             m_ContainerElement.style.position = Position.Relative;
-            m_ContainerElement.style.height = barHeight;
-
+            
             hierarchy.Add(m_ContainerElement);
 
             if (m_LabelElement != null)
@@ -42,61 +40,61 @@ namespace Game.UI.Library
                 m_LabelElement.BringToFront();
             }
 
-            m_TrackElement = new VisualElement { name = "track" };
-            m_TrackElement.AddToClassList(trackUssClassName);
-            m_TrackElement.style.position = Position.Absolute;
-            m_TrackElement.style.left = 0;
-            m_TrackElement.style.right = 0;
-            m_TrackElement.style.top = 0;
-            m_TrackElement.style.bottom = 0;
-            m_TrackElement.pickingMode = PickingMode.Ignore;
+            _backgroundElement = new VisualElement { name = "background" };
+            _backgroundElement.AddToClassList(backgroundUssClassName);
+            _backgroundElement.style.position = Position.Absolute;
+            _backgroundElement.style.left = 0;
+            _backgroundElement.style.right = 0;
+            _backgroundElement.style.top = 0;
+            _backgroundElement.style.bottom = 0;
+            _backgroundElement.pickingMode = PickingMode.Ignore;
 
-            m_FillElement = new VisualElement { name = "fill" };
-            m_FillElement.AddToClassList(fillUssClassName);
+            _fillElement = new VisualElement { name = "fill" };
+            _fillElement.AddToClassList(fillUssClassName);
 
-            m_FillElement.style.left = 0;
-            m_FillElement.style.top = 0;
-            m_FillElement.style.bottom = 0;
-            m_FillElement.style.width = new Length(0f, LengthUnit.Percent);
-            m_FillElement.pickingMode = PickingMode.Ignore;
+            _fillElement.style.left = 0;
+            _fillElement.style.top = 0;
+            _fillElement.style.bottom = 0;
+            _fillElement.style.width = new Length(0f, LengthUnit.Percent);
+            _fillElement.pickingMode = PickingMode.Ignore;
 
-            m_ContainerElement.hierarchy.Add(m_TrackElement);
-            m_ContainerElement.hierarchy.Add(m_FillElement);
+            m_ContainerElement.hierarchy.Add(_backgroundElement);
+            m_ContainerElement.hierarchy.Add(_fillElement);
 
             OnProgressChanged(GetProgressPercent());
         }
 
         protected override void OnProgressChanged(float progressPercent)
         {
-            if (m_FillElement == null)
+            if (_fillElement == null)
                 return;
 
-            m_FillElement.style.width = new Length(progressPercent, LengthUnit.Percent);
+            _fillElement.style.width = new Length(progressPercent, LengthUnit.Percent);
         }
 
         [UxmlAttribute, CreateProperty]
         public Color progressColor
         {
-            get => m_FillElement != null ? m_FillElement.style.backgroundColor.value : default;
+            get => _fillElement != null ? _fillElement.style.backgroundColor.value : default;
             set
             {
-                if (m_FillElement == null)
+                if (_fillElement == null)
                     return;
 
-                m_FillElement.style.backgroundColor = value;
+                _fillElement.style.backgroundColor = value;
             }
         }
 
         [UxmlAttribute, CreateProperty]
-        public Color trackColor
+        public Color backgroundColor
         {
-            get => m_TrackElement != null ? m_TrackElement.style.backgroundColor.value : default;
+            get => _backgroundElement != null ? _backgroundElement.style.backgroundColor.value : default;
             set
             {
-                if (m_TrackElement == null)
+                if (_backgroundElement == null)
                     return;
 
-                m_TrackElement.style.backgroundColor = value;
+                _backgroundElement.style.backgroundColor = value;
             }
         }
     }
