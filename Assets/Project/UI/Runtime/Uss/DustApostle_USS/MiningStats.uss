@@ -30,7 +30,7 @@
     border-radius: 10px;
     padding:  1.25%;
 
-}
+} 
 .bound-progress__label{
     align-self: center;
     color: var(--color-white);
