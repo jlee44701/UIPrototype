@@ -120,7 +120,7 @@ namespace Game.Mine {
             //
             var vibrationBinding = new DataBinding() {
                 dataSourcePath = new PropertyPath("currentVibration01.Value"), bindingMode = BindingMode.ToTarget
-            };
+            }; 
             vibrationBinding.ApplyConverterGroupToUI(inverseColorGroup);
             _currentVibrationBarElement.trackColor = Color.black;
             _currentVibrationBarElement.SetBinding(valueString, vibrationBinding);
