@@ -9,10 +9,22 @@
 }
 
 .bar-progress{
-    height: 10px;
+    height: 8%;
+    width: 84%;
     border-radius: 10px;
-    border-color: white;
-    margin: 10px;
+    
+    border-color: var(--color-pink-highlight);
+    margin: 10px; 
+    border-left-width: 5;
+    border-right-width: 5;
+    border-top-width: 5;
+    border-bottom-width: 5;
+    
+    
+    
+}
+.bar-progress__container{
+    height: 100%;
 }
 .bound-progress__label{
     position: absolute;
