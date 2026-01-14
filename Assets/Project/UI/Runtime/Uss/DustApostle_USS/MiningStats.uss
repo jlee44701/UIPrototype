@@ -15,7 +15,7 @@
     
     
     
-}
+} 
 .bar-progress__container{
     height: 100%;
     width: 100%;
@@ -33,6 +33,8 @@
 }
 .bound-progress__label{
     align-self: center;
+    color: var(--color-white);
+    text-shadow: var(--color-bg-dark);
 }
 .bar-progress__fill{
     height: 100%;

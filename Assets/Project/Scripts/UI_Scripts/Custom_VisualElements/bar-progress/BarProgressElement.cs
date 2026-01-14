@@ -61,6 +61,7 @@ namespace Game.UI.Library
             m_ContainerElement.hierarchy.Add(_backgroundElement);
             m_ContainerElement.hierarchy.Add(_fillElement);
 
+            m_LabelElement?.BringToFront();
             OnProgressChanged(GetProgressPercent());
         }
 
