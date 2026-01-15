@@ -231,7 +231,7 @@
 
 .terminal__vp-target-label {
     flex-grow: var(--terminal-vp-target-label-grow);
-
+    border-radius: var(--progress-fill__border-radius);
     font-size: var(--pe-terminal-font-size);
     align-self: center;
 

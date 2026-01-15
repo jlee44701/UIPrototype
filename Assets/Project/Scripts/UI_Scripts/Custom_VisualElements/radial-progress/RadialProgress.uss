@@ -1,8 +1,7 @@
 .radial-progress {
     min-width: 26px;
     min-height: 20px;
-    --track-color: rgb(130, 130, 130);
-    --progress-color: rgb(46, 132, 44);
+    --track-color: pink;
     --percentage-color: white;
     margin-left: 5px;
     margin-right: 5px;
@@ -14,6 +13,7 @@
     height: 100px;
     transition-duration: 0.6s;
     transition-timing-function: ease-in-out;
+    
 }
 
 .radial-progress__label {

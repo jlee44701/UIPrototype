@@ -4,8 +4,7 @@
     flex-direction: column;
     flex-grow: 1;
     flex-basis: 0;
-    --container__border-width: 4px;
-    --container__border-radius:  10px;
+
     --container__padding: 2%;
     --progress-fill__border-radius:  5px;
     --root-element__height: 9%;
@@ -25,14 +24,14 @@
     height: 100%;
     width: 100%;
     border-color: var(--color-pink-highlight);
-    margin: 0.25%;
+    border-left-width: var(--container__border-width-default);
+    border-right-width: var(--container__border-width-default);
+    border-top-width: var(--container__border-width-default);
+    border-bottom-width: var(--container__border-width-default);
+    /*margin: auto;*/
     flex-direction: row;
-    border-left-width: var(--container__border-width);
-    border-right-width: var(--container__border-width);
-    border-top-width: var(--container__border-width);
-    border-bottom-width: var(--container__border-width);
     align-items: flex-start;
-    border-radius: var(--container__border-radius);
+    border-radius: var(--container__border-radius-default);
     padding:  var(--container__padding);
 
 } 
@@ -42,7 +41,8 @@
 .bound-progress__label{
     align-self: center;
     color: var(--color-white);
-    text-shadow: var(--color-bg-dark);
+    text-shadow: var(--text-shadow-default);
+    
 }
 .bar-progress__fill{
     height: 100%;

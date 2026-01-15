@@ -1,5 +1,6 @@
 using System;
 using Audio;
+using DG.Tweening;
 using Game.Mine;
 using PixelEngine;
 using UIEvents;
@@ -42,10 +43,66 @@ namespace Game.UI {
         LecternUIPresenter _presenter;
         LecternUIView _lecternUiView;
         protected Coroutine DisplayRoutine;
-        
+
+        // Debug tween fields (easy to rip out after)
+        Tween _testOrbitTween;
+        float _testOrbitAngleRadians;
+
         public LecternUISetup(VisualElement root, AudioParams.Repetition repetition) {
             _root = root;
             _repetition = repetition;
+        }
+
+        [ContextMenu("test")]
+        public void testTween() {
+            if (!_document)
+                _document = GetComponent<UIDocument>();
+
+            if (!_document)
+                return;
+
+            _root ??= _document.rootVisualElement;
+            if (_root == null)
+                return;
+
+            _root.usageHints |= UsageHints.DynamicTransform;
+
+            if (_testOrbitTween != null) {
+                _testOrbitTween.Kill();
+                _testOrbitTween = null;
+            }
+
+            var orbitRadiusPixels = 15f;
+            var secondsPerRevolution = 1.25f;
+
+            _testOrbitAngleRadians = 0f;
+
+            _testOrbitTween = DOTween.To(
+                    () => _testOrbitAngleRadians,
+                    valueRadians => {
+                        _testOrbitAngleRadians = valueRadians;
+
+                        var xPixels = Mathf.Cos(valueRadians) * orbitRadiusPixels;
+                        var yPixels = Mathf.Sin(valueRadians) * orbitRadiusPixels;
+
+                        _root.style.translate = new StyleTranslate(new Translate(xPixels, yPixels));
+                    },
+                    endValue: Mathf.PI * 2f,
+                    duration: secondsPerRevolution)
+                .SetEase(Ease.Linear)
+                .SetLoops(-1, LoopType.Restart)
+                .SetUpdate(true);
+        }
+
+        [ContextMenu("test_stop")]
+        public void testTweenStop() {
+            if (_testOrbitTween != null) {
+                _testOrbitTween.Kill();
+                _testOrbitTween = null;
+            }
+
+            if (_root != null)
+                _root.style.translate = new StyleTranslate(new Translate(0, 0));
         }
         
         void OnEnable() {
@@ -83,6 +140,7 @@ namespace Game.UI {
             //LoadAssetAndSetup();
             // DemoEvents.BackButtonClicked += DemoEvents_BackButtonClicked;
         }
+
         void SetAudioParams() {
             if (_lecternUiView == null) throw new NullReferenceException(nameof(_lecternUiView));
 
@@ -95,20 +153,24 @@ namespace Game.UI {
                 _distortion,
                 _typingVolume
                 );
-            
         }
+
         void OnFirstGeometryChanged(GeometryChangedEvent evt)
         {
             _root.UnregisterCallback<GeometryChangedEvent>(OnFirstGeometryChanged);
 
-            // Scheduler runs next frame; we show after layout has settled. :contentReference[oaicite:3]{index=3}
             _root.schedule.Execute(() =>
             {
                 _root.style.visibility = Visibility.Visible;
             });
-            
         }
+
         void OnDisable() {
+            if (_testOrbitTween != null) {
+                _testOrbitTween.Kill();
+                _testOrbitTween = null;
+            }
+
             _root.UnregisterCallback<GeometryChangedEvent>(OnFirstGeometryChanged);
             UnregisterCallbacks();
             
@@ -121,12 +183,13 @@ namespace Game.UI {
             
             // DustProphet.FooterButtonClicked += OnFooterButtonClicked;
         }
+
         void UnregisterCallbacks() {
             // DustProphet.FooterButtonClicked -= OnFooterButtonClicked;
         }
+
         // void OnFooterButtonClicked(int index) {
         //     m_LecternUiView.DisplayStatusText("hi there newton nasd");
         // }
-
     }
 }

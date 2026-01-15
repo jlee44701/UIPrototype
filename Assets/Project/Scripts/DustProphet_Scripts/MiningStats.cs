@@ -1,6 +1,7 @@
 using System;
 using Game.UI;
 using Game.UI.Library;
+using Game.UI.Utilities;
 using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -96,36 +97,30 @@ namespace Game.Mine {
             }
         }
         void UpdatePaths() {
-            // _depthLabel.SetBinding("text", new DataBinding() {
-            //     dataSourcePath = new PropertyPath(nameof(_data.currentDepthThisRun.Value)), bindingMode = BindingMode.ToTarget
-            // });
-            // _pressureBarProgressElement.SetBinding("style.width", new DataBinding {
-            //     dataSourcePath = new PropertyPath(nameof(_data.currentPressure01.Value)), bindingMode = BindingMode.ToTarget
-            // });
-            // _pressureLabel.SetBinding("text", new  DataBinding() {
-            //     dataSourcePath =  new PropertyPath(nameof(_data.currentPressure01.Value)), bindingMode = BindingMode.ToTarget
-            // });
-
-            var pressureBinding = new DataBinding() {
-                dataSourcePath = new PropertyPath("currentPressure01.Value"), bindingMode = BindingMode.ToTarget
-            };
-            if (ConverterGroups.TryGetConverterGroup("progressColorInverse", out var inverseColorGroup))
-                pressureBinding.ApplyConverterGroupToUI(inverseColorGroup);
-            _radialProgressElement.trackColor = Color.black;
-            var valueString = nameof(BoundProgressElementBase.value);
-              
-            _radialProgressElement.SetBinding(valueString, pressureBinding);
-            _radialProgressElement.SetBinding("progressColor", pressureBinding);
-
+            
+            var destinationString = nameof(BoundProgressElementBase.value);
+            var inverseConverterGroup = "progressColorInverse";
+            
+            Bind.SetBindingWithConverter(
+                _radialProgressElement,
+                "currentPressure01.Value",
+                destinationString, 
+                BindingMode.ToTarget, 
+                inverseConverterGroup,
+                out var binding
+                );
+            _radialProgressElement.SetBinding("progressColor", binding);
+            
             //
-            var vibrationBinding = new DataBinding() {
-                dataSourcePath = new PropertyPath("currentVibration01.Value"), bindingMode = BindingMode.ToTarget
-            }; 
-            vibrationBinding.ApplyConverterGroupToUI(inverseColorGroup);
-
-            _currentVibrationBarElement.SetBinding(valueString, vibrationBinding);
+            Bind.SetBindingWithConverter(
+                _currentVibrationBarElement,
+                "currentVibration01.Value",
+                destinationString, 
+                BindingMode.ToTarget, 
+                inverseConverterGroup,
+                out var vibrationBinding
+                );
             _currentVibrationBarElement.SetBinding(nameof(BarProgressElement.progressColor), vibrationBinding);
-
         }
 
         public void Cleanup() {
