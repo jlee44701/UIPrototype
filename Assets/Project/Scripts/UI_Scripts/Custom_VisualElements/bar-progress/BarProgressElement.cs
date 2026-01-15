@@ -1,5 +1,7 @@
 using Unity.Properties;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Library
@@ -12,90 +14,86 @@ namespace Game.UI.Library
         public static readonly string backgroundUssClassName = ussClassName + "__background";
         public static readonly string fillUssClassName = ussClassName + "__fill";
 
+        protected override string controlUssClassName => ussClassName;
+
         VisualElement m_ContainerElement;
-        VisualElement _backgroundElement;
-        VisualElement _fillElement;
+        VisualElement m_BackgroundElement;
+        VisualElement m_FillElement;
+        
+        const string DefaultTemplateKey = "bar-progress-element";
 
-       
+        AsyncOperationHandle<VisualTreeAsset>? _templateHandle;
+        bool _built;
 
-        public BarProgressElement()
-        {
-            AddToClassList(ussClassName);
+        // Optional: lets us override the key in UXML if we ever want.
+        [UxmlAttribute("template-key")]
+        public string templateKey { get; set; } = DefaultTemplateKey;
 
-            m_ContainerElement = new VisualElement { name = containerUssClassName };
+        public BarProgressElement() {
+
+
+            
+            m_ContainerElement = new VisualElement { name = "container" };
             m_ContainerElement.AddToClassList(containerUssClassName);
 
-            // Container must have a size even if label is hidden, because absolute children do not size parents.
             m_ContainerElement.style.position = Position.Relative;
-            
-            hierarchy.Add(m_ContainerElement);
 
-            if (m_LabelElement != null)
-            {
-                m_LabelElement.RemoveFromHierarchy();
-                m_ContainerElement.Add(m_LabelElement);
+            hierarchy.Insert(0, m_ContainerElement);
 
-                // If we want the label overlayed centered, we style it here or in USS.
-                // Leaving layout decisions to USS is usually cleaner.
-                m_LabelElement.BringToFront();
-            }
+            m_BackgroundElement = new VisualElement { name = "background" };
+            m_BackgroundElement.AddToClassList(backgroundUssClassName);
+            m_BackgroundElement.style.position = Position.Absolute;
+            m_BackgroundElement.style.left = 0;
+            m_BackgroundElement.style.right = 0;
+            m_BackgroundElement.style.top = 0;
+            m_BackgroundElement.style.bottom = 0;
+            m_BackgroundElement.pickingMode = PickingMode.Ignore;
 
-            _backgroundElement = new VisualElement { name = backgroundUssClassName };
-            _backgroundElement.AddToClassList(backgroundUssClassName);
-            _backgroundElement.style.position = Position.Absolute;
-            _backgroundElement.style.left = 0;
-            _backgroundElement.style.right = 0;
-            _backgroundElement.style.top = 0;
-            _backgroundElement.style.bottom = 0;
-            _backgroundElement.pickingMode = PickingMode.Ignore;
+            m_FillElement = new VisualElement { name = "fill" };
+            m_FillElement.AddToClassList(fillUssClassName);
+            m_FillElement.style.left = 0;
+            m_FillElement.style.top = 0;
+            m_FillElement.style.bottom = 0;
+            m_FillElement.style.width = new Length(0f, LengthUnit.Percent);
+            m_FillElement.pickingMode = PickingMode.Ignore;
 
-            _fillElement = new VisualElement { name = fillUssClassName };
-            _fillElement.AddToClassList(fillUssClassName);
+            m_ContainerElement.hierarchy.Add(m_BackgroundElement);
+            m_ContainerElement.hierarchy.Add(m_FillElement);
 
-            _fillElement.style.left = 0;
-            _fillElement.style.top = 0;
-            _fillElement.style.bottom = 0;
-            _fillElement.style.width = new Length(0f, LengthUnit.Percent);
-            _fillElement.pickingMode = PickingMode.Ignore;
-
-            m_ContainerElement.hierarchy.Add(_backgroundElement);
-            m_ContainerElement.hierarchy.Add(_fillElement);
-
-           // m_LabelElement?.BringToFront();
             OnProgressChanged(GetProgressPercent());
         }
 
         protected override void OnProgressChanged(float progressPercent)
         {
-            if (_fillElement == null)
+            if (m_FillElement == null)
                 return;
 
-            _fillElement.style.width = new Length(progressPercent, LengthUnit.Percent);
+            m_FillElement.style.width = new Length(progressPercent, LengthUnit.Percent);
         }
 
         [UxmlAttribute, CreateProperty]
         public Color progressColor
         {
-            get => _fillElement != null ? _fillElement.style.backgroundColor.value : default;
+            get => m_FillElement != null ? m_FillElement.style.backgroundColor.value : default;
             set
             {
-                if (_fillElement == null)
+                if (m_FillElement == null)
                     return;
 
-                _fillElement.style.backgroundColor = value;
+                m_FillElement.style.backgroundColor = value;
             }
         }
 
         [UxmlAttribute, CreateProperty]
         public Color backgroundColor
         {
-            get => _backgroundElement != null ? _backgroundElement.style.backgroundColor.value : default;
+            get => m_BackgroundElement != null ? m_BackgroundElement.style.backgroundColor.value : default;
             set
             {
-                if (_backgroundElement == null)
+                if (m_BackgroundElement == null)
                     return;
 
-                _backgroundElement.style.backgroundColor = value;
+                m_BackgroundElement.style.backgroundColor = value;
             }
         }
     }

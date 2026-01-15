@@ -63,9 +63,13 @@ namespace Game.Mine {
             _mineContainer = _parentContainer.Q<VisualElement>("mine-container");
             //_radialProgressElement = _parentContainer.Q<Game.UI.Library.RadialProgress>("radial-progress") ??  throw new NullReferenceException(nameof(_radialProgressElement));
             _radialProgressElement = new RadialProgress();
+           
+            //_radialProgressElement.SetBlockNameOverride("current-pressure");
             
             // let's try adding a barelement programatically to  contrast with radialprogressElement
-            _currentVibrationBarElement = new BarProgressElement();
+            _currentVibrationBarElement = _parentContainer.Q<BarProgressElement>("pressure");
+           // _currentVibrationBarElement.name = "current-vibration-bar";
+            //_currentVibrationBarElement.SetBlockNameOverride("vibration");
             //_parentContainer.Add(_currentVibrationBarElement);
             _mineContainer.Add(_currentVibrationBarElement);
             _mineContainer.Add(_radialProgressElement);
@@ -93,8 +97,10 @@ namespace Game.Mine {
                 // _pressureHalfWidthElement.dataSource = _data.targetPressureHalfWidth;
                 
 
-                _radialProgressElement.SetMaxValue(1);
-                _currentVibrationBarElement.SetMaxValue(1);
+                
+                _radialProgressElement.maxValue = 1;
+                _currentVibrationBarElement.maxValue = 1;
+                
             }
         }
         void UpdatePaths() {

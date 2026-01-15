@@ -9,22 +9,7 @@
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
-        <Game.UI.Library.RadialProgress name="radial-progress" data-source="" data-source-path="" class="radial-progress"/>
-        <ui:VisualElement name="pressure" class="pressure__container">
-            <ui:VisualElement name="pressure-bar-value-group" class="pressure-bar__value-group">
-                <ui:Label text="000" name="pressure-bar-label" data-source="project://database/Assets/Project/Data/MineData/ViewModellData/PressureBarViewModel.asset?fileID=11400000&amp;guid=8dbac589c19679b449c7a03ead5de949&amp;type=2#PressureBarViewModel" data-source-path="Value" class="pressure-bar__label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget" source-to-ui-converters="HealthColor"/>
-                    </Bindings>
-                </ui:Label>
-                <ui:VisualElement name="pressure-bar-background" class="pressure-bar__background"/>
-                <ui:VisualElement name="pressure-bar-progress" data-source="project://database/Assets/Project/Data/MineData/ViewModellData/PressureBarViewModel.asset?fileID=11400000&amp;guid=8dbac589c19679b449c7a03ead5de949&amp;type=2#PressureBarViewModel" data-source-path="Value" class="pressure-bar__progress">
-                    <Bindings>
-                        <ui:DataBinding property="style.width" data-source-path="Value" binding-mode="ToTarget"/>
-                    </Bindings>
-                </ui:VisualElement>
-            </ui:VisualElement>
-        </ui:VisualElement>
+        <Game.UI.Library.BarProgressElement name="pressure"/>
         <ui:VisualElement name="heat" data-source="" data-source-path="" class="heat__container">
             <ui:Label text="000" name="heat-label">
                 <Bindings>

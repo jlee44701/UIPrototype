@@ -20,6 +20,11 @@
     align-self: center;
     
 } 
+
+.radial-progress {
+    font-size: 63px;
+}
+
 .bar-progress__container{
     height: 100%;
     width: 100%;
@@ -38,7 +43,7 @@
 .bar-progress__background{
     background-color: var(--color-bg-light);
 }  
-.progress__label{
+.vibration__label{
     align-self: center;
     color: var(--color-white);
     text-shadow: var(--text-shadow-default);
@@ -48,7 +53,7 @@
     height: 100%;
     border-radius: var(--progress-fill__border-radius);
 }
-.bound-progress__label{
+.vibration__label{
     position: absolute;
 }
 
