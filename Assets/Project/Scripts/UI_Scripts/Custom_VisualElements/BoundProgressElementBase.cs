@@ -4,25 +4,16 @@ using UnityEngine.UIElements;
 
 namespace Game.UI
 {
-    /// <summary>
-    /// Base class for UI elements that display value/maxValue as a computed progress percent.
-    /// Handles: binding hookup, label formatting, change notification, repaint.
-    /// Provides label buckets:
-    /// - {block}__label-group
-    /// - {block}__value-group
-    /// - {block}__value-label
-    /// where {block} is supplied by the concrete control.
-    /// </summary>
     public abstract class BoundProgressElementBase : BindableElement, IDataSourceViewHashProvider
     {
         public static readonly BindingId valueProperty = nameof(value);
         public static readonly BindingId maxValueProperty = nameof(maxValue);
 
+        const string k_ContentSuffix = "__content";
         const string k_LabelGroupSuffix = "__label-group";
         const string k_ValueGroupSuffix = "__value-group";
         const string k_ValueLabelSuffix = "__value-label";
 
-        // Concrete controls must provide their “default type class”, eg "bar-progress", "radial-progress".
         protected abstract string controlUssClassName { get; }
 
         string m_ValueSourcePath = "Value";
@@ -39,13 +30,14 @@ namespace Game.UI
         bool m_AutoBoundValue;
         bool m_AutoBoundMaxValue;
 
-        protected VisualElement m_LabelGroupElement;
-        protected VisualElement m_ValueGroupElement;
-        protected Label m_ValueLabel;
+        readonly VisualElement m_ContentElement;
+        readonly Label m_ValueLabel;
 
-        protected VisualElement labelGroupElement => m_LabelGroupElement;
-        protected VisualElement valueGroupElement => m_ValueGroupElement;
-        protected Label valueLabel => m_ValueLabel;
+        protected readonly VisualElement ProgressLabelGroup;
+        protected readonly VisualElement ValueGroup;
+        protected readonly VisualElement ValueLabel;
+
+        public override VisualElement contentContainer => m_ContentElement;
 
         [UxmlAttribute("value-source-path")]
         public string valueSourcePath
@@ -148,17 +140,22 @@ namespace Game.UI
             var block = ResolveBlockClass();
             AddToClassList(block);
 
-            m_LabelGroupElement = new VisualElement { name = "label-group" };
-            m_ValueGroupElement = new VisualElement { name = "value-group" };
-            m_ValueLabel = new Label { name = "value-label" };
+            m_ContentElement = new VisualElement { name = block + k_ContentSuffix };
+            m_ContentElement.AddToClassList(block + k_ContentSuffix);
+            hierarchy.Add(m_ContentElement);
 
-            m_LabelGroupElement.AddToClassList(block + k_LabelGroupSuffix);
-            m_ValueGroupElement.AddToClassList(block + k_ValueGroupSuffix);
-            m_ValueLabel.AddToClassList(block + k_ValueLabelSuffix);
+            ProgressLabelGroup = new VisualElement { name = block + k_LabelGroupSuffix };
+            ValueGroup = new VisualElement { name = block + k_ValueGroupSuffix };
+            m_ValueLabel = new Label { name = block + k_ValueLabelSuffix };
+            ValueLabel = m_ValueLabel;
 
-            m_ValueGroupElement.Add(m_ValueLabel);
-            m_LabelGroupElement.Add(m_ValueGroupElement);
-            Add(m_LabelGroupElement);
+            ProgressLabelGroup.AddToClassList(block + k_LabelGroupSuffix);
+            ValueGroup.AddToClassList(block + k_ValueGroupSuffix);
+            ValueLabel.AddToClassList(block + k_ValueLabelSuffix);
+
+            ValueGroup.Add(ValueLabel);
+            ProgressLabelGroup.Add(ValueGroup);
+            hierarchy.Add(ProgressLabelGroup);
 
             ApplyLabelVisibility();
 
@@ -204,10 +201,7 @@ namespace Game.UI
 
         void ApplyLabelVisibility()
         {
-            if (m_LabelGroupElement == null)
-                return;
-
-            m_LabelGroupElement.style.display = m_ShowLabel ? DisplayStyle.Flex : DisplayStyle.None;
+            ProgressLabelGroup.style.display = m_ShowLabel ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         void EnsureBindingsIfNeeded(bool rebindAutoBindings)
@@ -276,7 +270,7 @@ namespace Game.UI
             m_ProgressPercent = computedPercent;
             ++m_ViewVersion;
 
-            if (m_ShowLabel && m_ValueLabel != null)
+            if (m_ShowLabel)
                 m_ValueLabel.text = string.Format(m_LabelFormat, Mathf.Round(m_ProgressPercent));
 
             OnProgressChanged(m_ProgressPercent);

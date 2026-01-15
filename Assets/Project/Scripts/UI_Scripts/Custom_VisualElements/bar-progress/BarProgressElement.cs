@@ -1,7 +1,5 @@
 using Unity.Properties;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UIElements;
 
 namespace Game.UI.Library
@@ -19,28 +17,16 @@ namespace Game.UI.Library
         VisualElement m_ContainerElement;
         VisualElement m_BackgroundElement;
         VisualElement m_FillElement;
-        
-        const string DefaultTemplateKey = "bar-progress-element";
 
-        AsyncOperationHandle<VisualTreeAsset>? _templateHandle;
-        bool _built;
-
-        // Optional: lets us override the key in UXML if we ever want.
-        [UxmlAttribute("template-key")]
-        public string templateKey { get; set; } = DefaultTemplateKey;
-
-        public BarProgressElement() {
-
-
-            
-            m_ContainerElement = new VisualElement { name = "container" };
+        public BarProgressElement()
+        {
+            m_ContainerElement = new VisualElement { name = containerUssClassName };
             m_ContainerElement.AddToClassList(containerUssClassName);
-
             m_ContainerElement.style.position = Position.Relative;
 
-            hierarchy.Insert(0, m_ContainerElement);
+            contentContainer.Add(m_ContainerElement);
 
-            m_BackgroundElement = new VisualElement { name = "background" };
+            m_BackgroundElement = new VisualElement { name = backgroundUssClassName };
             m_BackgroundElement.AddToClassList(backgroundUssClassName);
             m_BackgroundElement.style.position = Position.Absolute;
             m_BackgroundElement.style.left = 0;
@@ -49,7 +35,7 @@ namespace Game.UI.Library
             m_BackgroundElement.style.bottom = 0;
             m_BackgroundElement.pickingMode = PickingMode.Ignore;
 
-            m_FillElement = new VisualElement { name = "fill" };
+            m_FillElement = new VisualElement { name = fillUssClassName };
             m_FillElement.AddToClassList(fillUssClassName);
             m_FillElement.style.left = 0;
             m_FillElement.style.top = 0;
