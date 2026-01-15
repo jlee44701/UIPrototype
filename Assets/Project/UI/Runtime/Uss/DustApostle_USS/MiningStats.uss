@@ -42,7 +42,7 @@
     align-self: center;
     color: var(--color-white);
     text-shadow: var(--text-shadow-default);
-    
+     
 }
 .bar-progress__fill{
     height: 100%;
