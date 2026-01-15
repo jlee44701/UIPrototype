@@ -61,13 +61,14 @@ namespace Game.Mine {
             //
             //-----------------------
             _mineContainer = _parentContainer.Q<VisualElement>("mine-container");
-            _radialProgressElement = _parentContainer.Q<Game.UI.Library.RadialProgress>("radial-progress") ??  throw new NullReferenceException(nameof(_radialProgressElement));
-
+            //_radialProgressElement = _parentContainer.Q<Game.UI.Library.RadialProgress>("radial-progress") ??  throw new NullReferenceException(nameof(_radialProgressElement));
+            _radialProgressElement = new RadialProgress();
             
             // let's try adding a barelement programatically to  contrast with radialprogressElement
             _currentVibrationBarElement = new BarProgressElement();
-            _parentContainer.Add(_currentVibrationBarElement);
+            //_parentContainer.Add(_currentVibrationBarElement);
             _mineContainer.Add(_currentVibrationBarElement);
+            _mineContainer.Add(_radialProgressElement);
 // Bind to a viewmodel that exposes:
 // float currentPressure01
 // string currentPressureText
@@ -101,7 +102,7 @@ namespace Game.Mine {
             var destinationString = nameof(BoundProgressElementBase.value);
             var inverseConverterGroup = "progressColorInverse";
             
-            Bind.SetBindingWithConverter(
+            Bindables.SetBindingWithConverter(
                 _radialProgressElement,
                 "currentPressure01.Value",
                 destinationString, 
@@ -110,9 +111,10 @@ namespace Game.Mine {
                 out var binding
                 );
             _radialProgressElement.SetBinding("progressColor", binding);
+            //_radialProgressElement.SetBinding();
             
             //
-            Bind.SetBindingWithConverter(
+            Bindables.SetBindingWithConverter(
                 _currentVibrationBarElement,
                 "currentVibration01.Value",
                 destinationString, 

@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Project/UI/Runtime/Uss/DustApostle_USS/MiningStats.uss?fileID=7433441132597879392&amp;guid=b729026673466bc4a8dc470000ef8410&amp;type=3#MiningStats"/>
     <Style src="project://database/Assets/Project/Scripts/UI_Scripts/Custom_VisualElements/radial-progress/RadialProgress.uss?fileID=7433441132597879392&amp;guid=c8940c11749f8c940a0ad085c3e2c30e&amp;type=3#RadialProgress"/>
     <ui:VisualElement name="mine-container" data-source="project://database/Assets/Project/Data/MineData/DustProphetSO.asset?fileID=11400000&amp;guid=cec5a59115e67684da2d6e055f671909&amp;type=2#DustProphetSO">
-        <ui:VisualElement name="depth" data-source="" class="depth__container">
+        <ui:VisualElement name="depth" data-source="currentDepthThisRun.Value" class="depth__container">
             <ui:Label text="000" name="depth-label">
                 <Bindings>
                     <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>

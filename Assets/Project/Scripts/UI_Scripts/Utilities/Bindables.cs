@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace Game.UI.Utilities
 {
-    public static class Bind
+    public static class Bindables
     {
         public static void SetBinding(
             VisualElement destination,

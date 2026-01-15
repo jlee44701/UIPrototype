@@ -38,7 +38,7 @@
 .bar-progress__background{
     background-color: var(--color-bg-light);
 }
-.bound-progress__label{
+.progress__label{
     align-self: center;
     color: var(--color-white);
     text-shadow: var(--text-shadow-default);

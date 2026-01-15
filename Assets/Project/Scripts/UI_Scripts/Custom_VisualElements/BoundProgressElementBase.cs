@@ -8,10 +8,16 @@ namespace Game.UI
     /// Base class for UI elements that display a value/maxValue as a computed progress percent.
     /// Handles: binding hookup, label formatting, change notification, repaint scheduling.
     /// </summary>
-    public abstract class BoundProgressElementBase : BindableElement, IDataSourceViewHashProvider 
+    public abstract class BoundProgressElementBase : BindableElement, IDataSourceViewHashProvider
     {
         public static readonly BindingId valueProperty = nameof(value);
         public static readonly BindingId maxValueProperty = nameof(maxValue);
+
+        public static readonly string ussClassName = "progress";
+        public static readonly string labelGroupUssClassName = ussClassName + "__label-group";
+        public static readonly string valueLabelGroupModifierUssClassName = labelGroupUssClassName + "--value";
+        public static readonly string labelUssClassName = ussClassName + "__label";
+        
 
         [UxmlAttribute("value-source-path")]
         public string valueSourcePath { get; set; } = "Value";
@@ -19,8 +25,21 @@ namespace Game.UI
         [UxmlAttribute("max-value-source-path")]
         public string maxValueSourcePath { get; set; } = "MaxValue";
 
+        bool m_ShowLabel = true;
+
         [UxmlAttribute("show-label")]
-        public bool showLabel { get; set; } = true;
+        public bool showLabel
+        {
+            get => m_ShowLabel;
+            set
+            {
+                if (m_ShowLabel == value)
+                    return;
+
+                m_ShowLabel = value;
+                RefreshLabelVisibility();
+            }
+        }
 
         [UxmlAttribute("label-format")]
         public string labelFormat { get; set; } = "{0}%";
@@ -28,10 +47,18 @@ namespace Game.UI
         float m_Value;
         float m_MaxValue = 100f;
 
-        protected  float m_ProgressPercent;
+        protected float m_ProgressPercent;
         long m_ViewVersion;
 
+        protected VisualElement m_LabelGroupElement;
+        protected VisualElement m_ValueGroupElement;
         protected Label m_LabelElement;
+
+        /// <summary>Bucket for any/all labels an inheritor wants to add.</summary>
+        protected VisualElement labelGroupElement => m_LabelGroupElement;
+
+        /// <summary>Bucket specifically for value-related labels (the default value label lives here).</summary>
+        protected VisualElement ValueGroupElement => m_ValueGroupElement;
 
         [UxmlAttribute, CreateProperty]
         public float value
@@ -48,7 +75,8 @@ namespace Game.UI
             }
         }
 
-        public void SetMaxValue(float maxValue) {
+        public void SetMaxValue(float maxValue)
+        {
             this.maxValue = maxValue;
         }
 
@@ -69,18 +97,38 @@ namespace Game.UI
 
         protected BoundProgressElementBase()
         {
-            m_LabelElement = new Label();
-            m_LabelElement.AddToClassList("bound-progress__label");
-            Add(m_LabelElement);
+            AddToClassList(ussClassName);
+
+            m_LabelGroupElement = new VisualElement { name = "label-group" };
+            m_LabelGroupElement.AddToClassList(labelGroupUssClassName);
+
+            m_ValueGroupElement = new VisualElement { name = "value-label-group" };
+            m_ValueGroupElement.AddToClassList(labelGroupUssClassName);
+            m_ValueGroupElement.AddToClassList(valueLabelGroupModifierUssClassName);
+
+            m_LabelElement = new Label { name = "value-label" };
+            m_LabelElement.AddToClassList(labelUssClassName);
+
+            m_ValueGroupElement.Add(m_LabelElement);
+            m_LabelGroupElement.Add(m_ValueGroupElement);
+            Add(m_LabelGroupElement);
+
+            RefreshLabelVisibility();
 
             RegisterCallback<AttachToPanelEvent>(_ => EnsureBindingsIfNeeded());
         }
 
+        void RefreshLabelVisibility()
+        {
+            if (m_LabelGroupElement == null)
+                return;
+
+            m_LabelGroupElement.style.display = m_ShowLabel ? DisplayStyle.Flex : DisplayStyle.None;
+            MarkDirtyRepaint();
+        }
+
         void EnsureBindingsIfNeeded()
         {
-            // We only auto-bind if the user provided a path (or kept the default).
-            // Also, we do not stomp bindings if the element is already bound externally.
-
             if (!string.IsNullOrWhiteSpace(valueSourcePath) && !HasBinding(valueProperty))
             {
                 SetBinding(valueProperty, new DataBinding
@@ -111,7 +159,9 @@ namespace Game.UI
             m_ProgressPercent = computedPercent;
             ++m_ViewVersion;
 
-            if (showLabel && m_LabelElement != null)
+            RefreshLabelVisibility();
+
+            if (m_ShowLabel && m_LabelElement != null)
                 m_LabelElement.text = string.Format(labelFormat, Mathf.Round(m_ProgressPercent));
 
             OnProgressChanged(m_ProgressPercent);

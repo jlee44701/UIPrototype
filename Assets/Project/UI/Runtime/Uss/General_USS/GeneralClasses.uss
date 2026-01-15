@@ -34,7 +34,7 @@
     border-bottom-color: var(--color-pink-midtone);
 }
 
-
+  
 .transition-select {
     transition-property: scale, color, border-color;
     transition-duration: var(--duration-select);

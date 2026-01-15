@@ -22,7 +22,7 @@ namespace Game.UI.Library
         {
             AddToClassList(ussClassName);
 
-            m_ContainerElement = new VisualElement { name = "container" };
+            m_ContainerElement = new VisualElement { name = containerUssClassName };
             m_ContainerElement.AddToClassList(containerUssClassName);
 
             // Container must have a size even if label is hidden, because absolute children do not size parents.
@@ -40,7 +40,7 @@ namespace Game.UI.Library
                 m_LabelElement.BringToFront();
             }
 
-            _backgroundElement = new VisualElement { name = "background" };
+            _backgroundElement = new VisualElement { name = backgroundUssClassName };
             _backgroundElement.AddToClassList(backgroundUssClassName);
             _backgroundElement.style.position = Position.Absolute;
             _backgroundElement.style.left = 0;
@@ -49,7 +49,7 @@ namespace Game.UI.Library
             _backgroundElement.style.bottom = 0;
             _backgroundElement.pickingMode = PickingMode.Ignore;
 
-            _fillElement = new VisualElement { name = "fill" };
+            _fillElement = new VisualElement { name = fillUssClassName };
             _fillElement.AddToClassList(fillUssClassName);
 
             _fillElement.style.left = 0;
@@ -61,7 +61,7 @@ namespace Game.UI.Library
             m_ContainerElement.hierarchy.Add(_backgroundElement);
             m_ContainerElement.hierarchy.Add(_fillElement);
 
-            m_LabelElement?.BringToFront();
+           // m_LabelElement?.BringToFront();
             OnProgressChanged(GetProgressPercent());
         }
 
