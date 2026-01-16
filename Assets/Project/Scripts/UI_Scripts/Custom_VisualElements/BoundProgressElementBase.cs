@@ -9,12 +9,14 @@ namespace Game.UI
         public static readonly BindingId valueProperty = nameof(value);
         public static readonly BindingId maxValueProperty = nameof(maxValue);
 
-        const string k_ContentSuffix = "__content";
         const string k_LabelGroupSuffix = "__label-group";
         const string k_ValueGroupSuffix = "__value-group";
         const string k_ValueLabelSuffix = "__value-label";
 
         protected abstract string controlUssClassName { get; }
+
+        protected VisualElement m_ContentRoot;
+        public override VisualElement contentContainer => m_ContentRoot;
 
         string m_ValueSourcePath = "Value";
         string m_MaxValueSourcePath = "MaxValue";
@@ -30,14 +32,13 @@ namespace Game.UI
         bool m_AutoBoundValue;
         bool m_AutoBoundMaxValue;
 
-        readonly VisualElement m_ContentElement;
-        readonly Label m_ValueLabel;
+        protected VisualElement m_LabelGroupElement;
+        protected VisualElement m_ValueGroupElement;
+        protected Label m_ValueLabel;
 
-        protected readonly VisualElement ProgressLabelGroup;
-        protected readonly VisualElement ValueGroup;
-        protected readonly VisualElement ValueLabel;
-
-        public override VisualElement contentContainer => m_ContentElement;
+        protected VisualElement labelGroupElement => m_LabelGroupElement;
+        protected VisualElement valueGroupElement => m_ValueGroupElement;
+        protected Label valueLabel => m_ValueLabel;
 
         [UxmlAttribute("value-source-path")]
         public string valueSourcePath
@@ -130,32 +131,31 @@ namespace Game.UI
             }
         }
 
-        public void SetMaxValue(float maxValueValue)
-        {
-            maxValue = maxValueValue;
-        }
-
         protected BoundProgressElementBase()
         {
             var block = ResolveBlockClass();
             AddToClassList(block);
 
-            m_ContentElement = new VisualElement { name = block + k_ContentSuffix };
-            m_ContentElement.AddToClassList(block + k_ContentSuffix);
-            hierarchy.Add(m_ContentElement);
+            m_ContentRoot = new VisualElement { name = "content" };
+            hierarchy.Add(m_ContentRoot);
 
-            ProgressLabelGroup = new VisualElement { name = block + k_LabelGroupSuffix };
-            ValueGroup = new VisualElement { name = block + k_ValueGroupSuffix };
-            m_ValueLabel = new Label { name = block + k_ValueLabelSuffix };
-            ValueLabel = m_ValueLabel;
+            m_LabelGroupElement = new VisualElement { name = "label-group" };
+            m_ValueGroupElement = new VisualElement { name = "value-group" };
+            m_ValueLabel = new Label { name = "value-label" };
 
-            ProgressLabelGroup.AddToClassList(block + k_LabelGroupSuffix);
-            ValueGroup.AddToClassList(block + k_ValueGroupSuffix);
-            ValueLabel.AddToClassList(block + k_ValueLabelSuffix);
+            m_LabelGroupElement.AddToClassList(block + k_LabelGroupSuffix);
+            m_ValueGroupElement.AddToClassList(block + k_ValueGroupSuffix);
+            m_ValueLabel.AddToClassList(block + k_ValueLabelSuffix);
 
-            ValueGroup.Add(ValueLabel);
-            ProgressLabelGroup.Add(ValueGroup);
-            hierarchy.Add(ProgressLabelGroup);
+            m_ValueGroupElement.Add(m_ValueLabel);
+            m_LabelGroupElement.Add(m_ValueGroupElement);
+
+            // Labels are often overlays; make them non-blocking for pointer picking.
+            m_LabelGroupElement.pickingMode = PickingMode.Ignore;
+            m_ValueGroupElement.pickingMode = PickingMode.Ignore;
+            m_ValueLabel.pickingMode = PickingMode.Ignore;
+
+            hierarchy.Add(m_LabelGroupElement);
 
             ApplyLabelVisibility();
 
@@ -168,9 +168,8 @@ namespace Game.UI
 
         string ResolveBlockClass()
         {
-            var block = controlUssClassName;
-            if (!string.IsNullOrWhiteSpace(block))
-                return block;
+            if (!string.IsNullOrWhiteSpace(controlUssClassName))
+                return controlUssClassName;
 
             return ToKebabCase(GetType().Name);
         }
@@ -181,9 +180,11 @@ namespace Game.UI
                 return "element";
 
             var sb = new System.Text.StringBuilder(value.Length + 8);
+
             for (var i = 0; i < value.Length; i++)
             {
                 var c = value[i];
+
                 if (char.IsUpper(c))
                 {
                     if (i > 0)
@@ -196,12 +197,16 @@ namespace Game.UI
                     sb.Append(c);
                 }
             }
+
             return sb.ToString();
         }
 
         void ApplyLabelVisibility()
         {
-            ProgressLabelGroup.style.display = m_ShowLabel ? DisplayStyle.Flex : DisplayStyle.None;
+            if (m_LabelGroupElement == null)
+                return;
+
+            m_LabelGroupElement.style.display = m_ShowLabel ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         void EnsureBindingsIfNeeded(bool rebindAutoBindings)
@@ -270,7 +275,7 @@ namespace Game.UI
             m_ProgressPercent = computedPercent;
             ++m_ViewVersion;
 
-            if (m_ShowLabel)
+            if (m_ShowLabel && m_ValueLabel != null)
                 m_ValueLabel.text = string.Format(m_LabelFormat, Mathf.Round(m_ProgressPercent));
 
             OnProgressChanged(m_ProgressPercent);

@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: ac61fb12e5e35e6438626e9743f0499c
   m_SerializeEntries:
   - m_GUID: 188939817d7b5c346adf5a0fd67982cd
-    m_Address: bar-progress-element
+    m_Address: bar-progress-element.uxml
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -27,6 +27,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e457573c6ac32348aeb1f78822142bf
     m_Address: FooterButtonAsset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f41010928e4b904e92a514b79a59149
+    m_Address: bar-progress-element.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

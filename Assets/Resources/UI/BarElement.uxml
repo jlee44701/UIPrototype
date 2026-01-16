@@ -5,13 +5,12 @@
     xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd">
 
     <!-- Assumes BarElement.uss sits next to this file. -->
-    <Style src="BarElement.uss" />
 
-    <ui:VisualElement name="bar-element" class="bar__container">
-        <ui:VisualElement name="bar-value-group" class="bar__value-group">
-            <ui:VisualElement name="bar-background" class="bar__background" />
-            <ui:VisualElement name="bar-progress" class="bar__progress" />
-            <ui:Label name="bar-label" text="000" class="bar__label" />
+    <ui:VisualElement name="bar-progress__container" class="bar-progress__container">
+        <ui:VisualElement name="bar__value-group" class="bar__value-group">
+            <ui:VisualElement name="bar-progress__background" class="bar-progress__background" />
+            <ui:VisualElement name="bar-progress" class="bar-progress-fill" />
+            <ui:Label name="bar-progress__label" text="000" class="bar-progress__label" />
         </ui:VisualElement>
     </ui:VisualElement>
 
