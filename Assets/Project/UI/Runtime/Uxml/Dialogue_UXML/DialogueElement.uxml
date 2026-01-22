@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/Runtime/Uss/Dialogue_USS/Dialogue.uss?fileID=7433441132597879392&amp;guid=88bb56a28c9e110488b7935281bce44b&amp;type=3#Dialogue"/>
-    <ui:VisualElement name="dialogue__root" class="dialogue__root" style="filter: none();">
+    <ui:VisualElement name="dialogue__root" class="dialogue__root filter__crt-scanlines">
         <ui:VisualElement name="dialogue__container" class="dialogue__container">
             <ui:VisualElement name="portrait__container" class="portrait__container">
                 <ui:VisualElement name="portrait__image" class="portrait__image"/>

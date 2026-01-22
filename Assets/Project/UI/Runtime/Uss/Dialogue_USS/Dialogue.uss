@@ -22,9 +22,11 @@
     --transition-delay: 0.2s;
 }
 
-.custom-filter{
-    filter: ("project://database/Assets/Project/Textures/UI/CRTScanlinesFilter.asset?fileID=11400000&amp;guid=c9dfd2c463e06fa42a1a5617bb35bac8&amp;type=2#CRTScanlinesFilter") 0.005 1 0.0011 0.25);
+.filter__crt-scanlines {
+    filter: filter(url("project://database/Assets/Project/Textures/UI/CRTScanlinesFilter.asset?fileID=11400000&guid=c9dfd2c463e06fa42a1a5617bb35bac8&type=2#CRTScanlinesFilter") 0.005 1 0.0011 0.25);
 }
+
+
 
 .dialogue__root {
     flex-basis: 100%;
