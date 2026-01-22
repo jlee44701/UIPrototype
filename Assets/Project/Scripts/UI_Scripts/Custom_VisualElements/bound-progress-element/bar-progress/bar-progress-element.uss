@@ -1,0 +1,107 @@
+
+:root {
+    
+    flex-grow: 1;
+    flex-basis: 0;
+    --color-white: #ECECEC;
+    --container__padding: 2%;
+    --progress-fill__border-radius:  5px;
+    
+    --root__width: 87%;
+    --container__border-radius-default:  10px;
+
+    --color-bg-light: #494A45;
+    --bar-progress-text-shadow-default: 15px 15px 15px black;
+    --bar__min-height: 50px;
+    --label-top: -10px;
+}
+
+/*.bar-progress__container,*/
+/*.bar-progress__fill,*/
+/*.bar-progress__value-group,*/
+/*.bar-progress__label{*/
+/*    flex-basis: 0;*/
+/*}*/
+
+.bar-progress{
+    height: var(--root__height);
+    width: var(--root__width);
+    flex-direction: column;
+    align-self: center;
+    margin: 25px;
+    flex: 2;
+}
+.bar-progress__container{
+    min-width: 87%;
+    min-height: var(--bar__min-height);
+    flex: 1;
+    height: 100%;
+    width: 87%;
+    align-self: center;
+    border-color: var(--color-pink-highlight);
+    border-left-width: var(--container__border-width-default);
+    border-right-width: var(--container__border-width-default);
+    border-top-width: var(--container__border-width-default);
+    border-bottom-width: var(--container__border-width-default);
+    /*margin: auto;*/
+
+    border-radius: var(--container__border-radius-default);
+    padding:  var(--container__padding);
+
+}
+
+.bar-progress__background,
+.bar-progress__value-label{
+    position: absolute;
+}
+.progress-type__label{
+    position: absolute;
+}
+
+.bar-progress__background{
+    background-color: var(--color-bg-light);
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+}
+
+
+.bar-progress__background {
+    background-color: var(--color-bg-light);
+}
+
+.bar-progress__fill{
+    height: 100%;
+    flex-grow: 1;
+    border-radius: var(--progress-fill__border-radius);
+    max-width: 100%;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+    top:0;
+    left:0;
+    margin: 2px;
+}
+
+.bar-progress__value-group{
+    flex: 1;
+}
+
+.bar-progress__label-group{
+    position: absolute;
+    top: -40px;
+    left: 30px;
+}
+
+.bar-progress__value-label{
+    top: var(--label-top);
+    align-self: flex-start;
+    color: var(--color-white);
+    text-shadow: var(--bar-progress-text-shadow-default);
+}
+
+.bar-progress__label{
+    color: var(--color-white);
+    text-shadow: var(--bar-progress-text-shadow-default);
+    
+}

@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Obvious.Soap::Obvious.Soap.FloatVariable
   TagIndex: 0
   Description: 
-  _guid: 1af237b0108e373479db143d4b7cfca3
+  _guid: f7284f1786036414693afb4910a3d182
   _saveGuid: 0
-  _value: 0
+  _value: 0.56
   _debugLogEnabled: 0
-  _saved: 0
-  _defaultValue: 0
+  _saved: 1
+  _defaultValue: 0.3
   _resetOn: 0
-  _runtimeValue: 0
+  _runtimeValue: 0.56
   _isClamped: 1
   _min:
     UseLocal: 1

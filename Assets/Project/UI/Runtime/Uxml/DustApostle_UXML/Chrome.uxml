@@ -22,10 +22,13 @@
                     <ui:VisualElement name="left-bay-viewport-col" class="left-bay__viewport-col frame"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="right-bay-container" class="right-bay__container frame"/>
+            <ui:VisualElement name="right-bay-container" class="right-bay__container frame">
+                
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement class="lectern__footer-container">
             <ui:VisualElement name="lectern-button-container" class="lectern__button-container"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
+

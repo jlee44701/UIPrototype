@@ -4,10 +4,10 @@ Shader "UI Toolkit/Filters/CrtScanlines_4Params"
     {
         _MainTex ("Main Texture", 2D) = "white" {}
 
-        _ScanlineStrength ("Scanline Strength", Range(0,1)) = 0.35
-        _ScanlineFrequency ("Scanline Period (Pixels)", Float) = 8.0
-        _ChromaticOffset ("Chromatic Offset (Unit UV)", Float) = 0.0015
-        _Curvature ("Curvature", Float) = 0.08
+        _ScanlineStrength ("Scanline Strength", Range(0,1)) = 0.005
+        _ScanlineFrequency ("Scanline Period (Pixels)", Float) = 1
+        _ChromaticOffset ("Chromatic Offset (Unit UV)", Float) = 0.0011
+        _Curvature ("Curvature", Float) = 0.25
     }
 
     SubShader

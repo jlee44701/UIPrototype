@@ -140,6 +140,9 @@ GameObject:
   - component: {fileID: 3556780605248523014}
   - component: {fileID: 1331413076357704514}
   - component: {fileID: 1598909153013378496}
+  - component: {fileID: 7783917153188117573}
+  - component: {fileID: 3033843248486864086}
+  - component: {fileID: 4093758972163927430}
   m_Layer: 0
   m_Name: Dialogue Manager
   m_TagString: Untagged
@@ -206,7 +209,90 @@ MonoBehaviour:
   _distortion:
     _muffled: 0
   _typingVolume: 0.478
+  message: test clip
   testClip: {fileID: 8300000, guid: bf001f14a4d81c4428088c562dada249, type: 3}
+--- !u!114 &7783917153188117573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925644596859848407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947b7577f4316ba429d230834f9f1600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.UI.DialogueUIPresenter
+--- !u!114 &3033843248486864086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925644596859848407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Obvious.Soap::Obvious.Soap.EventListenerNoParam
+  _binding: 0
+  _disableAfterSubscribing: 0
+  _eventResponses:
+  - Delay:
+      UseLocal: 1
+      LocalValue: 0
+      Variable: {fileID: 0}
+    ScriptableEvent: {fileID: 11400000, guid: 3c17710301ace104f8780f312fe92b12, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7783917153188117573}
+          m_TargetAssemblyTypeName: Game.UI.DialogueUIPresenter, Assembly-CSharp
+          m_MethodName: OnShowDialogue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &4093758972163927430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925644596859848407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Obvious.Soap::Obvious.Soap.EventListenerNoParam
+  _binding: 0
+  _disableAfterSubscribing: 0
+  _eventResponses:
+  - Delay:
+      UseLocal: 1
+      LocalValue: 0
+      Variable: {fileID: 0}
+    ScriptableEvent: {fileID: 11400000, guid: 828cb0a8afa079443bde792e4acf3123, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7783917153188117573}
+          m_TargetAssemblyTypeName: Game.UI.DialogueUIPresenter, Assembly-CSharp
+          m_MethodName: OnHideDialogueUI
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2952226188484045143
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
+>
+    
+    <Style src="dialogue-element.uss" />
+    <ui:VisualElement name="dialogue__container">
+        <ui:VisualElement name="character__container">
+            <ui:VisualElement name= "character__portrait" />
+        </ui:VisualElement>
+        <ui:VisualElement name="dialogue-text__container">
+            
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

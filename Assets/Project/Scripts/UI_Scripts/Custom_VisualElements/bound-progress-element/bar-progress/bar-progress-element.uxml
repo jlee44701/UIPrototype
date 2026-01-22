@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="bar-progress__background" picking-mode="Ignore" class="bar-progress__background" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Font/ShareTechMono-Regular.ttf?fileID=12800000&amp;guid=1362cc0599e37d34681d211a5d417d1c&amp;type=3#ShareTechMono-Regular&quot;);"/>
+    <ui:VisualElement name="bar-progress__fill" picking-mode="Ignore" class="bar-progress__fill"/>
+</ui:UXML>

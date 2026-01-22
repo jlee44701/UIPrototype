@@ -29,12 +29,13 @@
     background-color: rgba(255, 255, 255, 0.15);
 }
 
-.bar__progress {
-    position: absolute;
+.bar-progress {
+    position: relative;
     left: 0;
     top: 0;
     bottom: 0;
-
+    margin: 20px;
+    
     width: 0%;
     background-color: rgba(0, 255, 0, 0.65);
 }

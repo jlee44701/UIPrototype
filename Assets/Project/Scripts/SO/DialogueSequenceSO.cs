@@ -9,6 +9,8 @@ namespace Game.UI.Story.Dialogue {
     [CreateAssetMenu(fileName = "DialogueSO",
         menuName = "Dialogue/DialogueSequence")]
     public class DialogueSequenceSO : ScriptableObject {
+        [SerializeField] public bool hideWhenFinished = true;
+        
         [TextArea(3, 10)]
         public List<string> dialogue;
         public CharacterSO  character;

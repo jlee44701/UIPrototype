@@ -6,6 +6,8 @@ using UnityEngine;
 namespace UIEvents {
     public static class DialogueEvents {
         public static Action<DialogueSequenceSO> DialogueSent;
+        public static Action ShowDialogueUI;
+        public static Action HideDialogueUI;
         public static Action DialogueSequenceFinished;
         public static Action<AudioClip> SoundPlayed;
     }

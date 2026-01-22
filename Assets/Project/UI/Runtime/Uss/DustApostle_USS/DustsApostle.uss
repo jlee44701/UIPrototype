@@ -100,6 +100,7 @@
     flex-shrink: 0;
 }
 
+
 /* Common status typography */
 .left-bay__status-container,
 .left-bay__status-text,

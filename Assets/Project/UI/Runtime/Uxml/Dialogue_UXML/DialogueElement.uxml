@@ -1,8 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/Runtime/Uss/Dialogue_USS/Dialogue.uss?fileID=7433441132597879392&amp;guid=88bb56a28c9e110488b7935281bce44b&amp;type=3#Dialogue"/>
-    <ui:VisualElement name="dialogue-container" class="dialogue__container">
-        <ui:VisualElement name="dialogue-portrait-container" class="dialogue__portrait"/>
-        <Game.UI.AnimatedTextFieldElement name="animated-text"  class="dialogue__animated-text"/>
+    <ui:VisualElement name="dialogue__root" class="dialogue__root" style="filter: none();">
+        <ui:VisualElement name="dialogue__container" class="dialogue__container">
+            <ui:VisualElement name="portrait__container" class="portrait__container">
+                <ui:VisualElement name="portrait__image" class="portrait__image"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="text-area__container" class="text-area__container">
+                <Game.UI.AnimatedTextFieldElement name="text-area__animated-text" class="text-area__animated-text"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
-   
 </ui:UXML>

@@ -13,7 +13,7 @@
     --color-pink-dark: #5a3b6e;
     --color-white: #ECECEC;
         
-    --text-shadow-default: 15px 15px 15px black;
+    --bar-progress-text-shadow-default: 15px 15px 15px black;
     
     /* Spacing */
     --space-edge-half: 8px;
