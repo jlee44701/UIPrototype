@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1625c0285a91594fa78c16d6eb594a3, type: 3}
   m_Name: Introduction
   m_EditorClassIdentifier: Assembly-CSharp::RuntimeUI.DialogueSO
-  hideWhenFinished: 0
+  hideWhenFinished: 1
   dialogue:
   - asd. <w=0.4>
   - asdasdasdasd. <w=0.5>
