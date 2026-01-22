@@ -6,6 +6,8 @@ namespace Game {
     public class CharacterSO : ScriptableObject {
         public string title;
         public Texture2D portrait;
+        public Sprite sprite;
         public AudioClip voice;
+        public bool hideUIWhenFinished;
     }
 }

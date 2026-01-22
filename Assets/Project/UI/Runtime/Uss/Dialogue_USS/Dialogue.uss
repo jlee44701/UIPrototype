@@ -1,22 +1,85 @@
-:root{
-    /*--portrait-*/
-    --portrait-flex: 33.5;
-    --text-flex: 66.5;
+:root {
+    --container-width: 38%;
+    --container-height: 18%;
+    
+    
+    --portrait__basis: 33.5%;
+    --text-area__basis: 66.5%;
+
+    --portrait__height: 71%;
+    
+    
+    --border-width: 10px;
+    --border-radius: 24px;
+    --border-color: #F8F8FF;
+    --background-color: #2D2C2F;
+    
+    font-size: 36px;
+    --font-color: #EDE6DB;
+    
+    
+    --dialogue-padding:  5px;
+    --transition-delay: 0.2s;
 }
 
-.dialogue__container{
+.custom-filter{
+    filter: ("project://database/Assets/Project/Textures/UI/CRTScanlinesFilter.asset?fileID=11400000&amp;guid=c9dfd2c463e06fa42a1a5617bb35bac8&amp;type=2#CRTScanlinesFilter") 0.005 1 0.0011 0.25);
+}
+
+.dialogue__root {
+    flex-basis: 100%;
+    transition-delay: var(--transition-delay);
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    -unity-font-definition: url("project://database/Assets/Project/UI/Font/perfect_dos_vga_437/Perfect%20DOS%20VGA%20437%20Win.ttf?fileID=12800000&guid=f322b9fb24f2a1e43bd71dfff3b441b8&type=3#Perfect DOS VGA 437 Win");
+}
+
+.dialogue__container {
+    flex-direction: row;
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+
+    padding: var(--dialogue-padding);
+    background-color: var(--background-color);
+
+    flex-shrink: 0;
+    width: var(--container-width);
+    height: var(--container-height);
+    
+
+    border-radius: var(--border-radius);
+}
+
+.portrait__container,
+.text-area__container,
+.portrait__image{
+    flex: 0;
+    flex-shrink: 0;
+}
+
+.portrait__container {
+    flex-basis: var(--portrait__basis);
+    
+    height: var(--portrait__height);
+    align-self: center;
+}
+.text-area__container {
+    flex-basis: var(--text-area__basis);
+    align-self: center;
+    flex-shrink: 1;
+}
+
+.portrait__image {
+    position: relative;
+    flex-shrink: 0;
     flex-grow: 1;
+    background-position: top;
+    background-size: contain;
 }
 
-.dialogue_portrait,
-.dialogue__animated-text{
-    flex-basis: 0;
-}
 
-.dialogue__portrait{
-    flex-grow: var(--portrait-flex);
-}
-.dialogue__animated-text{
-    flex-grow: var(--text-flex);
+.unity-text-element{
+    white-space: normal;
+    color: var(--font-color);
 }

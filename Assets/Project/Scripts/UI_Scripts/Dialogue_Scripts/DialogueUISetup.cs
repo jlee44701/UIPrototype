@@ -37,7 +37,7 @@ namespace Game.UI {
 
             if (!_doc) _doc = GetComponent<UIDocument>();
             _root = _doc.rootVisualElement ?? throw new ArgumentNullException(nameof(_root));
-
+            
             _view ??= new DialogueUIView(_root);
             _view.AnimatedTextField.SetAudioParams(
                 _pitchVariation,
@@ -46,9 +46,12 @@ namespace Game.UI {
                 _distortion,
                 _typingVolume
             );
+            
+            if (!_presenter) _presenter = GetComponent<DialogueUIPresenter>();
+            _presenter.View = _view;
 
-            _presenter ??= new DialogueUIPresenter(_view);
-            _presenter.OnEnable();
+           //_presenter ??= new DialogueUIPresenter(_view);
+
             //TEST
             DialogueEvents.DialogueSent += Test;
 
@@ -59,8 +62,6 @@ namespace Game.UI {
                 if (!Coroutines.IsInitialized)
                     Coroutines.Initialize(this);
             }
-
-
         }
         void OnDisable() {
             _presenter?.OnDisable();

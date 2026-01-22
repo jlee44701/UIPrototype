@@ -8,6 +8,7 @@
     --container__padding: 2%;
     --progress-fill__border-radius:  5px;
     --root__height: 9%;
+
 }
 
 .unity-label {
@@ -23,6 +24,10 @@
 
 .radial-progress {
     font-size: 63px;
+    height: 100%;
+    flex: 4;
+
+    
 }
 
 /*.bar-progress__container{*/
@@ -46,7 +51,7 @@
 .vibration__label{
     align-self: center;
     color: var(--color-white);
-    text-shadow: var(--text-shadow-default);
+    text-shadow: var(--bar-progress-text-shadow-default);
      
 }
 
@@ -72,12 +77,6 @@
 
 
 
-.pressure-bar__background {
-    background-color: white;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
 /*.pressure-bar__label{*/
 /*    position: relative;*/
 /*    height: 20%;*/

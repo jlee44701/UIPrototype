@@ -9,55 +9,13 @@
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
-        <Game.UI.Library.BarProgressElement name="pressure"/>
-        <ui:VisualElement name="heat" data-source="" data-source-path="" class="heat__container">
-            <ui:Label text="000" name="heat-label">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="vibration" class="vibration__container">
-            <ui:Label text="000" name="vibration-label">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="yield-buffer" class="yield-buffer__container">
-            <ui:Label text="000" name="yield-buffer-label">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="layer-hardness" class="layer-hardness__container">
-            <ui:Label text="000" name="layer-hardness-label">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="pressure-center" class="pressure-center__container">
-            <ui:Label text="000" name="pressure-center-label">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="pressure-half-width" class="pressure-half-width__container">
-            <ui:Label text="000" name="pressure-half-width-label">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="time-in-optimal-band" class="time-in-optimal__container">
-            <ui:Label text="000" name="time-in-optimal-label">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Value" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
+        <Game.UI.Library.BarProgressElement name="pressure">
+            </Game.UI.Library.BarProgressElement>
+        <Game.UI.Library.BarProgressElement name="vibration" />
+        <Game.UI.Library.BarProgressElement name="heat" />
+        <Game.UI.Library.BarProgressElement name="yield-buffer" />
+        <Game.UI.Library.BarProgressElement name="layer-hardness" />
+        <Game.UI.Library.BarProgressElement name="pressure-center" />
+       
     </ui:VisualElement>
 </ui:UXML>

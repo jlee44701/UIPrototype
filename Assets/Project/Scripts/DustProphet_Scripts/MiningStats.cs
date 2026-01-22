@@ -9,30 +9,23 @@ using UnityEngine.UIElements;
 namespace Game.Mine {
     public class MiningStats {
         readonly VisualElement _parentContainer;
-        VisualElement _mineContainer;
-        VisualElement
-            _depthElement,
-            _pressureElement,
-            _heatElement,
-            _vibrationElement,
-            _yieldBufferElement,
-            _layerHardnessElement,
-            _pressureCenterElement,
-            _pressureHalfWidthElement;
+
 
         VisualElement
             _pressureBarProgressElement;
 
-        Label
-            _depthLabel,
-            _pressureLabel,
-            _timeInOptimalLabel;
         
         RadialProgress _radialProgressElement;
         BarProgressElement _currentVibrationBarElement;
+        BarProgressElement _depthElement,
+            _heatElement,
+            _yieldBufferElement,
+            _layerHardnessElement,
+            _pressureCenterElement;
 
+        
         VisualTreeAsset _miningStatsAsset;
-
+        VisualElement _mineContainer;
         DustProphetSO _data;
         public MiningStats(VisualElement parentContainer, VisualTreeAsset miningStatsAsset, DustProphetSO data) {
             _parentContainer = parentContainer;
@@ -67,12 +60,21 @@ namespace Game.Mine {
             //_radialProgressElement.SetBlockNameOverride("current-pressure");
             
             // let's try adding a barelement programatically to  contrast with radialprogressElement
-            _currentVibrationBarElement = _parentContainer.Q<BarProgressElement>("pressure");
+            _currentVibrationBarElement = _parentContainer.Q<BarProgressElement>("vibration");
+            _heatElement = _parentContainer.Q<BarProgressElement>("heat");
+            _yieldBufferElement = _parentContainer.Q<BarProgressElement>("yield-buffer");
+            _layerHardnessElement = _parentContainer.Q<BarProgressElement>("layer-hardness");
+            _pressureCenterElement = _parentContainer.Q<BarProgressElement>("pressure-center");
+            
            // _currentVibrationBarElement.name = "current-vibration-bar";
             //_currentVibrationBarElement.SetBlockNameOverride("vibration");
             //_parentContainer.Add(_currentVibrationBarElement);
             _mineContainer.Add(_currentVibrationBarElement);
             _mineContainer.Add(_radialProgressElement);
+            _mineContainer.Add(_heatElement);
+            _mineContainer.Add(_yieldBufferElement);
+            _mineContainer.Add(_layerHardnessElement);
+            _mineContainer.Add(_pressureCenterElement);
 // Bind to a viewmodel that exposes:
 // float currentPressure01
 // string currentPressureText
@@ -100,6 +102,10 @@ namespace Game.Mine {
                 
                 _radialProgressElement.maxValue = 1;
                 _currentVibrationBarElement.maxValue = 1;
+                _heatElement.maxValue = 1;
+                _yieldBufferElement.maxValue = 1;
+                _layerHardnessElement.maxValue = 1;
+                _pressureCenterElement.maxValue = 1;
                 
             }
         }
@@ -107,6 +113,8 @@ namespace Game.Mine {
             
             var destinationString = nameof(BoundProgressElementBase.value);
             var inverseConverterGroup = "progressColorInverse";
+
+            SetLabels();
             
             Bindables.SetBindingWithConverter(
                 _radialProgressElement,
@@ -128,7 +136,63 @@ namespace Game.Mine {
                 inverseConverterGroup,
                 out var vibrationBinding
                 );
-            _currentVibrationBarElement.SetBinding(nameof(BarProgressElement.progressColor), vibrationBinding);
+
+            Bindables.SetBindingWithConverter(
+                _heatElement,
+                "currentHeat01.Value",
+                destinationString,
+                BindingMode.ToTarget,
+                inverseConverterGroup,
+                out var heatBinding
+                );
+            
+            Bindables.SetBindingWithConverter(
+                _yieldBufferElement,
+                "currentYieldBuffer.Value",
+                destinationString,
+                BindingMode.ToTarget,
+                inverseConverterGroup,
+                out var yieldBufferBinding
+                );
+            
+            Bindables.SetBindingWithConverter(_layerHardnessElement,
+                "currentLayerHardness01.Value",
+                destinationString,
+                BindingMode.ToTarget,
+                inverseConverterGroup,
+                out var layerHardnessBinding
+                );
+            Bindables.SetBindingWithConverter(
+                _pressureCenterElement,
+                "targetPressureCenter01.Value",
+                destinationString,
+                BindingMode.ToTarget,
+                inverseConverterGroup,
+                out var targetPressureHalfWidthBinding
+                );
+            
+            SetColors();
+            
+            // Bindables.SetBinding(_currentVibrationBarElement,
+            //     "");
+
+            void SetLabels() {
+                _currentVibrationBarElement.label = "Vibration";
+                _heatElement.label = "Heat";
+                _yieldBufferElement.label = "Yield Buffer";
+                _layerHardnessElement.label = "Layer Hardness";
+                _pressureCenterElement.label = "Pressure Center";
+                
+            }
+
+            void SetColors() {
+                var colorProperty = nameof(BarProgressElement.progressColor);
+                _currentVibrationBarElement.SetBinding(colorProperty, vibrationBinding);
+                _heatElement.SetBinding(colorProperty, heatBinding);
+                _yieldBufferElement.SetBinding(colorProperty, yieldBufferBinding);
+                _layerHardnessElement.SetBinding(colorProperty, layerHardnessBinding);
+                _pressureCenterElement.SetBinding(colorProperty, targetPressureHalfWidthBinding);
+            }
         }
 
         public void Cleanup() {

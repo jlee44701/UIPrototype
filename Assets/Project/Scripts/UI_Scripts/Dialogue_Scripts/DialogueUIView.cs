@@ -11,13 +11,15 @@ namespace Game.UI
 {
     public sealed class DialogueUIView : IDisposable
     {
-        const string PortraitQ = "dialogue-portrait-container";
-        const string AnimatedTextQ = "animated-text";
-        const string DialogueContainerQ = "dialogue-container";
+        const string PortraitQ = "portrait__container";
+        const string PortraitImageQ = "portrait__image";
+        const string AnimatedTextQ = "text-area__animated-text";
+        const string DialogueContainerQ = "dialogue__container";
  
         readonly VisualElement 
             m_Root, 
             m_DialoguePortraitContainer,
+            m_PortraitImageElement,
             m_DialogueContainer;
 
         AudioClip m_CurrentCharacterVoice;
@@ -41,6 +43,7 @@ namespace Game.UI
             m_Root = root ?? throw new ArgumentNullException(nameof(root));
 
             m_DialoguePortraitContainer = m_Root.Q<VisualElement>(PortraitQ) ?? throw new NullReferenceException(nameof(m_DialoguePortraitContainer));
+            m_PortraitImageElement = m_Root.Q<VisualElement>(PortraitImageQ);
             
             m_DialogueContainer = m_Root.Q<VisualElement>(DialogueContainerQ) ?? throw new NullReferenceException(nameof(m_DialogueContainer));
 
@@ -56,6 +59,14 @@ namespace Game.UI
             
         }
 
+        public void ShowDialogueUI() {
+            m_DialogueContainer.style.opacity = 1;
+
+        }
+
+        public void HideDialogueUI() {
+            m_DialogueContainer.style.opacity = 0;
+        }
         public void Dispose()
         {
             if (_isSubscribed && m_TypewriterCore != null)
@@ -112,7 +123,7 @@ namespace Game.UI
             if (stringsList == null)
                 throw new ArgumentNullException(nameof(stringsList));
             
-            m_DialogueContainer.style.opacity = 1;
+            
             
             // We let UI Toolkit do a layout/repaint pass before we start the typewriter + audio.
             //await Awaitable.NextFrameAsync();
@@ -138,13 +149,13 @@ namespace Game.UI
             //await Awaitable.WaitForSecondsAsync(1.0f);
             //await Awaitable.NextFrameAsync() ;
             
-            m_DialogueContainer.style.opacity = 0;
+            
         }
 
-        public void SetPortraitAndVoice(Texture2D image, AudioClip voice)
+        public void SetPortraitAndVoice(Sprite sprite, AudioClip voice)
         {
-            if (m_DialoguePortraitContainer != null)
-                m_DialoguePortraitContainer.style.backgroundImage = new StyleBackground(image);
+            if (m_PortraitImageElement != null && sprite)
+                m_PortraitImageElement.style.backgroundImage = new StyleBackground(sprite);
             m_AnimatedTextField.TypewriterSound = voice;
         }
     }

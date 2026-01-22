@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.CharacterSO
   title: Cheryl
   portrait: {fileID: 0}
+  sprite: {fileID: -7531052340818534022, guid: c1b33bddf65ebb9469826543c347bffb, type: 3}
   voice: {fileID: 8300000, guid: 552a567cb8046c94b9e9e1e6e381320c, type: 3}
+  hideUIWhenFinished: 0

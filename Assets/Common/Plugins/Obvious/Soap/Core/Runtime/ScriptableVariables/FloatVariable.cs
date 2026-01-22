@@ -1,5 +1,4 @@
-﻿using Unity.Properties;
-using UnityEngine;
+﻿using UnityEngine;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -72,7 +71,7 @@ namespace Obvious.Soap
         {
             Value += value;
         }
-        [CreateProperty]
+
         public override float Value
         {
             get => base.Value;
@@ -96,5 +95,16 @@ namespace Obvious.Soap
             base.OnValidate();
         }
 #endif
+    }
+    
+    [System.Serializable]
+    public class FloatVariableReadOnly : ScriptableVariableReadOnly<FloatVariable,float>
+    {
+        public bool IsClamped => _soapScriptable.IsClamped;
+        public float Min => _soapScriptable.Min;
+        public FloatReference MinReference => _soapScriptable.MinReference;
+        public FloatReference MaxReference => _soapScriptable.MaxReference;
+        public float Max => _soapScriptable.Max;
+        public float Ratio => _soapScriptable.Ratio;
     }
 }
