@@ -26,33 +26,18 @@ namespace Game.Mine {
         
         VisualTreeAsset _mineStatsUxmlAsset;
         VisualElement _mineContainer;
-        DustProphetSO _data;
-        public MiningStats(VisualElement rightBayContainer, VisualTreeAsset mineStatsUxmlAsset, DustProphetSO data) {
+        public MiningStats(VisualElement rightBayContainer, VisualTreeAsset mineStatsUxmlAsset) {
             _rightBayContainer = rightBayContainer;
-            _data = data;
             _mineStatsUxmlAsset = mineStatsUxmlAsset;
             
             SetVisualElements();
-            UpdateDataSource();
             UpdatePaths();
         }
 
         void SetVisualElements() {
+
             var miningStatsInstance = _mineStatsUxmlAsset.Instantiate();
-             _rightBayContainer.Add(miningStatsInstance);
-            // _depthElement = _root.Q<VisualElement>("depth") ??  throw new NullReferenceException(nameof(_depthElement));
-            // _depthLabel = _root.Q<Label>("depth-label") ??  throw new NullReferenceException(nameof(_depthLabel));
-            // _pressureElement = _root.Q<VisualElement>("pressure") ??  throw new NullReferenceException(nameof(_pressureElement));
-            // _pressureLabel =  _root.Q<Label>("pressure-bar-label") ??  throw new NullReferenceException(nameof(_pressureLabel));
-            // _heatElement = _root.Q<VisualElement>("heat") ??  throw new NullReferenceException(nameof(_heatElement));
-            // _vibrationElement = _root.Q<VisualElement>("vibration") ??  throw new NullReferenceException(nameof(_vibrationElement));
-            // _yieldBufferElement = _root.Q<VisualElement>("yield-buffer") ??  throw new NullReferenceException(nameof(_yieldBufferElement));
-            // _layerHardnessElement = _root.Q<VisualElement>("layer-hardness") ??  throw new NullReferenceException(nameof(_layerHardnessElement));
-            // _pressureCenterElement = _root.Q<VisualElement>("pressure-center") ??  throw new NullReferenceException(nameof(_pressureCenterElement));
-            // _pressureHalfWidthElement = _root.Q<VisualElement>("pressure-half-width") ??  throw new NullReferenceException(nameof(_pressureHalfWidthElement));
-            // _pressureBarProgressElement = _root.Q<VisualElement>("pressure-bar-progress") ??  throw new NullReferenceException(nameof(_pressureBarProgressElement));
-            //
-            //-----------------------
+            _rightBayContainer.Add(miningStatsInstance);
             _mineContainer = _rightBayContainer.Q<VisualElement>("mine-container");
             //_radialProgressElement = _parentContainer.Q<Game.UI.Library.RadialProgress>("radial-progress") ??  throw new NullReferenceException(nameof(_radialProgressElement));
             _radialProgressElement = new RadialProgress();
@@ -66,9 +51,7 @@ namespace Game.Mine {
             _layerHardnessElement = _rightBayContainer.Q<BarProgressElement>("layer-hardness");
             _pressureCenterElement = _rightBayContainer.Q<BarProgressElement>("pressure-center");
             
-           // _currentVibrationBarElement.name = "current-vibration-bar";
-            //_currentVibrationBarElement.SetBlockNameOverride("vibration");
-            //_parentContainer.Add(_currentVibrationBarElement);
+
             _mineContainer.Add(_currentVibrationBarElement);
             _mineContainer.Add(_radialProgressElement);
             _mineContainer.Add(_heatElement);
@@ -84,97 +67,112 @@ namespace Game.Mine {
             
 
         }
-        void UpdateDataSource() {
-            if (_data) {
-                // _pressureElement.dataSource = _data.currentPressure01;
-                // _pressureBarProgressElement.dataSource = _data.currentPressure01;
-                // _pressureLabel.dataSource = _data.currentPressure01;
-                //
-                // _depthElement.dataSource = _data.currentDepthThisRun;
-                // _heatElement.dataSource = _data.currentHeat01;
-                // _vibrationElement.dataSource = _data.currentVibration01;
-                // _yieldBufferElement.dataSource = _data.currentYieldBuffer;
-                // _layerHardnessElement.dataSource = _data.currentLayerHardness01;
-                // _pressureCenterElement.dataSource = _data.targetPressureCenter01;
-                // _pressureHalfWidthElement.dataSource = _data.targetPressureHalfWidth;
-                
-
-                
-                _radialProgressElement.maxValue = 1;
-                _currentVibrationBarElement.maxValue = 1;
-                _heatElement.maxValue = 1;
-                _yieldBufferElement.maxValue = 1;
-                _layerHardnessElement.maxValue = 1;
-                _pressureCenterElement.maxValue = 1;
-                
-            }
-        }
         void UpdatePaths() {
             
-            var destinationString = nameof(BoundProgressElementBase.value);
+            var valueString = nameof(BoundProgressElementBase.value);
+            var maxValueString = nameof(BoundProgressElementBase.maxValue);
             var inverseConverterGroup = "progressColorInverse";
 
             SetLabels();
-            
+
             Bindables.SetBindingWithConverter(
                 _radialProgressElement,
-                "currentPressure01.Value",
-                destinationString, 
+                "pressure01.Value",
+                valueString, 
                 BindingMode.ToTarget, 
                 inverseConverterGroup,
                 out var binding
                 );
+            
             _radialProgressElement.SetBinding("progressColor", binding);
             //_radialProgressElement.SetBinding();
             
             //
             Bindables.SetBindingWithConverter(
                 _currentVibrationBarElement,
-                "currentVibration01.Value",
-                destinationString, 
+                "vibration01.ValueUI",
+                valueString, 
                 BindingMode.ToTarget, 
                 inverseConverterGroup,
                 out var vibrationBinding
                 );
+            Bindables.SetBinding(
+                _currentVibrationBarElement,
+                "vibration01.MaxUI",
+                maxValueString,
+                BindingMode.ToTargetOnce,
+                out var maxVibration
+                );
 
             Bindables.SetBindingWithConverter(
                 _heatElement,
-                "currentHeat01.Value",
-                destinationString,
+                "heat01.ValueUI",
+                valueString,
                 BindingMode.ToTarget,
                 inverseConverterGroup,
                 out var heatBinding
                 );
+            Bindables.SetBinding(
+                _heatElement,
+                "heat01.MaxUI",
+                maxValueString,
+                BindingMode.ToTargetOnce,
+                out var maxHeat
+            );
             
             Bindables.SetBindingWithConverter(
                 _yieldBufferElement,
-                "currentYieldBuffer.Value",
-                destinationString,
+                "yieldBuffer.ValueUI",
+                valueString,
                 BindingMode.ToTarget,
                 inverseConverterGroup,
                 out var yieldBufferBinding
                 );
+            Bindables.SetBinding(
+                _yieldBufferElement,
+                "yieldBuffer.MaxUI",
+                valueString,
+                BindingMode.ToTargetOnce,
+                out var maxYieldBinding
+            );
             
-            Bindables.SetBindingWithConverter(_layerHardnessElement,
-                "currentLayerHardness01.Value",
-                destinationString,
+            Bindables.SetBindingWithConverter(
+                _layerHardnessElement,
+                "layerHardness01.ValueUI",
+                valueString,
                 BindingMode.ToTarget,
                 inverseConverterGroup,
                 out var layerHardnessBinding
                 );
+            Bindables.SetBinding(
+                _layerHardnessElement,
+                "layerHardness01.MaxUI",
+                maxValueString,
+                BindingMode.ToTargetOnce,
+                out var maxLayerHardness
+            );
+            
             Bindables.SetBindingWithConverter(
                 _pressureCenterElement,
-                "targetPressureCenter01.Value",
-                destinationString,
+                "pressureCenter01.ValueUI",
+                valueString,
                 BindingMode.ToTarget,
                 inverseConverterGroup,
                 out var targetPressureHalfWidthBinding
                 );
-            
+            Bindables.SetBinding(
+                _pressureCenterElement,
+                "pressureCenter01.MaxUI",
+                maxValueString,
+                BindingMode.ToTargetOnce,
+                out var maxPressureCenter
+            );
             SetColors();
             
             // Bindables.SetBinding(_currentVibrationBarElement,
             //     "");
+            return;
+
 
             void SetLabels() {
                 _currentVibrationBarElement.label = "Vibration";
@@ -186,12 +184,12 @@ namespace Game.Mine {
             }
 
             void SetColors() {
-                var colorProperty = nameof(BarProgressElement.progressColor);
-                _currentVibrationBarElement.SetBinding(colorProperty, vibrationBinding);
-                _heatElement.SetBinding(colorProperty, heatBinding);
-                _yieldBufferElement.SetBinding(colorProperty, yieldBufferBinding);
-                _layerHardnessElement.SetBinding(colorProperty, layerHardnessBinding);
-                _pressureCenterElement.SetBinding(colorProperty, targetPressureHalfWidthBinding);
+                var colorPropertyStringPath = nameof(BarProgressElement.progressColor);
+                _currentVibrationBarElement.SetBinding(colorPropertyStringPath, vibrationBinding);
+                _heatElement.SetBinding(colorPropertyStringPath, heatBinding);
+                _yieldBufferElement.SetBinding(colorPropertyStringPath, yieldBufferBinding);
+                _layerHardnessElement.SetBinding(colorPropertyStringPath, layerHardnessBinding);
+                _pressureCenterElement.SetBinding(colorPropertyStringPath, targetPressureHalfWidthBinding);
             }
         }
 

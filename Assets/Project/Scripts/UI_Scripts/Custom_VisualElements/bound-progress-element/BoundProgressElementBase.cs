@@ -6,6 +6,7 @@ namespace Game.UI
 {
     public abstract class BoundProgressElementBase : BindableElement, IDataSourceViewHashProvider
     {
+        
         public static readonly BindingId valueProperty = nameof(value);
         public static readonly BindingId maxValueProperty = nameof(maxValue);
         public static readonly BindingId labelProperty = nameof(label);

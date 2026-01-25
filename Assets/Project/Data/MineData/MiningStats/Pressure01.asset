@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9af717b18caf1e41aa8cd7a480c6460, type: 3}
+  m_Name: Pressure01
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Data.FloatData
+  TagIndex: 0
+  Description: 
+  _guid: 67b8fd341861cea4db9b752639b4852f
+  _saveGuid: 0
+  _value: 0.39
+  _debugLogEnabled: 0
+  _saved: 0
+  _defaultValue: 0
+  _resetOn: 0
+  _runtimeValue: 0
+  _isClamped: 1
+  _min:
+    UseLocal: 1
+    LocalValue: 0
+    Variable: {fileID: 0}
+  _max:
+    UseLocal: 1
+    LocalValue: 1
+    Variable: {fileID: 0}

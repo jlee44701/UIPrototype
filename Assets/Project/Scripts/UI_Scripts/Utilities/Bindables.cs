@@ -13,7 +13,7 @@ namespace Game.UI.Utilities
             out DataBinding binding)
         {
             SetBindingInternal(
-                destination: destination,
+                element: destination,
                 sourcePath: sourcePath,
                 destinationPath: destinationPath,
                 bindingMode: bindingMode,
@@ -30,7 +30,7 @@ namespace Game.UI.Utilities
             out DataBinding binding)
         {
             SetBindingInternal(
-                destination: destination,
+                element: destination,
                 sourcePath: sourcePath,
                 destinationPath: destinationPath,
                 bindingMode: bindingMode,
@@ -39,7 +39,7 @@ namespace Game.UI.Utilities
         }
 
         static void SetBindingInternal(
-            VisualElement destination,
+            VisualElement element,
             string sourcePath,
             string destinationPath,
             BindingMode bindingMode,
@@ -52,18 +52,20 @@ namespace Game.UI.Utilities
                 bindingMode = bindingMode
             };
 
-            TryApplyConverterGroup(binding, converterGroupString);
+            if (!string.IsNullOrEmpty(converterGroupString))
+                ApplyConverterGroup(binding, converterGroupString);
 
-            destination.SetBinding(destinationPath, binding);
+            element.SetBinding(destinationPath, binding);
+
+            return;
+            static void ApplyConverterGroup(DataBinding binding, string converterGroupString)
+            {
+                if (!ConverterGroups.TryGetConverterGroup(converterGroupString, out var converterGroup)) return;
+
+                binding.ApplyConverterGroupToUI(converterGroup);
+            }
         }
 
-        static void TryApplyConverterGroup(DataBinding binding, string converterGroupString)
-        {
-            if (string.IsNullOrEmpty(converterGroupString)) return;
-
-            if (!ConverterGroups.TryGetConverterGroup(converterGroupString, out var converterGroup)) return;
-
-            binding.ApplyConverterGroupToUI(converterGroup);
-        }
+        
     }
 }

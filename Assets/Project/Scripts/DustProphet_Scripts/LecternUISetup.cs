@@ -121,7 +121,7 @@ namespace Game.UI {
             
             VisualElement root = _document.rootVisualElement.Q<VisualElement>(Names.LecternContainer) ?? throw new NullReferenceException(nameof(root));
             
-            _lecternUiView = new LecternUIView(root, _viewData, _dustProphetSo, _miningStatsAsset);
+            _lecternUiView = new LecternUIView(root, _viewData, _miningStatsAsset);
             _lecternUiView.Initialize();
             _lecternUiView.SetupFooter(_viewData.Length, _footerButtonAsset);
             _lecternUiView.RegisterCallbacks();

@@ -19,7 +19,7 @@ namespace Game.UI {
 
         EventRegistry m_EventRegistry;
 
-        LecternViewSO[] m_ViewData;
+        LecternViewSO[] _mViewSoLecternViewSo;
 
         protected Coroutine m_DisplayRoutine;
 
@@ -57,13 +57,13 @@ namespace Game.UI {
         public LecternBaseView CurrentView => m_CurrentView;
         public UIDocument Document => m_Document;
 
-        public LecternUIView(VisualElement parentElement, LecternViewSO[] data, DustProphetSO dustProphetSo, VisualTreeAsset miningStatsAsset) {
+        public LecternUIView(VisualElement parentElement, LecternViewSO[] lecternViewSo, VisualTreeAsset miningStatsAsset) {
 
             _root = parentElement
                      ?? throw new ArgumentNullException(nameof(parentElement));
-            m_ViewData = data;
+            _mViewSoLecternViewSo = lecternViewSo;
             SetVisualElements();
-            _miningStats = new MiningStats(_rightBayContainer, miningStatsAsset, dustProphetSo);
+            _miningStats = new MiningStats(_rightBayContainer, miningStatsAsset);
 
         }
 
@@ -147,11 +147,11 @@ namespace Game.UI {
         }
         public void RegisterCallbacks() {
 
-            for (var i = 0; i < m_ViewData.Length; i++) {
+            for (var i = 0; i < _mViewSoLecternViewSo.Length; i++) {
                 int index = i; // Closure capture
 
                 NavigationBar.SetButtonLabelTextAtIndex(index,
-                    m_ViewData[index].Title);
+                    _mViewSoLecternViewSo[index].Title);
 
                 var button = NavigationBar.Buttons[index];
 
@@ -226,7 +226,7 @@ namespace Game.UI {
                 int index = NavigationBar.Buttons.IndexOf(hoverOverButton);
 
                 // If index is valid, highlight the button and pass the index to an event
-                if (index != -1 && index < m_ViewData.Length) {
+                if (index != -1 && index < _mViewSoLecternViewSo.Length) {
                     // NavigationBar.HighlightButton(index);
 
                     DustProphet.FooterButtonEntered?.Invoke(index);

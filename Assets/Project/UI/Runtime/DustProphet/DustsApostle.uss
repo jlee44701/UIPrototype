@@ -1,0 +1,259 @@
+
+
+:root{
+    --header-grow: 5;
+    --body-grow: 88;
+    --footer-grow: 8;
+
+    --left-bay-grow: 80;
+    --right-bay-grow: 20;
+
+    --left-bay-spacer-grow: 17;
+    --left-bay-status-grow: 5;
+    --body-main-col-grow: 78;
+
+    --left-bay-terminal-grow: 40;
+    --left-bay-viewport-grow: 60;
+ 
+    --terminal-status-grow: 3;
+    --terminal-target-grow: 9;
+    --terminal-target-meta-grow: 18;
+    --terminal-line-break-grow: 3;
+
+    --terminal-vp-target-label-grow: 0.3;
+
+    /* Typography tokens */
+    --pe-status-font-size: 36px;
+    --pe-terminal-font-size: 45px;
+
+    /* Timing */
+    --select-time: 0.1s;
+
+    /* Flex helpers */
+    --basis-zero: 0px;
+
+    --font-default: url('project://database/Assets/Project/UI/Font/perfect_dos_vga_437/Perfect DOS VGA 437 SDF.asset');
+}
+
+.panel { } /* keep the name; actual styling comes from shared selector below */
+
+/* Apply the frame look to any element that uses either class */
+.panel, .frame {
+    border-width: var(--border-frame);
+    border-color: var(--color-pink-midtone);
+    border-radius: var(--radius-frame);
+
+    color: var(--color-pink-midtone);
+    padding: 0;
+    overflow: visible;
+}
+
+/* We make flex-grow behave like a pure ratio by forcing basis to 0 on direct children
+   of our ratio-layout containers. */
+.lectern__container > *,
+.lectern__header-container > *,
+.lectern__body-container > *,
+.lectern__footer-container > *,
+.lectern__button-container > *,
+.left-bay__container > *,
+.right-bay__container > *,
+.left-bay__main-columns > *,
+.left-bay__terminal-col > * {
+    flex-basis: var(--basis-zero, 0px);
+}
+
+
+/* Common row layouts */
+.lectern__header-container,
+.lectern__body-container,
+.lectern__footer-container,
+.lectern__button-container,
+.left-bay__status-container,
+.left-bay__main-columns,
+.terminal__vp-target-container {
+    flex-direction: row;
+}
+
+/* Common padding */
+.lectern__header-container,
+.lectern__body-container {
+    padding-left: var(--space-edge);
+    padding-right: var(--space-edge);
+}
+
+/* Common non-shrinking layout items */
+.lectern__footer-container,
+.left-bay__container,
+.right-bay__container,
+.left-bay__spacer,
+.left-bay__status-container,
+.left-bay__main-columns,
+.left-bay__terminal-col,
+.left-bay__viewport-col,
+.terminal__directory-container,
+.terminal__vp-target-container,
+.terminal__target-meta,
+.terminal__line-break,
+.terminal__vp-target-label {
+    flex-shrink: 0;
+}
+
+
+/* Common status typography */
+.left-bay__status-container,
+.left-bay__status-text,
+.terminal__status-text {
+    font-size: var(--pe-status-font-size);
+}
+
+/* root layout */
+.lectern__container {
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--color-bg-dark);
+}
+
+/* vertical sizing */
+.lectern__header-container {
+    flex-grow: var(--header-grow);
+
+    border-bottom-width: var(--border-frame);
+    border-bottom-color: var(--color-pink-midtone);
+
+    margin-bottom: var(--space-edge);
+}
+
+.lectern__body-container {
+    flex-grow: var(--body-grow);
+}
+
+.lectern__footer-container {
+    align-items: flex-end;
+
+    flex-grow: var(--footer-grow);
+
+    padding-left: var(--space-edge-adjusted);
+    padding-right: var(--space-edge-adjusted);
+}
+
+/* footer button row (this class must be on the element that directly contains the TemplateContainers) */
+.lectern__button-container {
+    flex-grow: 1;
+    margin-bottom: var(--space-edge);
+}
+
+/* template instance wrappers inside footer */
+.lectern__button-container > TemplateContainer {
+    flex-grow: 1;
+    margin: 0 var(--space-gap-half);
+}
+
+.lectern__footer-button {
+    flex-grow: 1;
+    margin: 0;
+
+    transition-property: scale, color, border-color;
+    transition-duration: var(--select-time);
+}
+
+.lectern__footer-button--selected {
+    border-color: var(--color-pink-highlight);
+    color: var(--color-pink-highlight);
+    scale: 1.01;
+    transition-timing-function: ease-in-bounce;
+}
+
+/* bays */
+.left-bay__container {
+    flex-grow: var(--left-bay-grow);
+}
+
+.right-bay__container {
+    flex-grow: var(--right-bay-grow);
+    
+    margin-left: var(--space-edge);
+    margin-bottom: var(--space-edge);
+}
+
+.left-bay__terminal-col{
+    flex-grow: var(--left-bay-terminal-grow);
+}
+
+/* left bay column */
+.left-bay__spacer {
+    flex-grow: var(--left-bay-spacer-grow);
+}
+
+.left-bay__status-container {
+    background-color: var(--color-bg-light);
+
+    align-items: center;
+
+    flex-grow: var(--left-bay-status-grow);
+
+    align-self: center;
+    margin: var(--space-edge);
+    width: 96%;
+
+    position: relative;
+}
+
+.left-bay__status-text {
+    position: absolute;
+    margin-left: var(--space-edge);
+}
+
+.left-bay__main-columns {
+    margin-bottom: var(--space-edge);
+
+    flex-grow: var(--body-main-col-grow);
+}
+
+.left-bay__terminal-col {
+    flex-direction: column;
+    flex-grow: var(--left-bay-terminal-grow);
+}
+
+.left-bay__viewport-col {
+    flex-grow: var(--left-bay-viewport-grow);
+    
+}
+
+/* ----------- TERMINAL ----------- */
+.terminal__directory-container {
+    flex-grow: var(--terminal-status-grow);
+}
+
+.terminal__vp-target-container {
+    flex-grow: var(--terminal-target-grow);
+}
+
+.terminal__vp-target-label {
+    flex-grow: var(--terminal-vp-target-label-grow);
+    border-radius: var(--progress-fill__border-radius);
+    font-size: var(--pe-terminal-font-size);
+    align-self: center;
+
+    border-width: var(--space-edge);
+    border-color: var(--color-pink-highlight);
+
+    margin: var(--space-edge-double);
+
+    color: var(--color-pink-highlight);
+}
+
+.terminal__status-text {
+    /* font-size grouped above */
+}
+
+.terminal__target-meta {
+    flex-grow: var(--terminal-target-meta-grow);
+}
+
+.terminal__line-break {
+    flex-grow: var(--terminal-line-break-grow);
+}
+
+.radial-progress{
+    flex-grow: 1;
+}

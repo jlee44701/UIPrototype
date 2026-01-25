@@ -4,56 +4,9 @@ using UnityEngine.UIElements;
 
 namespace UI.Filters
 {
-    public class FilterEffectRunner
+    public sealed class FilterEffectRunner
     {
-        sealed class Handle
-        {
-            public IVisualElementScheduledItem Tick;
-            public IVisualElementScheduledItem Clear;
-            public EventCallback<DetachFromPanelEvent> DetachCb;
-
-            public readonly List<FilterFunction> Filters = new(1);
-            public FilterFunction Filter;
-        }
-
         readonly Dictionary<VisualElement, Handle> _active = new();
-
-        public void Apply(VisualElement ve, FilterFunction filter)
-        {
-            if (ve == null)
-                return;
-
-            Stop(ve, clearInlineFilter: false);
-
-            var cloned = CloneFilter(filter);
-            ve.style.filter = new List<FilterFunction> { cloned };
-        }
-
-        public void PlayOnce(VisualElement ve, float durationSeconds, FilterFunction filter)
-        {
-            if (ve == null) return;
-
-            Stop(ve, clearInlineFilter: true);
-
-            var h = new Handle();
-            h.Filter = CloneFilter(filter);
-            h.Filters.Add(h.Filter);
-            ve.style.filter = h.Filters;
-
-            h.DetachCb = _ => Stop(ve, clearInlineFilter: true);
-            ve.RegisterCallback(h.DetachCb);
-
-            _active[ve] = h;
-
-            var delayMs = Mathf.Max(0, Mathf.RoundToInt(durationSeconds * 1000f));
-            h.Clear = ve.schedule.Execute(() =>
-            {
-                if (!_active.TryGetValue(ve, out var live) || !ReferenceEquals(live, h))
-                    return;
-
-                Stop(ve, clearInlineFilter: true);
-            }).StartingIn(delayMs);
-        }
 
         public void PlayOnceFloatParam(
             VisualElement ve,
@@ -66,54 +19,36 @@ namespace UI.Filters
             if (ve == null)
                 return;
 
-            Stop(ve, clearInlineFilter: true);
+            if (!_active.TryGetValue(ve, out var h))
+            {
+                h = new Handle(ve, this);
+                _active.Add(ve, h);
+            }
+            else
+            {
+                h.StopScheduled();
+            }
 
-            var h = new Handle();
             h.Filter = CloneFilter(filter);
 
             if (paramIndex < 0 || paramIndex >= h.Filter.parameterCount)
-            {
-                PlayOnce(ve, durationSeconds, h.Filter);
                 return;
-            }
 
-            h.Filter.SetParameter(paramIndex, new FilterParameter(from));
-            h.Filters.Add(h.Filter);
+            h.ParamIndex = paramIndex;
+            h.From = from;
+            h.To = to;
+            h.Start = Time.realtimeSinceStartup;
+            h.InvDur = durationSeconds > 1e-5f ? 1f / durationSeconds : 0f;
+
+            h.Filter.SetParameter(h.ParamIndex, new FilterParameter(h.From));
+
+            // UI Toolkit can clear the assigned list when we later set StyleKeyword.Null.
+            // Keep the list instance but re-ensure index 0 exists before we assign.
+            EnsureSlot(h.Filters);
+            h.Filters[0] = h.Filter;
             ve.style.filter = h.Filters;
 
-            h.DetachCb = _ => Stop(ve, clearInlineFilter: true);
-            ve.RegisterCallback(h.DetachCb);
-
-            _active[ve] = h;
-
-            var start = Time.realtimeSinceStartup;
-            var invDur = durationSeconds > 1e-5f ? 1f / durationSeconds : 0f;
-
-            h.Tick = ve.schedule.Execute(() =>
-            {
-                if (!_active.TryGetValue(ve, out var live) || !ReferenceEquals(live, h))
-                    return;
-
-                var rawT = invDur > 0f ? (Time.realtimeSinceStartup - start) * invDur : 1f;
-                var t01 = SmoothStep01(Mathf.Clamp01(rawT));
-
-                var value = Mathf.LerpUnclamped(from, to, t01);
-                h.Filter.SetParameter(paramIndex, new FilterParameter(value));
-
-                h.Filters[0] = h.Filter;
-                ve.style.filter = h.Filters;
-
-                if (rawT >= 1f)
-                    Stop(ve, clearInlineFilter: true);
-            }).Every(0);
-        }
-
-        public void ClearInlineFilter(VisualElement ve)
-        {
-            if (ve == null)
-                return;
-
-            Stop(ve, clearInlineFilter: true);
+            h.Tick = ve.schedule.Execute(h.OnTick).Every(0);
         }
 
         public void Stop(VisualElement ve, bool clearInlineFilter)
@@ -121,21 +56,40 @@ namespace UI.Filters
             if (ve == null)
                 return;
 
-            if (_active.TryGetValue(ve, out var h))
-            {
-                h.Tick?.Pause();
-                h.Clear?.Pause();
+            if (!_active.TryGetValue(ve, out var h))
+                return;
 
-                if (h.DetachCb != null)
-                    ve.UnregisterCallback(h.DetachCb);
-
-                _active.Remove(ve);
-            }
+            h.StopScheduled();
 
             if (clearInlineFilter)
             {
-                ve.schedule.Execute(() => ve.style.filter = StyleKeyword.Null);
+                // Defer one tick so the style system reliably observes the change.
+                h.Clear = ve.schedule.Execute(() => ve.style.filter = StyleKeyword.Null);
             }
+        }
+
+        internal void Release(VisualElement ve)
+        {
+            if (ve == null)
+                return;
+
+            if (!_active.TryGetValue(ve, out var h))
+                return;
+
+            h.StopScheduled();
+
+            if (h.DetachCb != null)
+                ve.UnregisterCallback(h.DetachCb);
+
+            _active.Remove(ve);
+
+            ve.style.filter = StyleKeyword.Null;
+        }
+
+        static void EnsureSlot(List<FilterFunction> filters)
+        {
+            if (filters.Count == 0)
+                filters.Add(default);
         }
 
         static FilterFunction CloneFilter(FilterFunction src)
@@ -150,10 +104,74 @@ namespace UI.Filters
             return dst;
         }
 
-        static float SmoothStep01(float x)
+        sealed class Handle
         {
-            x = Mathf.Clamp01(x);
-            return x * x * (3f - 2f * x);
+            readonly FilterEffectRunner _runner;
+
+            public readonly VisualElement Ve;
+
+            public IVisualElementScheduledItem Tick;
+            public IVisualElementScheduledItem Clear;
+            public readonly EventCallback<DetachFromPanelEvent> DetachCb;
+
+            public readonly List<FilterFunction> Filters = new(1);
+
+            public FilterFunction Filter;
+            public int ParamIndex;
+            public float From;
+            public float To;
+            public float Start;
+            public float InvDur;
+
+            public Handle(VisualElement ve, FilterEffectRunner runner)
+            {
+                Ve = ve;
+                _runner = runner;
+
+                DetachCb = OnDetach;
+                ve.RegisterCallback(DetachCb);
+            }
+
+            public void StopScheduled()
+            {
+                Tick?.Pause();
+                Clear?.Pause();
+                Tick = null;
+                Clear = null;
+            }
+
+            void OnDetach(DetachFromPanelEvent _)
+            {
+                _runner.Release(Ve);
+            }
+
+            public void OnTick()
+            {
+                var rawT = InvDur > 0f ? (Time.realtimeSinceStartup - Start) * InvDur : 1f;
+
+                var t01 = rawT;
+                if (t01 < 0f) t01 = 0f;
+                else if (t01 > 1f) t01 = 1f;
+
+                // Smoothstep
+                t01 = t01 * t01 * (3f - 2f * t01);
+
+                var value = Mathf.LerpUnclamped(From, To, t01);
+                Filter.SetParameter(ParamIndex, new FilterParameter(value));
+
+                EnsureSlot(Filters);
+                Filters[0] = Filter;
+                Ve.style.filter = Filters;
+
+                if (rawT >= 1f)
+                {
+                    Tick?.Pause();
+                    Tick = null;
+
+                    Clear?.Pause();
+                    Clear = Ve.schedule.Execute(() => Ve.style.filter = StyleKeyword.Null);
+                }
+            }
         }
     }
 }

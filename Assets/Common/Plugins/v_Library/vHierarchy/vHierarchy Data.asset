@@ -60,7 +60,7 @@ MonoBehaviour:
           iconNameOrGuid: Settings Icon
           isIconRecursive: 0
           isColorRecursive: 0
-        - colorIndex: 0
+        - colorIndex: 6
           iconNameOrGuid: GUIText Icon
           isIconRecursive: 0
           isColorRecursive: 1

@@ -8,14 +8,14 @@ namespace Game.Mine {
         }
         public void Tick() {
             var tickRate = s.tickRatePerSecond;
-            var depth = d.currentDepthThisRun.Value;
-            var heat = d.currentHeat01.Value;
-            var layerHardness = d.currentLayerHardness01.Value;
-            var pressure = d.currentPressure01.Value;
-            var vibration = d.currentVibration01.Value;
-            var yieldBuffer = d.currentYieldBuffer.Value;
+            var depth = d.currentDepth.Value;
+            var heat = d.heat01.Value;
+            var layerHardness = d.layerHardness01.Value;
+            var pressure = d.pressure01.Value;
+            var vibration = d.vibration01.Value;
+            var yieldBuffer = d.yieldBuffer.Value;
             var pressureCenter = d.targetPressureCenter01.Value;
-            var pressureHalfWidth = d.targetPressureHalfWidth.Value;
+            var pressureHalfWidth = d.targetPressureHalfWidth01.Value;
             var timeInOptimalBand = d.timeInOptimalBand.Value;
         }
     }

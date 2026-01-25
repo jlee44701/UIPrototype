@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Properties;
+using UnityEngine;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
