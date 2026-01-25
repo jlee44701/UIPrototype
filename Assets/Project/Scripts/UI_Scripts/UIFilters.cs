@@ -46,7 +46,7 @@ namespace UI.Filters {
         }
 
         void OnApplyCrtFilter(VisualElement target) {
-            
+              
         }
     }
     [Serializable]

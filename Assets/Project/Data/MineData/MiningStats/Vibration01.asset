@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Data.FloatData
   TagIndex: 0
   Description: 
-  _guid: 67b8fd341861cea4db9b752639b4852f
+  _guid: eb23c8c9963c62b40ab2924604a92fba
   _saveGuid: 0
-  _value: 0.39
+  _value: 0
   _debugLogEnabled: 0
   _saved: 0
   _defaultValue: 0

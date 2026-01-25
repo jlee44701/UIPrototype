@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: DustProphetSO
   m_EditorClassIdentifier: Assembly-CSharp::Game.Mine.DustProphetSO
   state: 0
-  currentDepthThisRun: {fileID: 11400000, guid: 52b3195526330994aba34a15c3e1725b, type: 2}
-  currentPressure01: {fileID: 11400000, guid: 1af237b0108e373479db143d4b7cfca3, type: 2}
-  currentHeat01: {fileID: 11400000, guid: cacca3ae9d7a040419b7f92a64d3c08b, type: 2}
-  currentVibration01: {fileID: 11400000, guid: 768ac470cb339fd4889007414f873f88, type: 2}
-  currentYieldBuffer: {fileID: 11400000, guid: a2828ab8512e87b4eb95226141654352, type: 2}
-  currentLayerHardness01: {fileID: 11400000, guid: f7284f1786036414693afb4910a3d182, type: 2}
-  targetPressureCenter01: {fileID: 11400000, guid: 04ed194a8ac8d9945b8df586bc088bc0, type: 2}
-  targetPressureHalfWidth: {fileID: 11400000, guid: dc543f78a56b9df44a1897805b352006, type: 2}
-  timeInOptimalBand: {fileID: 11400000, guid: f12444ea107172e49af023a153430c7c, type: 2}
+  currentDepth: {fileID: 11400000, guid: 1e1dd57977274bb4b992dc7eec932212, type: 2}
+  yieldBuffer: {fileID: 11400000, guid: f0dff09653a543d40a532ef317b4adf5, type: 2}
+  timeInOptimalBand: {fileID: 11400000, guid: 6f1013a8971b6c44e8270c448b992805, type: 2}
+  pressure01: {fileID: 11400000, guid: 3658574e1c2e4874ba1387488afb5091, type: 2}
+  heat01: {fileID: 11400000, guid: 8ae6b8c68c5e3044082e490eb299bf4d, type: 2}
+  vibration01: {fileID: 11400000, guid: eb23c8c9963c62b40ab2924604a92fba, type: 2}
+  layerHardness01: {fileID: 11400000, guid: 67b8fd341861cea4db9b752639b4852f, type: 2}
+  targetPressureCenter01: {fileID: 11400000, guid: f757c5977f8aaba49996520563afb1db, type: 2}
+  targetPressureHalfWidth01: {fileID: 11400000, guid: ccd022e78750da44f91e38b2d8634273, type: 2}

@@ -21,13 +21,13 @@ MonoBehaviour:
   _saved: 0
   _defaultValue: 0
   _resetOn: 0
-  _runtimeValue: 0
-  _isClamped: 0
+  _runtimeValue: 3.5
+  _isClamped: 1
   _min:
     UseLocal: 1
     LocalValue: 0
     Variable: {fileID: 0}
   _max:
     UseLocal: 1
-    LocalValue: 1
+    LocalValue: 500
     Variable: {fileID: 0}

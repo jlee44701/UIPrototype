@@ -3,6 +3,7 @@ using Game.UI.Story.Dialogue;
 using Events;
 using Events.UI;
 using Events.UI.Dialogue;
+using Febucci.TextAnimatorCore.Typing;
 using UI;
 using UI.Filters;
 using Unity.VisualScripting;
@@ -32,6 +33,8 @@ namespace Game.UI {
         public void OnEnable() {
             UnregisterCallbacks();
             RegisterCallbacks();
+            View.HideDialogueUI();
+            
         }
         public void OnDisable() {
             UnregisterCallbacks();
@@ -41,13 +44,14 @@ namespace Game.UI {
             DialogueEvents.DialogueSent += ProcessDialogue;
             DialogueEvents.ShowDialogueUI += OnShowDialogue;
             DialogueEvents.HideDialogueUI += OnHideDialogueUI; 
-            
+            View.TypeWriter.OnMessage += OnMessage;
 
         }
         void UnregisterCallbacks() {
             DialogueEvents.DialogueSent -= ProcessDialogue;
             DialogueEvents.ShowDialogueUI -= OnShowDialogue;
             DialogueEvents.HideDialogueUI -= OnHideDialogueUI;
+            View.TypeWriter.OnMessage -= OnMessage;
         }
 
         public void OnShowDialogue() {
@@ -98,6 +102,15 @@ namespace Game.UI {
             _fx.ApplyFilter(element, filter);
 
         }
-        
+
+        void OnMessage(EventMarker eventMarker) {
+            var name = eventMarker.name;
+            var asd = eventMarker.parameters;
+            if (name == "glitch") {
+                ApplyFilter_PixelGlitchSweep();
+            }
+        }
     }
+    
+    
 }

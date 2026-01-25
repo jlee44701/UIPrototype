@@ -174,24 +174,6 @@ MonoBehaviour:
       isAsset: 0
       _id: 1026225441
     - globalId:
-        globalObjectIdString: GlobalObjectId_V1-1-419b0519d47b36c46b3941686ff54663-102900000-0
-      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _obj: {fileID: 0}
-      isSceneGameObject: 0
-      isFolder: 1
-      isAsset: 0
-      _id: 1059496003
-    - globalId:
-        globalObjectIdString: GlobalObjectId_V1-1-580fd7d2ffb15814fa6f7eea1c959cf5-102900000-0
-      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _obj: {fileID: 0}
-      isSceneGameObject: 0
-      isFolder: 1
-      isAsset: 0
-      _id: 1049436181
-    - globalId:
         globalObjectIdString: GlobalObjectId_V1-1-9b5dd7cfda4fe914db10ca52e9e02682-102900000-0
       _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -267,5 +249,23 @@ MonoBehaviour:
     _id: 1058506895
   - items: []
     name: Page 7
+    _id: 1061050273
+  - items: []
+    name: Page 8
+    _id: 1051957709
+  - items: []
+    name: Page 9
+    _id: 1051548505
+  - items: []
+    name: Page 10
+    _id: 1045469522
+  - items: []
+    name: Page 11
+    _id: 1042715929
+  - items: []
+    name: Page 12
+    _id: 1057273217
+  - items: []
+    name: Page 13
     _id: 0
   rowScale: 1

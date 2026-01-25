@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,24 +15,23 @@ namespace UI.Filters
             FilterFunction filter,
             int paramIndex,
             float from,
-            float to)
+            float to,
+            Func<float, float>? easing = null)
         {
             if (ve == null)
                 return;
 
-            if (!_active.TryGetValue(ve, out var h))
-            {
-                h = new Handle(ve, this);
-                _active.Add(ve, h);
-            }
-            else
-            {
-                h.StopScheduled();
-            }
+            easing ??= expImpulse;
 
-            h.Filter = CloneFilter(filter);
+            // Cancel any prior run, but do not clear inline filter here.
+            // Clearing is deferred and guarded so we do not wipe the new run.
+            Stop(ve, clearInlineFilter: false);
 
-            if (paramIndex < 0 || paramIndex >= h.Filter.parameterCount)
+            var h = new Handle(this, ve, easing);
+
+            h.Func = CloneFilter(filter);
+
+            if (paramIndex < 0 || paramIndex >= h.Func.parameterCount)
                 return;
 
             h.ParamIndex = paramIndex;
@@ -40,56 +40,79 @@ namespace UI.Filters
             h.Start = Time.realtimeSinceStartup;
             h.InvDur = durationSeconds > 1e-5f ? 1f / durationSeconds : 0f;
 
-            h.Filter.SetParameter(h.ParamIndex, new FilterParameter(h.From));
+            h.Func.SetParameter(h.ParamIndex, new FilterParameter(h.From));
+            h.WriteFilter();
 
-            // UI Toolkit can clear the assigned list when we later set StyleKeyword.Null.
-            // Keep the list instance but re-ensure index 0 exists before we assign.
-            EnsureSlot(h.Filters);
-            h.Filters[0] = h.Filter;
-            ve.style.filter = h.Filters;
+            _active[ve] = h;
 
             h.Tick = ve.schedule.Execute(h.OnTick).Every(0);
         }
 
-        public void Stop(VisualElement ve, bool clearInlineFilter)
+        public void Stop(VisualElement ve, bool clearInlineFilter = true)
         {
             if (ve == null)
                 return;
 
             if (!_active.TryGetValue(ve, out var h))
-                return;
-
-            h.StopScheduled();
-
-            if (clearInlineFilter)
             {
-                // Defer one tick so the style system reliably observes the change.
-                h.Clear = ve.schedule.Execute(() => ve.style.filter = StyleKeyword.Null);
+                if (clearInlineFilter)
+                    ClearInlineIfNoActiveEffect(ve);
+
+                return;
             }
-        }
 
-        internal void Release(VisualElement ve)
-        {
-            if (ve == null)
-                return;
-
-            if (!_active.TryGetValue(ve, out var h))
-                return;
-
-            h.StopScheduled();
+            h.Tick?.Pause();
+            h.Clear?.Pause();
+            h.Tick = null;
+            h.Clear = null;
 
             if (h.DetachCb != null)
                 ve.UnregisterCallback(h.DetachCb);
 
             _active.Remove(ve);
 
-            ve.style.filter = StyleKeyword.Null;
+            if (clearInlineFilter)
+                ClearInlineIfNoActiveEffect(ve);
         }
 
-        static void EnsureSlot(List<FilterFunction> filters)
+        void ClearInlineIfNoActiveEffect(VisualElement ve)
         {
-            if (filters.Count == 0)
-                filters.Add(default);
+            // We do both: immediate clear plus a guarded deferred clear.
+            // The deferred clear is the one that avoids the UI Toolkit timing pitfall,
+            // while the guard prevents wiping a newly started effect.
+            ve.style.filter = StyleKeyword.Null;
+
+            ve.schedule.Execute(() =>
+            {
+                if (!_active.ContainsKey(ve))
+                    ve.style.filter = StyleKeyword.Null;
+            });
+        }
+
+        internal bool IsLive(VisualElement ve, Handle h)
+        {
+            return _active.TryGetValue(ve, out var live) && ReferenceEquals(live, h);
+        }
+
+        internal void CleanupIfLive(Handle h)
+        {
+            if (!IsLive(h.Ve, h))
+                return;
+
+            // Remove first so any other scheduled work sees the run as ended.
+            _active.Remove(h.Ve);
+
+            if (h.DetachCb != null)
+                h.Ve.UnregisterCallback(h.DetachCb);
+
+            h.Ve.style.filter = StyleKeyword.Null;
+
+            // Also guard a deferred clear, matching the known good workaround.
+            h.Ve.schedule.Execute(() =>
+            {
+                if (!_active.ContainsKey(h.Ve))
+                    h.Ve.style.filter = StyleKeyword.Null;
+            });
         }
 
         static FilterFunction CloneFilter(FilterFunction src)
@@ -104,11 +127,22 @@ namespace UI.Filters
             return dst;
         }
 
-        sealed class Handle
+        static float SmoothStep01(float x)
+        {
+            x = Mathf.Clamp01(x);
+            return x * x * (3f - 2f * x);
+        }
+        static float expImpulse( float x) {
+            const float k = 3f;
+            float h = k*x;
+            return h*Mathf.Exp(1.0f-h);
+        }
+        public sealed class Handle
         {
             readonly FilterEffectRunner _runner;
 
             public readonly VisualElement Ve;
+            readonly Func<float, float> _easing;
 
             public IVisualElementScheduledItem Tick;
             public IVisualElementScheduledItem Clear;
@@ -116,61 +150,77 @@ namespace UI.Filters
 
             public readonly List<FilterFunction> Filters = new(1);
 
-            public FilterFunction Filter;
+            public FilterFunction Func;
             public int ParamIndex;
             public float From;
             public float To;
             public float Start;
             public float InvDur;
 
-            public Handle(VisualElement ve, FilterEffectRunner runner)
+            public bool CleanupQueued;
+
+            public Handle(FilterEffectRunner runner, VisualElement ve, Func<float, float> easing)
             {
-                Ve = ve;
                 _runner = runner;
+                Ve = ve;
+                _easing = easing;
 
                 DetachCb = OnDetach;
                 ve.RegisterCallback(DetachCb);
             }
 
-            public void StopScheduled()
-            {
-                Tick?.Pause();
-                Clear?.Pause();
-                Tick = null;
-                Clear = null;
-            }
-
             void OnDetach(DetachFromPanelEvent _)
             {
-                _runner.Release(Ve);
+                _runner.Stop(Ve, clearInlineFilter: true);
+            }
+
+            public void WriteFilter()
+            {
+                if (Filters.Count == 0)
+                    Filters.Add(Func);
+                else
+                    Filters[0] = Func;
+
+                Ve.style.filter = Filters;
             }
 
             public void OnTick()
             {
-                var rawT = InvDur > 0f ? (Time.realtimeSinceStartup - Start) * InvDur : 1f;
-
-                var t01 = rawT;
-                if (t01 < 0f) t01 = 0f;
-                else if (t01 > 1f) t01 = 1f;
-
-                // Smoothstep
-                t01 = t01 * t01 * (3f - 2f * t01);
-
-                var value = Mathf.LerpUnclamped(From, To, t01);
-                Filter.SetParameter(ParamIndex, new FilterParameter(value));
-
-                EnsureSlot(Filters);
-                Filters[0] = Filter;
-                Ve.style.filter = Filters;
-
-                if (rawT >= 1f)
+                if (!_runner.IsLive(Ve, this))
                 {
                     Tick?.Pause();
                     Tick = null;
-
-                    Clear?.Pause();
-                    Clear = Ve.schedule.Execute(() => Ve.style.filter = StyleKeyword.Null);
+                    return;
                 }
+
+                var rawT = InvDur > 0f ? (Time.realtimeSinceStartup - Start) * InvDur : 1f;
+
+                if (rawT >= 1f)
+                {
+                    // Apply final value before cleanup.
+                    Func.SetParameter(ParamIndex, new FilterParameter(To));
+                    WriteFilter();
+
+                    if (!CleanupQueued)
+                    {
+                        CleanupQueued = true;
+
+                        Tick?.Pause();
+                        Tick = null;
+
+                        // Guarded deferred cleanup so we do not wipe a new run.
+                        Clear?.Pause();
+                        Clear = Ve.schedule.Execute(() => _runner.CleanupIfLive(this));
+                    }
+
+                    return;
+                }
+
+                var t01 = _easing(Mathf.Clamp01(rawT));
+                var value = Mathf.LerpUnclamped(From, To, t01);
+
+                Func.SetParameter(ParamIndex, new FilterParameter(value));
+                WriteFilter();
             }
         }
     }

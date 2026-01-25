@@ -21,7 +21,7 @@ MonoBehaviour:
   _saved: 0
   _defaultValue: 0
   _resetOn: 0
-  _runtimeValue: 0
+  _runtimeValue: 0.39
   _isClamped: 1
   _min:
     UseLocal: 1

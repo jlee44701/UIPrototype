@@ -14,20 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Data.FloatData
   TagIndex: 0
   Description: 
-  _guid: f0dff09653a543d40a532ef317b4adf5
+  _guid: f757c5977f8aaba49996520563afb1db
   _saveGuid: 0
   _value: 3.5
   _debugLogEnabled: 0
   _saved: 0
   _defaultValue: 0
   _resetOn: 0
-  _runtimeValue: 0
-  _isClamped: 0
+  _runtimeValue: 3.5
+  _isClamped: 1
   _min:
     UseLocal: 1
     LocalValue: 0
     Variable: {fileID: 0}
   _max:
     UseLocal: 1
-    LocalValue: 1
+    LocalValue: 500
     Variable: {fileID: 0}

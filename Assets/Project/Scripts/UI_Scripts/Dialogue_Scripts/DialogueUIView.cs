@@ -27,7 +27,7 @@ namespace Game.UI
 
         readonly AnimatedTextFieldElement m_AnimatedTextField;
         readonly TypewriterCore m_TypewriterCore;
-        
+        public TypewriterCore TypeWriter => m_TypewriterCore;
         public VisualElement Root => m_Root;
         public VisualElement  DialoguePortraitContainer => m_DialoguePortraitContainer;
         public VisualElement  DialogueContainer => m_DialogueContainer;
