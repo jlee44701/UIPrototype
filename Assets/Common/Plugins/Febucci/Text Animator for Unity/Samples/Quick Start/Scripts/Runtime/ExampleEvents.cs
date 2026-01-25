@@ -43,6 +43,7 @@ namespace Febucci.UI.Examples
         {
             //Subscribe to the event
             typewriter.onMessage.AddListener(OnMessage);
+                
 
 #if ENABLE_INPUT_SYSTEM
             inputSystemPassed = false;

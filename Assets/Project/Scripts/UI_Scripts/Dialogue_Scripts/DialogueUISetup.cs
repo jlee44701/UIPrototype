@@ -83,7 +83,7 @@ namespace Game.UI {
             testClip = d.character.voice;
         }
         [ContextMenu("Clear text")]
-        void ClearText() {
+        void ClearText() { 
             _view.AnimatedTextField.AnimatedLabel.text = "";
         }
         [ContextMenu("run line single test")]

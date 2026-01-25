@@ -52,6 +52,7 @@ namespace Game.UI {
             DialogueEvents.ShowDialogueUI -= OnShowDialogue;
             DialogueEvents.HideDialogueUI -= OnHideDialogueUI;
             View.TypeWriter.OnMessage -= OnMessage;
+            
         }
 
         public void OnShowDialogue() {
