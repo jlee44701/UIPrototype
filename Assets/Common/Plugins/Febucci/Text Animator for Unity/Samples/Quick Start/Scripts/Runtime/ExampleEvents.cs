@@ -31,7 +31,7 @@ namespace Febucci.UI.Examples
         [SerializeField] Transform[] crates;
         Vector3[] cratesInitialScale;
 
-#if ENABLE_INPUT_SYSTEM
+#if ENABLE_INPUT_SYSTEM 
         bool inputSystemPassed;
         IDisposable eventListener;
 #endif
