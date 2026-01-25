@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Game;
 using PixelCrushers.DialogueSystem;
-using UIEvents;
+using Events;
+using Events.UI.Dialogue;
 using UnityEngine;
 using VInspector;
 

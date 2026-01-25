@@ -1,5 +1,6 @@
 using Game.UI;
-using UIEvents;
+using Events;
+using Events.UI;
 
 public class LecternUIPresenter 
 {

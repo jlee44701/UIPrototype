@@ -1,14 +1,33 @@
 using System;
 using Game.UI.Story.Dialogue;
-using UIEvents;
+using Events;
+using Events.UI;
+using Events.UI.Dialogue;
+using UI;
+using UI.Filters;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
+using VInspector;
 
 namespace Game.UI {
     public class DialogueUIPresenter : MonoBehaviour {
 
         public DialogueUIView View { get; set; }
+
+        [SerializeField] PixelGlitchSweepParams _pixelGlitchSweepParams;
+        
+        [Foldout("CRT Filter Settings")]
+        [SerializeField] [Range(0,1)] float _scanlineStrength = 0.005f;
+        [SerializeField] [Range(0,10)] float _scanlineFrequency = 1;
+        [SerializeField] [Range(0.0011f,1)] float _chromaticOffset = 0.0011f;
+        [SerializeField] [Range(0,1)] float _curvature = 0.25f;
+        
+        [EndFoldout]
+        
+        readonly PixelGlitchEffectRunner _fx = new();
+        FilterFunctionDefinition _crtFilter;
 
         public void OnEnable() {
             UnregisterCallbacks();
@@ -54,6 +73,30 @@ namespace Game.UI {
             if (dialogueSequence.hideWhenFinished) View.HideDialogueUI();
             
             //m_View.SetDialogue();
+        }
+
+        public void ApplyFilter_PixelGlitchSweep() {
+            FilterEvents.ApplyPixelGlitchSweep?.Invoke(View.DialoguePortraitContainer, _pixelGlitchSweepParams);
+            
+            // _fx.PlayOnce(View.DialoguePortraitContainer, View.PixelGlitchFilter, _durationSeconds, _pixelSizePx, _amplitudePx, _directionDeg);
+            // PixelGlitchFilterPlayer.PlayOnce(
+            //     View.Root,
+            //     View.PixelGlitchFilter,
+            //     _durationSeconds,
+            //     _pixelSizePx,
+            //     _amplitudePx,
+            //     _directionDeg
+            // );
+        }
+        public void ApplyFilter_CRT(VisualElement element) {
+            var filter = new FilterFunction();
+            filter.AddParameter(new FilterParameter(_scanlineStrength));
+            filter.AddParameter(new  FilterParameter(_scanlineFrequency));
+            filter.AddParameter(new  FilterParameter(_chromaticOffset));
+            filter.AddParameter(new  FilterParameter(_curvature));
+
+            _fx.ApplyFilter(element, filter);
+
         }
         
     }

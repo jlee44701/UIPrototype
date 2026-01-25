@@ -2,10 +2,9 @@ using System;
 using Audio;
 using Game.UI.Story.Dialogue;
 using PixelEngine;
-using UIEvents;
-using Unity.VisualScripting;
+using Events;
+using Events.UI.Dialogue;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using VInspector;
@@ -15,7 +14,11 @@ namespace Game.UI {
     public class DialogueUISetup : MonoBehaviour {
         [FormerlySerializedAs("m_Doc")]
         [SerializeField] UIDocument _doc;
+        
+        [Header("Filters")]
+        [SerializeField] FilterFunctionDefinition _pixelGlitchFilter;
 
+        
         [Foldout("Audio Settings")]
         [SerializeField] AudioParams.Pitch.Variation _pitchVariation;
         [SerializeField] AudioParams.Repetition
@@ -46,6 +49,9 @@ namespace Game.UI {
                 _distortion,
                 _typingVolume
             );
+            if (_pixelGlitchFilter) {
+                _view.PixelGlitchFilter = _pixelGlitchFilter;
+            }
             
             if (!_presenter) _presenter = GetComponent<DialogueUIPresenter>();
             _presenter.View = _view;

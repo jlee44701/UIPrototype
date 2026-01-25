@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace Game.Mine {
     public class MiningStats {
-        readonly VisualElement _parentContainer;
+        readonly VisualElement _rightBayContainer;
 
 
         VisualElement
@@ -24,13 +24,13 @@ namespace Game.Mine {
             _pressureCenterElement;
 
         
-        VisualTreeAsset _miningStatsAsset;
+        VisualTreeAsset _mineStatsUxmlAsset;
         VisualElement _mineContainer;
         DustProphetSO _data;
-        public MiningStats(VisualElement parentContainer, VisualTreeAsset miningStatsAsset, DustProphetSO data) {
-            _parentContainer = parentContainer;
+        public MiningStats(VisualElement rightBayContainer, VisualTreeAsset mineStatsUxmlAsset, DustProphetSO data) {
+            _rightBayContainer = rightBayContainer;
             _data = data;
-            _miningStatsAsset = miningStatsAsset;
+            _mineStatsUxmlAsset = mineStatsUxmlAsset;
             
             SetVisualElements();
             UpdateDataSource();
@@ -38,8 +38,8 @@ namespace Game.Mine {
         }
 
         void SetVisualElements() {
-            var miningStatsInstance = _miningStatsAsset.Instantiate();
-             _parentContainer.Add(miningStatsInstance);
+            var miningStatsInstance = _mineStatsUxmlAsset.Instantiate();
+             _rightBayContainer.Add(miningStatsInstance);
             // _depthElement = _root.Q<VisualElement>("depth") ??  throw new NullReferenceException(nameof(_depthElement));
             // _depthLabel = _root.Q<Label>("depth-label") ??  throw new NullReferenceException(nameof(_depthLabel));
             // _pressureElement = _root.Q<VisualElement>("pressure") ??  throw new NullReferenceException(nameof(_pressureElement));
@@ -53,18 +53,18 @@ namespace Game.Mine {
             // _pressureBarProgressElement = _root.Q<VisualElement>("pressure-bar-progress") ??  throw new NullReferenceException(nameof(_pressureBarProgressElement));
             //
             //-----------------------
-            _mineContainer = _parentContainer.Q<VisualElement>("mine-container");
+            _mineContainer = _rightBayContainer.Q<VisualElement>("mine-container");
             //_radialProgressElement = _parentContainer.Q<Game.UI.Library.RadialProgress>("radial-progress") ??  throw new NullReferenceException(nameof(_radialProgressElement));
             _radialProgressElement = new RadialProgress();
            
             //_radialProgressElement.SetBlockNameOverride("current-pressure");
             
             // let's try adding a barelement programatically to  contrast with radialprogressElement
-            _currentVibrationBarElement = _parentContainer.Q<BarProgressElement>("vibration");
-            _heatElement = _parentContainer.Q<BarProgressElement>("heat");
-            _yieldBufferElement = _parentContainer.Q<BarProgressElement>("yield-buffer");
-            _layerHardnessElement = _parentContainer.Q<BarProgressElement>("layer-hardness");
-            _pressureCenterElement = _parentContainer.Q<BarProgressElement>("pressure-center");
+            _currentVibrationBarElement = _rightBayContainer.Q<BarProgressElement>("vibration");
+            _heatElement = _rightBayContainer.Q<BarProgressElement>("heat");
+            _yieldBufferElement = _rightBayContainer.Q<BarProgressElement>("yield-buffer");
+            _layerHardnessElement = _rightBayContainer.Q<BarProgressElement>("layer-hardness");
+            _pressureCenterElement = _rightBayContainer.Q<BarProgressElement>("pressure-center");
             
            // _currentVibrationBarElement.name = "current-vibration-bar";
             //_currentVibrationBarElement.SetBlockNameOverride("vibration");

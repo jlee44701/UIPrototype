@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UIEvents
+namespace Events.SceneEvents
 {
     /// <summary>
     /// Public static delegates to manage scene loading/unloading (note these are "events" in the conceptual sense

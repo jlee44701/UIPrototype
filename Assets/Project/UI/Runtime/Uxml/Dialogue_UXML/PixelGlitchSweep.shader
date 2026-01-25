@@ -8,13 +8,13 @@ Shader "UI Toolkit/Filters/PixelGlitchSweep"
         _Amount ("Amount", Float) = 0
 
         // Interpreted as pixels (float); in USS you can pass 8px etc (converted to float).
-        _PixelSize ("Pixel Size (px)", Float) = 1
+        _PixelSize ("Pixel Size (px)", Float) = 5
 
         // Interpreted as pixels (float)
-        _Amplitude ("Amplitude (px)", Float) = 0
+        _Amplitude ("Amplitude (px)", Float) = 0.1
 
         // Interpreted as degrees (float); in USS you can pass 45deg etc (converted to float).
-        _Direction ("Direction (deg)", Float) = 0
+        _Direction ("Direction (deg)", Float) = 1
     }
 
     SubShader
@@ -103,13 +103,13 @@ Shader "UI Toolkit/Filters/PixelGlitchSweep"
 
                 // Approx element size in pixels (based on atlas size + rect size).
                 float2 atlasSizePx = _MainTex_TexelSize.zw;
-                float2 elementSizePx = max(uvRect.zw * atlasSizePx, 1.0.xx);
+                float2 elementSizePx = max(uvRect.zw * atlasSizePx, 1.0);
 
                 // Pixelation ramps from 1px (no pixelation) to _PixelSize (max pixelation).
                 float pixelSizePx = lerp(1.0, max(_PixelSize, 1.0), amount);
 
                 // Grid in cells (integer-ish)
-                float2 grid = max(floor(elementSizePx / pixelSizePx), 1.0.xx);
+                float2 grid = max(floor(elementSizePx / pixelSizePx), 1.0);
 
                 float2 cell = floor(uv * grid);
                 float2 cellCenter = (cell + 0.5) / grid;

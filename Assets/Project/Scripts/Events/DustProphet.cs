@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UIEvents {
+namespace Events.UI {
     public static class DustProphet {
         // Notify subscribers that presenter and screen are ready
         public static Action SetupComplete;

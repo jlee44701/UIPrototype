@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using Febucci.TextAnimatorCore.Typing;
 using Febucci.TextAnimatorForUnity;
-using UIEvents;
+using Events;
+using Events.UI.Dialogue;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UIElements;
@@ -15,7 +16,7 @@ namespace Game.UI
         const string PortraitImageQ = "portrait__image";
         const string AnimatedTextQ = "text-area__animated-text";
         const string DialogueContainerQ = "dialogue__container";
- 
+
         readonly VisualElement 
             m_Root, 
             m_DialoguePortraitContainer,
@@ -26,7 +27,11 @@ namespace Game.UI
 
         readonly AnimatedTextFieldElement m_AnimatedTextField;
         readonly TypewriterCore m_TypewriterCore;
-
+        
+        public VisualElement Root => m_Root;
+        public VisualElement  DialoguePortraitContainer => m_DialoguePortraitContainer;
+        public VisualElement  DialogueContainer => m_DialogueContainer;
+        
 
         bool _isSubscribed;
         int _dialogueIndex;
@@ -36,7 +41,7 @@ namespace Game.UI
         public AnimatedTextFieldElement AnimatedTextField => m_AnimatedTextField;
         
         List<string> DialogueLines { get; set; }
-        
+        public FilterFunctionDefinition PixelGlitchFilter { get; set;}
 
         public DialogueUIView(VisualElement root)
         {
@@ -157,6 +162,10 @@ namespace Game.UI
             if (m_PortraitImageElement != null && sprite)
                 m_PortraitImageElement.style.backgroundImage = new StyleBackground(sprite);
             m_AnimatedTextField.TypewriterSound = voice;
+        }
+
+        public void ApplyFilter_PixelGlitchSweep() {
+            //PixelGlitchFilterPlayer.PlayOnce()
         }
     }
 }

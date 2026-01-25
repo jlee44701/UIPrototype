@@ -1,6 +1,6 @@
 using System;
 
-namespace UIEvents
+namespace Events
 {
     /// <summary>
     /// Public static delegates to manage UI changes (note these are "events" in the conceptual sense
