@@ -10,3 +10,4 @@ namespace Events.UI {
         public static Action<VisualElement> ApplyCrtFilter;
     }
 }
+     

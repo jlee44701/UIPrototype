@@ -48,7 +48,7 @@ namespace Obvious.Soap
         public FloatReference MaxReference
         {
             get => _max;
-            set => _max = value;
+            set => _max = value; 
         }
         public float Max => _max.Value;
         /// <summary>

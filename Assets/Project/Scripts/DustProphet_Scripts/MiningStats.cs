@@ -41,7 +41,7 @@ namespace Game.Mine {
             _mineContainer = _rightBayContainer.Q<VisualElement>("mine-container");
             //_radialProgressElement = _parentContainer.Q<Game.UI.Library.RadialProgress>("radial-progress") ??  throw new NullReferenceException(nameof(_radialProgressElement));
             _radialProgressElement = new RadialProgress();
-           
+               
             //_radialProgressElement.SetBlockNameOverride("current-pressure");
             
             // let's try adding a barelement programatically to  contrast with radialprogressElement
@@ -51,7 +51,7 @@ namespace Game.Mine {
             _layerHardnessElement = _rightBayContainer.Q<BarProgressElement>("layer-hardness");
             _pressureCenterElement = _rightBayContainer.Q<BarProgressElement>("pressure-center");
             
-
+      
             _mineContainer.Add(_currentVibrationBarElement);
             _mineContainer.Add(_radialProgressElement);
             _mineContainer.Add(_heatElement);
