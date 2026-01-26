@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7213f867dd8e681498a8625e5f7652bc, type: 3}
+  m_Name: DialogueTester
+  m_EditorClassIdentifier: Assembly-CSharp-Editor::DialogueTester
+  _dialogueSequence: {fileID: 11400000, guid: adeeb31778fe1c445863408504e42a48, type: 2}
+  _event1: {fileID: 11400000, guid: 828cb0a8afa079443bde792e4acf3123, type: 2}
+  _event2: {fileID: 11400000, guid: 3c17710301ace104f8780f312fe92b12, type: 2}
+  _event3: {fileID: 0}
+  _event4: {fileID: 0}
+  _event5: {fileID: 0}

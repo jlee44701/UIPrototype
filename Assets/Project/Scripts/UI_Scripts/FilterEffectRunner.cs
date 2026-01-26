@@ -133,7 +133,7 @@ namespace UI.Filters
             return x * x * (3f - 2f * x);
         }
         static float expImpulse( float x) {
-            const float k = 3f;
+            const float k = 1f;
             float h = k*x;
             return h*Mathf.Exp(1.0f-h);
         }

@@ -34,3 +34,10 @@ MonoBehaviour:
     isAsset: 1
     _typeString: Febucci.TextAnimatorForUnity.TypingDelaysByCharacter, Febucci.TextAnimatorForUnity.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - _obj: {fileID: 11400000, guid: 7e1aff7e73fbf314281cf7f294438e35, type: 2}
+    globalId:
+      globalObjectIdString: GlobalObjectId_V1-3-7e1aff7e73fbf314281cf7f294438e35-11400000-0
+    isSceneGameObject: 0
+    isAsset: 1
+    _typeString: Febucci.TextAnimatorForUnity.TypewriterSettingsScriptable, Febucci.TextAnimatorForUnity.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RuntimeUI.DialogueSO
   hideWhenFinished: 0
   dialogue:
-  - asd. <w=0.4>
-  - asdasdasdasd. <w=0.5>
-  - ' unexpected behavior. <w=0.4>'
+  - <w=0.4> asd.<w=0.4> are you sure?
+  - <w=0.4>are you sure?<w=0.4> are you sure?
+  - <w=0.4>unexpected behavior.
   character: {fileID: 11400000, guid: f718f4f07661cbc4ea18cd23445cf8e1, type: 2}

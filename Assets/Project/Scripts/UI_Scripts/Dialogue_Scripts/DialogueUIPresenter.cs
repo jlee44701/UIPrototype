@@ -44,14 +44,14 @@ namespace Game.UI {
             DialogueEvents.DialogueSent += ProcessDialogue;
             DialogueEvents.ShowDialogueUI += OnShowDialogue;
             DialogueEvents.HideDialogueUI += OnHideDialogueUI; 
-            View.TypeWriter.OnMessage += OnMessage;
+            //View.TypeWriter.OnMessage += OnMessage;
 
         }
         void UnregisterCallbacks() {
             DialogueEvents.DialogueSent -= ProcessDialogue;
             DialogueEvents.ShowDialogueUI -= OnShowDialogue;
             DialogueEvents.HideDialogueUI -= OnHideDialogueUI;
-            View.TypeWriter.OnMessage -= OnMessage;
+            //View.TypeWriter.OnMessage -= OnMessage;
             
         }
 

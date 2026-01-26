@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Shared Animator Settings
   m_EditorClassIdentifier: Febucci.TextAnimator.UITk.Runtime::Febucci.UI.Integrations.UIToolkit.AnimatorSettingsScriptable
   settings:
-    isResettingTimeOnNewText: 1
-    defaultEffectsMode: 0
+    isResettingTimeOnNewText: 0
+    defaultEffectsMode: 1
     timeScale: 0
     defaultBehaviorTags: []
     defaultAppearanceTags:
     - incr
     defaultDisappearanceTags: []
-    isAnimatingBehaviors: 1
+    isAnimatingBehaviors: 0
     isAnimatingAppearances: 1
-    isAnimatingDisappearances: 1
+    isAnimatingDisappearances: 0
     useDynamicScaling: 1
     referenceFontSize: 12

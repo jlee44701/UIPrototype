@@ -4,6 +4,7 @@ using Game.UI.Story.Dialogue;
 using PixelEngine;
 using Events;
 using Events.UI.Dialogue;
+using Febucci.TextAnimatorForUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -40,15 +41,12 @@ namespace Game.UI {
 
             if (!_doc) _doc = GetComponent<UIDocument>();
             _root = _doc.rootVisualElement ?? throw new ArgumentNullException(nameof(_root));
-            
+
             _view ??= new DialogueUIView(_root);
-            _view.AnimatedTextField.SetAudioParams(
-                _pitchVariation,
-                _randomization,
-                _repetition,
-                _distortion,
-                _typingVolume
-            );
+            
+
+            _view.TypewriterAudio = new TypewriterAudio(_pitchVariation, _randomization, _repetition, _distortion, _typingVolume, _view.AnimatedLabel.Typewriter);
+            
             if (_pixelGlitchFilter) {
                 _view.PixelGlitchFilter = _pixelGlitchFilter;
             }
@@ -71,7 +69,6 @@ namespace Game.UI {
         }
         void OnDisable() {
             _presenter?.OnDisable();
-            _view?.Dispose();
             _view = null;
             _presenter = null;
 
@@ -82,15 +79,8 @@ namespace Game.UI {
         void Test(DialogueSequenceSO d) {
             testClip = d.character.voice;
         }
-        [ContextMenu("Clear text")]
-        void ClearText() { 
-            _view.AnimatedTextField.AnimatedLabel.text = "";
-        }
-        [ContextMenu("run line single test")]
-        async void RunLine() {
-            _view.SetPortraitAndVoice(null, testClip);
-            await _view.PlayLineAsync(message);
-        }
+
+
 
 
 
