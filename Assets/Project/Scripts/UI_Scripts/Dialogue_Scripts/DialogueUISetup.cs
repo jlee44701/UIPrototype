@@ -67,6 +67,7 @@ namespace Game.UI {
                     Coroutines.Initialize(this);
             }
         }
+        
         void OnDisable() {
             _presenter?.OnDisable();
             _view = null;

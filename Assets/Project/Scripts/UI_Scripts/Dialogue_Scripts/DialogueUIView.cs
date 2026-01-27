@@ -60,6 +60,7 @@ namespace Game.UI
             _isSubscribed = true;
             
         }
+        
 
         public void ShowDialogueUI() {
             m_DialogueContainer.style.opacity = 1; //defunct

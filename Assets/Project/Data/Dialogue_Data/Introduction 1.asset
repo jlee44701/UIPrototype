@@ -18,3 +18,4 @@ MonoBehaviour:
   - asdasdasdasd. <w=0.5>
   - ' unexpected behavior. <w=0.4>'
   character: {fileID: 11400000, guid: f718f4f07661cbc4ea18cd23445cf8e1, type: 2}
+  _raiseEvent: 0

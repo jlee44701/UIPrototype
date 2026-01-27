@@ -18,3 +18,4 @@ MonoBehaviour:
   - <w=0.4>are you sure?<w=0.4> are you sure?
   - <w=0.4>unexpected behavior.
   character: {fileID: 11400000, guid: f718f4f07661cbc4ea18cd23445cf8e1, type: 2}
+  _raiseEvent: 0

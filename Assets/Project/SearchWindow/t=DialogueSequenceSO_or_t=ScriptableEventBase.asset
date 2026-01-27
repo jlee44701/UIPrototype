@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 13982, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: t=DialogueSequenceSO_or_t=ScriptableEventBase
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.Search.SearchQueryAsset
-  text: t=DialogueSequenceSO or t=ScriptableEventBase
+  text: t=ScriptableEventBase or t=DialogueSequenceSO
   description: 
   viewState:
     providerIds:
     - asset
     searchFlags: -1665138424
-    searchText: t=DialogueSequenceSO or t=ScriptableEventBase
+    searchText: t=ScriptableEventBase or t=DialogueSequenceSO
     m_SelectHandler:
       stream: 
     m_TrackingHandler:
@@ -29,14 +29,102 @@ MonoBehaviour:
       stream: 
     m_ActiveQueryGuid: 
     hideTabs: 0
-    sessionId: 1519d5a67dee4d9e9049f09ea2c17743
+    sessionId: f72471dac77a4baba1d4be865137567e
     sessionName: 
     excludeClearItem: 0
     tableConfig:
-      id: 
-      name: 
-      columns: []
-      itemHeight: 0
+      id: 0b47a7a6ae4a4b6f915671f3860d6e02
+      name: Default
+      columns:
+      - path: Label
+        provider: Name
+        selector: Label
+        width: 145
+        options: 3178500
+        content:
+          m_Text: Label
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+          m_TextWithWhitespace: "Label\u200B"
+        m_Getter:
+          stream: AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAAAdHZXROYW1lBgMAAABUVW5pdHlFZGl0b3IuUXVpY2tTZWFyY2hNb2R1bGUsIFZlcnNpb249MC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBgQAAAAgVW5pdHlFZGl0b3IuU2VhcmNoLkl0ZW1TZWxlY3RvcnMGBQAAAD9TeXN0ZW0uT2JqZWN0IEdldE5hbWUoVW5pdHlFZGl0b3IuU2VhcmNoLlNlYXJjaENvbHVtbkV2ZW50QXJncykGBgAAAD9TeXN0ZW0uT2JqZWN0IEdldE5hbWUoVW5pdHlFZGl0b3IuU2VhcmNoLlNlYXJjaENvbHVtbkV2ZW50QXJncykIAAAACgs=
+        m_Setter:
+          stream: 
+        m_Drawer:
+          stream: 
+        m_CellCreator:
+          stream: AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAABNDcmVhdGVWaXN1YWxFbGVtZW50BgMAAABUVW5pdHlFZGl0b3IuUXVpY2tTZWFyY2hNb2R1bGUsIFZlcnNpb249MC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBgQAAAAgVW5pdHlFZGl0b3IuU2VhcmNoLkl0ZW1TZWxlY3RvcnMGBQAAAFlVbml0eUVuZ2luZS5VSUVsZW1lbnRzLlZpc3VhbEVsZW1lbnQgQ3JlYXRlVmlzdWFsRWxlbWVudChVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uKQYGAAAAWVVuaXR5RW5naW5lLlVJRWxlbWVudHMuVmlzdWFsRWxlbWVudCBDcmVhdGVWaXN1YWxFbGVtZW50KFVuaXR5RWRpdG9yLlNlYXJjaC5TZWFyY2hDb2x1bW4pCAAAAAoL
+        m_Binder:
+          stream: AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAAAhCaW5kTmFtZQYDAAAAVFVuaXR5RWRpdG9yLlF1aWNrU2VhcmNoTW9kdWxlLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAYEAAAAIFVuaXR5RWRpdG9yLlNlYXJjaC5JdGVtU2VsZWN0b3JzBgUAAABdVm9pZCBCaW5kTmFtZShVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uRXZlbnRBcmdzLCBVbml0eUVuZ2luZS5VSUVsZW1lbnRzLlZpc3VhbEVsZW1lbnQpBgYAAABkU3lzdGVtLlZvaWQgQmluZE5hbWUoVW5pdHlFZGl0b3IuU2VhcmNoLlNlYXJjaENvbHVtbkV2ZW50QXJncywgVW5pdHlFbmdpbmUuVUlFbGVtZW50cy5WaXN1YWxFbGVtZW50KQgAAAAKCw==
+        m_Comparer:
+          stream: 
+      - path: Description
+        provider: 
+        selector: Description
+        width: 145
+        options: 3178500
+        content:
+          m_Text: Description
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+          m_TextWithWhitespace: "Description\u200B"
+        m_Getter:
+          stream: AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAAA1EZWZhdWx0U2VsZWN0BgMAAABUVW5pdHlFZGl0b3IuUXVpY2tTZWFyY2hNb2R1bGUsIFZlcnNpb249MC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBgQAAAAfVW5pdHlFZGl0b3IuU2VhcmNoLlNlYXJjaENvbHVtbgYFAAAARVN5c3RlbS5PYmplY3QgRGVmYXVsdFNlbGVjdChVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uRXZlbnRBcmdzKQYGAAAARVN5c3RlbS5PYmplY3QgRGVmYXVsdFNlbGVjdChVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uRXZlbnRBcmdzKQgAAAAKCw==
+        m_Setter:
+          stream: 
+        m_Drawer:
+          stream: 
+        m_CellCreator:
+          stream: 
+        m_Binder:
+          stream: 
+        m_Comparer:
+          stream: 
+      - path: ScriptableEventNoParam/_debugLogEnabled
+        provider: Boolean
+        selector: '#_debugLogEnabled'
+        width: 111.01601
+        options: 3178496
+        content:
+          m_Text: Debug Log Enabled
+          m_Image: {fileID: 0}
+          m_Tooltip: Enable console logs when this event is raised.
+          m_TextWithWhitespace: "Debug Log Enabled\u200B"
+        m_Getter:
+          stream: AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAAA1EZWZhdWx0U2VsZWN0BgMAAABUVW5pdHlFZGl0b3IuUXVpY2tTZWFyY2hNb2R1bGUsIFZlcnNpb249MC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBgQAAAAfVW5pdHlFZGl0b3IuU2VhcmNoLlNlYXJjaENvbHVtbgYFAAAARVN5c3RlbS5PYmplY3QgRGVmYXVsdFNlbGVjdChVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uRXZlbnRBcmdzKQYGAAAARVN5c3RlbS5PYmplY3QgRGVmYXVsdFNlbGVjdChVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uRXZlbnRBcmdzKQgAAAAKCw==
+        m_Setter:
+          stream: 
+        m_Drawer:
+          stream: 
+        m_CellCreator:
+          stream: 
+        m_Binder:
+          stream: 
+        m_Comparer:
+          stream: 
+      - path: DialogueSequenceSO/character
+        provider: ObjectReference
+        selector: '#character'
+        width: 183.47202
+        options: 3178496
+        content:
+          m_Text: Character
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+          m_TextWithWhitespace: "Character\u200B"
+        m_Getter:
+          stream: AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAAA1EZWZhdWx0U2VsZWN0BgMAAABUVW5pdHlFZGl0b3IuUXVpY2tTZWFyY2hNb2R1bGUsIFZlcnNpb249MC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBgQAAAAfVW5pdHlFZGl0b3IuU2VhcmNoLlNlYXJjaENvbHVtbgYFAAAARVN5c3RlbS5PYmplY3QgRGVmYXVsdFNlbGVjdChVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uRXZlbnRBcmdzKQYGAAAARVN5c3RlbS5PYmplY3QgRGVmYXVsdFNlbGVjdChVbml0eUVkaXRvci5TZWFyY2guU2VhcmNoQ29sdW1uRXZlbnRBcmdzKQgAAAAKCw==
+        m_Setter:
+          stream: 
+        m_Drawer:
+          stream: 
+        m_CellCreator:
+          stream: 
+        m_Binder:
+          stream: 
+        m_Comparer:
+          stream: 
+      itemHeight: 22
     ignoreSaveSearches: 0
     hideAllGroup: 0
     windowTitle:
@@ -45,7 +133,7 @@ MonoBehaviour:
       m_Tooltip: 
       m_TextWithWhitespace: 
     title: Unity
-    itemSize: 32
+    itemSize: 129
     position:
       serializedVersion: 2
       x: 0
