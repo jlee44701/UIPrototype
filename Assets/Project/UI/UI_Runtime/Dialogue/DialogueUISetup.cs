@@ -45,6 +45,7 @@ namespace Game.UI {
             _view ??= new DialogueUIView(_root);
             
 
+            _view.TypewriterAudio?.Dispose();
             _view.TypewriterAudio = new TypewriterAudio(_pitchVariation, _randomization, _repetition, _distortion, _typingVolume, _view.AnimatedLabel.Typewriter);
             
             if (_pixelGlitchFilter) {

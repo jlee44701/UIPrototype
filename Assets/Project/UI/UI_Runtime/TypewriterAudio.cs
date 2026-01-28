@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.UI {
     public class TypewriterAudio : IDisposable{
-        const bool EnableTypewriterDebugLogs = false;
+        const bool EnableTypewriterDebugLogs = true;
         public AudioParams.Distortion Distortion { get; set; }
         AudioParams.Pitch m_Pitch = new AudioParams.Pitch(1);
         public AudioParams.Randomization Randomization { get; set; }
@@ -17,6 +17,9 @@ namespace Game.UI {
         
         public AudioClip TypeWriterSound { get; set; }
         TypewriterCore m_TypewriterCore;
+        string _currentEventName = "<unset>";
+        int _currentRunId;
+        bool _isSubscribed;
 
         public TypewriterAudio(
             AudioParams.Pitch.Variation pitchVariation,
@@ -36,11 +39,23 @@ namespace Game.UI {
             m_TypewriterCore =   typeWriterCore ?? throw new ArgumentNullException(nameof (typeWriterCore));
             m_TypewriterCore.OnCharacterVisible -= CharacterVisible;
             m_TypewriterCore.OnCharacterVisible += CharacterVisible;
+            _isSubscribed = true;
             
         }
         public void Dispose() {
             if (m_TypewriterCore != null) {
                 m_TypewriterCore.OnCharacterVisible -= CharacterVisible;    
+            }
+            _isSubscribed = false;
+        }
+
+        public void SetDebugContext(string eventName, int runId, bool viewSubscribed)
+        {
+            _currentEventName = string.IsNullOrWhiteSpace(eventName) ? "<unnamed>" : eventName;
+            _currentRunId = runId;
+            if (EnableTypewriterDebugLogs)
+            {
+                Debug.Log($"[TypewriterAudio][Debug] Context event='{_currentEventName}' runId={_currentRunId} subscribed={_isSubscribed} viewSubscribed={viewSubscribed}");
             }
         }
 
@@ -52,9 +67,14 @@ namespace Game.UI {
             
         
             //if (!m_TypewriterCore.IsShowingText) return;
+            if (!m_TypewriterCore.IsShowingText) return;
             
             var audioManager = AudioManager.Instance;
             if (!audioManager) return;
+            if (EnableTypewriterDebugLogs)
+            {
+                Debug.Log($"[TypewriterAudio][Beep] event='{_currentEventName}' runId={_currentRunId} subscribed={_isSubscribed} character='{character}' codepoint=U+{(int)character:X4}");
+            }
             audioManager.PlaySfx2D(
                 TypeWriterSound,
                 Vector3.zero,
