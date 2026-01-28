@@ -23,6 +23,7 @@ namespace Game.UI.Story.Dialogue {
         [Button("raise event")]
         public void Raise() {
             DialogueEvents.DialogueSent?.Invoke(this);
+
         }
 
         void OnValidate() {
@@ -30,6 +31,7 @@ namespace Game.UI.Story.Dialogue {
             if (_raiseEvent) {
                 _raiseEvent = false;
                 Raise();
+                
             }
   #endif
         }

@@ -29,30 +29,38 @@ namespace Game.UI {
         
         readonly PixelGlitchEffectRunner _fx = new();
         FilterFunctionDefinition _crtFilter;
-
-        public void OnEnable() {
+        
+        public void Initialize() {
             UnregisterCallbacks();
             RegisterCallbacks();
             View.HideDialogueUI();
-            
+        }
+        public float timeScale = 1;
+        void OnValidate() {
+            Time.timeScale = timeScale;
         }
         public void OnDisable() {
             UnregisterCallbacks();
         }
+
         void RegisterCallbacks() {
             UnregisterCallbacks();
             DialogueEvents.DialogueSent += ProcessDialogue;
             DialogueEvents.ShowDialogueUI += OnShowDialogue;
             DialogueEvents.HideDialogueUI += OnHideDialogueUI; 
-            //View.TypeWriter.OnMessage += OnMessage;
+            //View.Typewriter.OnTypewriterStart +=  OnTypewriterStart;
 
         }
         void UnregisterCallbacks() {
             DialogueEvents.DialogueSent -= ProcessDialogue;
             DialogueEvents.ShowDialogueUI -= OnShowDialogue;
             DialogueEvents.HideDialogueUI -= OnHideDialogueUI;
-            //View.TypeWriter.OnMessage -= OnMessage;
+            //View.Typewriter.OnTypewriterStart -=  OnTypewriterStart;
             
+        }
+
+        void OnTypewriterStart() {
+            View.ShowDialogueUI();
         }
 
         public void OnShowDialogue() {
@@ -65,7 +73,7 @@ namespace Game.UI {
         }
 
         async void ProcessDialogue(DialogueSequenceSO dialogueSequence) {
-            
+
             var character = dialogueSequence.character ?? throw new NullReferenceException(nameof(dialogueSequence.character));
             
             View.SetPortraitAndVoice(character.sprite, character.voice);
@@ -74,16 +82,16 @@ namespace Game.UI {
             View.ShowDialogueUI();
             
             await View.PlayLinesAsync(dialogueSequence.dialogue);
-            
+
+           
             if (dialogueSequence.hideWhenFinished) View.HideDialogueUI();
             
             //m_View.SetDialogue();
         }
 
+
         public void ApplyFilter_PixelGlitchSweep() {
             FilterEvents.ApplyPixelGlitchSweep?.Invoke(View.DialoguePortraitContainer, _pixelGlitchSweepParams);
-            
-
         }
         // public void ApplyFilter_Crt(VisualElement element) {
         //     var filter = new FilterFunction();

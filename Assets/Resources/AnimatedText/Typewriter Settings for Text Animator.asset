@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Febucci.TextAnimatorForUnity.Runtime::Febucci.TextAnimatorForUnity.TypewriterSettingsScriptable
   settings:
     useTypeWriter: 1
-    startTypewriterMode: 2
-    hideAppearancesOnSkip: 0
+    startTypewriterMode: 0
+    hideAppearancesOnSkip: 1
     hideDisappearancesOnSkip: 0
     triggerEventsOnSkip: 0
     resetTypingSpeedAtStartup: 1
     disappearanceOrientation: 0
-    triggerShowedAfterEffectsEnd: 0
+    triggerShowedAfterEffectsEnd: 1
     triggerDisappearedAfterEffectsEnd: 0

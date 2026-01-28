@@ -76,6 +76,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1338126696560759059}
+  - {fileID: 3556780605248523014}
   m_Father: {fileID: 8640729661658806472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &715490014637677501
@@ -410,7 +411,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6946963801124408005}
-  m_Father: {fileID: 8640729661658806472}
+  m_Father: {fileID: 1873944728454139698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1331413076357704514
 MonoBehaviour:
@@ -457,7 +458,6 @@ MonoBehaviour:
   _distortion:
     _muffled: 0
   _typingVolume: 0.478
-  _typewriter: {fileID: 0}
   message: test clip
   testClip: {fileID: 8300000, guid: bf001f14a4d81c4428088c562dada249, type: 3}
 --- !u!114 &7783917153188117573
@@ -477,10 +477,6 @@ MonoBehaviour:
     _pixelSizePx: 15
     _amplitudePx: 0.25
     _directionDeg: 3
-  _scanlineStrength: 0.005
-  _scanlineFrequency: 1
-  _chromaticOffset: 0.0011
-  _curvature: 0.25
 --- !u!1 &2952226188484045143
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +506,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3556780605248523014}
   - {fileID: 6932581166098678886}
   - {fileID: 1873944728454139698}
   m_Father: {fileID: 0}

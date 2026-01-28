@@ -43,8 +43,6 @@ namespace Game.UI {
             _root = _doc.rootVisualElement ?? throw new ArgumentNullException(nameof(_root));
 
             _view ??= new DialogueUIView(_root);
-            
-
             _view.TypewriterAudio = new TypewriterAudio(_pitchVariation, _randomization, _repetition, _distortion, _typingVolume, _view.AnimatedLabel.Typewriter);
             
             if (_pixelGlitchFilter) {
@@ -53,6 +51,7 @@ namespace Game.UI {
             
             if (!_presenter) _presenter = GetComponent<DialogueUIPresenter>();
             _presenter.View = _view;
+            _presenter.Initialize();
 
            //_presenter ??= new DialogueUIPresenter(_view);
 
