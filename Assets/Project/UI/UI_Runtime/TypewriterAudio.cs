@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace Game.UI {
     public class TypewriterAudio : IDisposable{
-        const bool EnableTypewriterDebugLogs = true;
+        const bool EnableTypewriterDebugLogs = false;
+        const bool EnableTypewriterBeepInstrumentation = true;
         public AudioParams.Distortion Distortion { get; set; }
         AudioParams.Pitch m_Pitch = new AudioParams.Pitch(1);
         public AudioParams.Randomization Randomization { get; set; }
@@ -17,9 +18,11 @@ namespace Game.UI {
         
         public AudioClip TypeWriterSound { get; set; }
         TypewriterCore m_TypewriterCore;
-        string _currentEventName = "<unset>";
-        int _currentRunId;
-        bool _isSubscribed;
+        bool m_IsSubscribed;
+        string m_EventName = "unknown";
+        int m_RunId;
+
+        public bool IsSubscribed => m_IsSubscribed;
 
         public TypewriterAudio(
             AudioParams.Pitch.Variation pitchVariation,
@@ -39,24 +42,35 @@ namespace Game.UI {
             m_TypewriterCore =   typeWriterCore ?? throw new ArgumentNullException(nameof (typeWriterCore));
             m_TypewriterCore.OnCharacterVisible -= CharacterVisible;
             m_TypewriterCore.OnCharacterVisible += CharacterVisible;
-            _isSubscribed = true;
+            m_IsSubscribed = true;
             
         }
+
+        public void UpdateSettings(
+            AudioParams.Pitch.Variation pitchVariation,
+            AudioParams.Randomization randomization,
+            AudioParams.Repetition repetition,
+            AudioParams.Distortion distortion,
+            float typingVolume)
+        {
+            PitchVariation = pitchVariation;
+            Randomization = randomization;
+            Repetition = repetition;
+            Distortion = distortion;
+            TypingVolume = typingVolume;
+        }
+
+        public void UpdateContext(string eventName, int runId)
+        {
+            m_EventName = string.IsNullOrEmpty(eventName) ? "unknown" : eventName;
+            m_RunId = runId;
+        }
+
         public void Dispose() {
             if (m_TypewriterCore != null) {
                 m_TypewriterCore.OnCharacterVisible -= CharacterVisible;    
             }
-            _isSubscribed = false;
-        }
-
-        public void SetDebugContext(string eventName, int runId, bool viewSubscribed)
-        {
-            _currentEventName = string.IsNullOrWhiteSpace(eventName) ? "<unnamed>" : eventName;
-            _currentRunId = runId;
-            if (EnableTypewriterDebugLogs)
-            {
-                Debug.Log($"[TypewriterAudio][Debug] Context event='{_currentEventName}' runId={_currentRunId} subscribed={_isSubscribed} viewSubscribed={viewSubscribed}");
-            }
+            m_IsSubscribed = false;
         }
 
         void CharacterVisible(CharacterData data)
@@ -65,16 +79,16 @@ namespace Game.UI {
             if (ShouldSkipCharacter(data, character))
                 return;
             
-        
-            //if (!m_TypewriterCore.IsShowingText) return;
             if (!m_TypewriterCore.IsShowingText) return;
             
             var audioManager = AudioManager.Instance;
             if (!audioManager) return;
-            if (EnableTypewriterDebugLogs)
+
+            if (EnableTypewriterBeepInstrumentation)
             {
-                Debug.Log($"[TypewriterAudio][Beep] event='{_currentEventName}' runId={_currentRunId} subscribed={_isSubscribed} character='{character}' codepoint=U+{(int)character:X4}");
+                Debug.Log($"[TypewriterAudio][Beep] event={m_EventName} runId={m_RunId} subscribed={m_IsSubscribed} char='{character}' U+{(int)character:X4} ({(int)character})");
             }
+
             audioManager.PlaySfx2D(
                 TypeWriterSound,
                 Vector3.zero,

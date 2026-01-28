@@ -15,7 +15,7 @@ namespace Game.UI
     public sealed class DialogueUIView : IDisposable
     {
         const bool EnableTypewriterDebugLogs = true;
-        const bool EnableDialogueDebugLogs = true;
+        const bool EnableDialogueRuntimeLogs = true;
         const string PortraitQ = "portrait__container";
         const string PortraitImageQ = "portrait__image";
         const string DialogueContainerQ = "dialogue__container"; 
@@ -41,7 +41,7 @@ namespace Game.UI
         int _dialogueIndex;
         int _dialogueLength;
         int _sequenceId;
-        string _currentEventName = "<unset>";
+        string _currentSequenceName;
 
         readonly AwaitableCompletionSource m_LineShownCompletionSource = new AwaitableCompletionSource();
         
@@ -143,11 +143,11 @@ namespace Game.UI
         {
             _sequenceId++;
             ResetTypewriterState();
-            TypewriterAudio?.SetDebugContext(_currentEventName, _sequenceId, _isSubscribed);
-            if (EnableDialogueDebugLogs)
-            {
-                Debug.Log($"[DialogueUIView][Sequence] Begin runId={_sequenceId} event='{_currentEventName}' subscribed={_isSubscribed}");
-            }
+            UpdateTypewriterAudioContext();
+
+            if (EnableDialogueRuntimeLogs)
+                Debug.Log($"[DialogueUIView][Sequence] Begin id={_sequenceId} name='{_currentSequenceName ?? "unknown"}'");
+
             return _sequenceId;
         }
 
@@ -156,21 +156,25 @@ namespace Game.UI
             BeginSequence();
         }
 
-        public void SetDebugEventName(string eventName)
+        public int StartSequence(string sequenceName)
         {
-            _currentEventName = string.IsNullOrWhiteSpace(eventName) ? "<unnamed>" : eventName;
+            _currentSequenceName = sequenceName;
+            return BeginSequence();
         }
 
-        public async Awaitable PlayLinesAsync(IReadOnlyList<string> stringsList)
+        void UpdateTypewriterAudioContext()
+        {
+            TypewriterAudio?.UpdateContext(_currentSequenceName, _sequenceId);
+        }
+
+        public async Awaitable PlayLinesAsync(IReadOnlyList<string> stringsList, int sequenceId)
         {
             if (stringsList == null)
                 throw new ArgumentNullException(nameof(stringsList));
 
-            var sequenceId = BeginSequence();
-            if (EnableDialogueDebugLogs)
-            {
-                Debug.Log($"[DialogueUIView][Sequence] PlayLines start runId={sequenceId} lines={stringsList.Count}");
-            }
+            if (sequenceId != _sequenceId)
+                return;
+
             foreach (var line in stringsList)
             {
                 if (sequenceId != _sequenceId)
@@ -188,7 +192,7 @@ namespace Game.UI
                 var typewriter = m_AnimatedLabel.Typewriter;
                 typewriter.StopShowingText();
                 typewriter.StopDisappearingText();
-                m_AnimatedLabel.SetText(string.Empty, true);
+                m_AnimatedLabel.Text = string.Empty;
                 typewriter.ShowText(line);
                 
                 await m_LineShownCompletionSource.Awaitable;
