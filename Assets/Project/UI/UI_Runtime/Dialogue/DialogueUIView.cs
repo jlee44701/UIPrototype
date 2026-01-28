@@ -133,6 +133,7 @@ namespace Game.UI
             var typewriter = m_AnimatedLabel.Typewriter;
             typewriter.StopShowingText();
             typewriter.StopDisappearingText();
+            m_AnimatedLabel.SetText(string.Empty, true);
             m_AnimatedLabel.Text = string.Empty;
         }
 
