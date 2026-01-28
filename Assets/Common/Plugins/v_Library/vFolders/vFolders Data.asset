@@ -18,13 +18,13 @@ MonoBehaviour:
     - 88cf5e5865de4be4eb6b279ee79629d6
     - 2e6c073585d24ce45b33dcce92e9010d
     - d952c282a0a64fd46bf0a696eee52b59
-    - b2d858fd7d6668e42b8cdd1c02106ec8
     - e548d83123d220b4ca31fa7813b93169
     - 7eb12a646d287d241854e4d171b6ed4a
     - 9b5dd7cfda4fe914db10ca52e9e02682
     - 60a06b06fa4c6c148893aeaa0b7674e7
     - 207f51220c886104098a41501834fe85
     - 7f55a16b668edb943ab907be09f07197
+    - eb7c5d1516c7d2a4ab5374c5838cab2c
     values:
     - iconNameOrGuid: 
       colorIndex: 1
@@ -42,10 +42,6 @@ MonoBehaviour:
       colorIndex: 1
       isIconRecursive: 0
       isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 3
-      isIconRecursive: 0
-      isColorRecursive: 1
     - iconNameOrGuid: TextAsset Icon
       colorIndex: 0
       isIconRecursive: 0
@@ -68,6 +64,10 @@ MonoBehaviour:
       isColorRecursive: 1
     - iconNameOrGuid: Rigidbody Icon
       colorIndex: 8
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 3
       isIconRecursive: 0
       isColorRecursive: 0
   bookmarks:

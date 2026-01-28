@@ -1,0 +1,94 @@
+@import url("../Styles/General_USS/Tokens.uss");
+
+:root {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+
+    --container__padding: 2%;
+    --progress-fill__border-radius:  5px;
+    --root__height: 9%;
+
+}
+
+.unity-label {
+    font-size: 35px;
+}
+
+/*.bar-progress{*/
+/*    height: var(--root-element__height);*/
+/*    width: 84%;*/
+/*    align-self: center;*/
+/*    */
+/*} */
+
+.radial-progress {
+    font-size: 63px;
+    height: 100%;
+    flex: 4;
+
+    
+}
+
+/*.bar-progress__container{*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    border-color: var(--color-pink-highlight);*/
+/*    border-left-width: var(--container__border-width-default);*/
+/*    border-right-width: var(--container__border-width-default);*/
+/*    border-top-width: var(--container__border-width-default);*/
+/*    border-bottom-width: var(--container__border-width-default);*/
+/*    !*margin: auto;*!*/
+/*    flex-direction: row;*/
+/*    align-items: flex-start;*/
+/*    border-radius: var(--container__border-radius-default);*/
+/*    padding:  var(--container__padding);*/
+
+/*} */
+/*.bar-progress__background{*/
+/*    background-color: var(--color-bg-light);*/
+/*}  */
+.vibration__label{
+    align-self: center;
+    color: var(--color-white);
+    text-shadow: var(--bar-progress-text-shadow-default);
+     
+}
+
+.vibration__label{
+    position: absolute;
+}
+
+.depth__container
+{
+    flex-grow: 1;
+}
+.pressure__container
+{
+    flex-grow: 2;
+}
+
+
+.bar__container{
+    flex-grow: 1;
+    height: 100px;
+}
+
+
+
+
+/*.pressure-bar__label{*/
+/*    position: relative;*/
+/*    height: 20%;*/
+/*    width: 30%;*/
+/*}*/
+
+
+.pressure-bar__progress {
+    position: relative;
+    background-color: blue;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.bar-element

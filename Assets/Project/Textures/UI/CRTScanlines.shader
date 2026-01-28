@@ -177,7 +177,7 @@ half3 ComputeBloomStraightRgb(float2 curvedUnitUv, float rectPixelWidth, float r
     float downLum = GetLuminance(downStraightRgb);
     float upLum = GetLuminance(upStraightRgb);
 
-    float centerMask = max(0.0, centerLum - FixedBloomThreshold);
+    float centerMask = max(0.0, centerLum - FixedBloomThreshold);   
     float leftMask = max(0.0, leftLum - FixedBloomThreshold);
     float rightMask = max(0.0, rightLum - FixedBloomThreshold);
     float downMask = max(0.0, downLum - FixedBloomThreshold);
