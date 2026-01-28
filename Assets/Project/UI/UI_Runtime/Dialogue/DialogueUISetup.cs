@@ -70,6 +70,7 @@ namespace Game.UI {
         
         void OnDisable() {
             _presenter?.OnDisable();
+            _view?.Dispose();
             _view = null;
             _presenter = null;
 
