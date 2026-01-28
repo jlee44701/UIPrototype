@@ -44,14 +44,8 @@ namespace Game.UI {
 
             _view ??= new DialogueUIView(_root);
             
-            if (_view.TypewriterAudio == null)
-            {
-                _view.TypewriterAudio = new TypewriterAudio(_pitchVariation, _randomization, _repetition, _distortion, _typingVolume, _view.AnimatedLabel.Typewriter);
-            }
-            else
-            {
-                _view.TypewriterAudio.UpdateSettings(_pitchVariation, _randomization, _repetition, _distortion, _typingVolume);
-            }
+
+            _view.TypewriterAudio = new TypewriterAudio(_pitchVariation, _randomization, _repetition, _distortion, _typingVolume, _view.AnimatedLabel.Typewriter);
             
             if (_pixelGlitchFilter) {
                 _view.PixelGlitchFilter = _pixelGlitchFilter;

@@ -14,8 +14,7 @@ namespace Game.UI
 {
     public sealed class DialogueUIView : IDisposable
     {
-        const bool EnableTypewriterDebugLogs = true;
-        const bool EnableDialogueRuntimeLogs = true;
+        const bool EnableTypewriterDebugLogs = false;
         const string PortraitQ = "portrait__container";
         const string PortraitImageQ = "portrait__image";
         const string DialogueContainerQ = "dialogue__container"; 
@@ -41,7 +40,6 @@ namespace Game.UI
         int _dialogueIndex;
         int _dialogueLength;
         int _sequenceId;
-        string _currentSequenceName;
 
         readonly AwaitableCompletionSource m_LineShownCompletionSource = new AwaitableCompletionSource();
         
@@ -142,11 +140,6 @@ namespace Game.UI
         {
             _sequenceId++;
             ResetTypewriterState();
-            UpdateTypewriterAudioContext();
-
-            if (EnableDialogueRuntimeLogs)
-                Debug.Log($"[DialogueUIView][Sequence] Begin id={_sequenceId} name='{_currentSequenceName ?? "unknown"}'");
-
             return _sequenceId;
         }
 
@@ -154,26 +147,12 @@ namespace Game.UI
         {
             BeginSequence();
         }
-
-        public int StartSequence(string sequenceName)
-        {
-            _currentSequenceName = sequenceName;
-            return BeginSequence();
-        }
-
-        void UpdateTypewriterAudioContext()
-        {
-            TypewriterAudio?.UpdateContext(_currentSequenceName, _sequenceId);
-        }
-
-        public async Awaitable PlayLinesAsync(IReadOnlyList<string> stringsList, int sequenceId)
+        public async Awaitable PlayLinesAsync(IReadOnlyList<string> stringsList)
         {
             if (stringsList == null)
                 throw new ArgumentNullException(nameof(stringsList));
 
-            if (sequenceId != _sequenceId)
-                return;
-
+            var sequenceId = BeginSequence();
             foreach (var line in stringsList)
             {
                 if (sequenceId != _sequenceId)
@@ -191,7 +170,6 @@ namespace Game.UI
                 var typewriter = m_AnimatedLabel.Typewriter;
                 typewriter.StopShowingText();
                 typewriter.StopDisappearingText();
-                m_AnimatedLabel.Text = string.Empty;
                 typewriter.ShowText(line);
                 
                 await m_LineShownCompletionSource.Awaitable;
