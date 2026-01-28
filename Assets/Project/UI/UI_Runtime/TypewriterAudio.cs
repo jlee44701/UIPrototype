@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Audio;
 using Febucci.TextAnimatorCore.Text;
 using Febucci.TextAnimatorCore.Typing;
@@ -6,6 +7,7 @@ using UnityEngine;
 
 namespace Game.UI {
     public class TypewriterAudio : IDisposable{
+        const bool EnableTypewriterDebugLogs = false;
         public AudioParams.Distortion Distortion { get; set; }
         AudioParams.Pitch m_Pitch = new AudioParams.Pitch(1);
         public AudioParams.Randomization Randomization { get; set; }
@@ -45,7 +47,8 @@ namespace Game.UI {
         void CharacterVisible(CharacterData data)
         {
             var character = data.info.character;
-            if (char.IsWhiteSpace(character) || !data.info.isRendered || !data.isVisible) return;
+            if (ShouldSkipCharacter(data, character))
+                return;
             
         
             //if (!m_TypewriterCore.IsShowingText) return;
@@ -63,6 +66,27 @@ namespace Game.UI {
                 300,
                 TypingVolume,
                 0);
+        }
+
+        static bool ShouldSkipCharacter(CharacterData data, char character)
+        {
+            var category = char.GetUnicodeCategory(character);
+            var shouldSkip = !data.info.isRendered
+                || !data.isVisible
+                || char.IsWhiteSpace(character)
+                || char.IsControl(character)
+                || char.IsSurrogate(character)
+                || category == UnicodeCategory.Format
+                || category == UnicodeCategory.LineSeparator
+                || category == UnicodeCategory.ParagraphSeparator
+                || category == UnicodeCategory.SpaceSeparator;
+
+            if (EnableTypewriterDebugLogs)
+            {
+                Debug.Log($"[TypewriterAudio] Character '{character}' (U+{(int)character:X4}) category={category} rendered={data.info.isRendered} visible={data.isVisible} skip={shouldSkip}");
+            }
+
+            return shouldSkip;
         }
     }
 }

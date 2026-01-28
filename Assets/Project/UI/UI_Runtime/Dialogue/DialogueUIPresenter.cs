@@ -68,6 +68,7 @@ namespace Game.UI {
             
             var character = dialogueSequence.character ?? throw new NullReferenceException(nameof(dialogueSequence.character));
             
+            View.CancelCurrentSequence();
             View.SetPortraitAndVoice(character.sprite, character.voice);
             //await m_View.PlayLinesAsync(dialogueSequence.dialogue);
             
