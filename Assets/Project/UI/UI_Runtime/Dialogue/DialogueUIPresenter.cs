@@ -14,6 +14,7 @@ using VInspector;
 
 namespace Game.UI {
     public class DialogueUIPresenter : MonoBehaviour {
+        const bool EnableDialogueRuntimeLogs = true;
 
         public DialogueUIView View { get; set; }
 
@@ -65,16 +66,19 @@ namespace Game.UI {
         }
 
         async void ProcessDialogue(DialogueSequenceSO dialogueSequence) {
-            
             var character = dialogueSequence.character ?? throw new NullReferenceException(nameof(dialogueSequence.character));
-            
-            View.CancelCurrentSequence();
+
+            var sequenceName = dialogueSequence.name;
+            if (EnableDialogueRuntimeLogs)
+                Debug.Log($"[DialogueUIPresenter][Sequence] Starting '{sequenceName}' (lines={dialogueSequence.dialogue?.Count ?? 0})");
+
+            var sequenceId = View.StartSequence(sequenceName);
             View.SetPortraitAndVoice(character.sprite, character.voice);
             //await m_View.PlayLinesAsync(dialogueSequence.dialogue);
             
             View.ShowDialogueUI();
             
-            await View.PlayLinesAsync(dialogueSequence.dialogue);
+            await View.PlayLinesAsync(dialogueSequence.dialogue, sequenceId);
             
             if (dialogueSequence.hideWhenFinished) View.HideDialogueUI();
             
